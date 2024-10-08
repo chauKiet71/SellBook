@@ -16,4 +16,6 @@ public interface SanPhamService {
     SanPham findById(int id);
     void deleteById(int id);
     SanPham update(SanPham sanPham);
+    List<SanPham> sortPriceAsc();
+    List<SanPham> sortPriceDesc();
 }

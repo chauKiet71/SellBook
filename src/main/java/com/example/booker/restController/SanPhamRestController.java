@@ -55,7 +55,7 @@ public class SanPhamRestController {
         return sanPhamService.findById(id);
     }
 
-    @GetMapping("/tim-kiem/ten")
+    @GetMapping("/tim-kiem/tensampham")
     public List<SanPham> SearchSanPhamByTenSanPham(@RequestParam String ten){
         if (!sanPhamDao.existBySanPham(ten)) {
             throw new RuntimeException("Product not found");
@@ -70,9 +70,19 @@ public class SanPhamRestController {
 
     @GetMapping("/tim-kiem/ngay-tao")
     public ResponseEntity<List<SanPham>> searchCreateDate(
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
+            @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date) {
         List<SanPham> sanPhams = sanPhamService.findByCreateDate(date);
         System.out.println(sanPhams);
         return ResponseEntity.ok(sanPhams);
+    }
+
+    @GetMapping("/price-asc")
+    public List<SanPham> sortPriceAsc() {
+        return sanPhamService.sortPriceAsc();
+    }
+
+    @GetMapping("/price-desc")
+    public List<SanPham> sortPriceDesc() {
+        return sanPhamService.sortPriceDesc();
     }
 }

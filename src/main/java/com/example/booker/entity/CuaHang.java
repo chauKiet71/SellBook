@@ -1,8 +1,11 @@
 package com.example.booker.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.List;
 
 @Entity
 @Table(name = "cua_hang")
@@ -20,7 +23,7 @@ public class CuaHang {
     String dia_chi_cua_hang;
     int id_tai_khoan;
 
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "cua_hang")
-//    List<SanPhams> sanPhams;
+    @JsonIgnore
+    @OneToMany(mappedBy = "cua_hang")
+    List<SanPham> sanPhamList;
 }
