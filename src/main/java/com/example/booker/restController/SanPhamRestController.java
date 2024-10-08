@@ -24,65 +24,65 @@ public class SanPhamRestController {
     @Autowired
     private SanPhamDao sanPhamDao;
 
-    @GetMapping()
-    public List<SanPham> getSp() {
-        return sanPhamService.findAll();
+    @GetMapping("/cuahang-{id}")
+    public List<SanPham> getSp(@PathVariable int id) {
+        return sanPhamService.findAll(id);
     }
 
-    @PostMapping()
-    public ApiResponse<SanPham> create(@RequestBody SanPham sanPham) {
+    @PostMapping("/cuahang-{id}")
+    public ApiResponse<SanPham> create(@PathVariable int id, @RequestBody SanPham sanPham) {
         ApiResponse<SanPham> response = new ApiResponse<>();
-        response.setResult(sanPhamService.create(sanPham));
+        response.setResult(sanPhamService.create(id, sanPham));
         return response;
     }
 
-    @PutMapping("{id}")
-    public SanPham update(@PathVariable Integer id, @RequestBody SanPham sanPham) {
+    @PutMapping("/cuahang-{id}/{idsp}")
+    public SanPham update(@PathVariable Integer idsp, @RequestBody SanPham sanPham) {
         return sanPhamService.update(sanPham);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<Void>> deleteSanPham(@PathVariable int id) {
-        sanPhamService.deleteById(id);
+    @DeleteMapping("/cuahang-{id}/{idsp}")
+    public ResponseEntity<ApiResponse<Void>> deleteSanPham(@PathVariable int idsp) {
+        sanPhamService.deleteById(idsp);
         ApiResponse<Void> response = new ApiResponse<>();
         response.setCode(HttpStatus.OK.value());
         response.setMessage("Đã xóa thành công");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("{id}")
-    public SanPham get(@PathVariable Integer id) {
-        return sanPhamService.findById(id);
+    @GetMapping("/cuahang-{id}/{idsp}")
+    public SanPham get(@PathVariable Integer idsp) {
+        return sanPhamService.findById(idsp);
     }
 
-    @GetMapping("/tim-kiem/tensampham")
-    public List<SanPham> SearchSanPhamByTenSanPham(@RequestParam String ten){
-        if (!sanPhamDao.existBySanPham(ten)) {
+    @GetMapping("/cuahang-{id}/tim-kiem/tensanpham")
+    public List<SanPham> SearchSanPhamByTenSanPham(@PathVariable int id, @RequestParam String ten){
+        if (!sanPhamDao.existBySanPham(id, ten)) {
             throw new RuntimeException("Product not found");
         }
-        return sanPhamService.findByTenSanPham(ten);
+        return sanPhamService.findByTenSanPham(id, ten);
     }
 
-    @GetMapping("/tim-kiem/theloai")
-    public List<SanPham> SearchSanPhamByTheLoai(@RequestParam int id){
-        return sanPhamService.findByTheLoai(id);
+    @GetMapping("/cuahang-{id}/tim-kiem/theloai")
+    public List<SanPham> SearchSanPhamByTheLoai(@PathVariable int id, @RequestParam int category){
+        return sanPhamService.findByTheLoai(id, category);
     }
 
-    @GetMapping("/tim-kiem/ngay-tao")
-    public ResponseEntity<List<SanPham>> searchCreateDate(
-            @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date) {
-        List<SanPham> sanPhams = sanPhamService.findByCreateDate(date);
+    @GetMapping("/cuahang-{id}/tim-kiem/ngay-tao")
+    public ResponseEntity<List<SanPham>> searchCreateDate(@PathVariable int id,
+                                                          @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date) {
+        List<SanPham> sanPhams = sanPhamService.findByCreateDate(id, date);
         System.out.println(sanPhams);
         return ResponseEntity.ok(sanPhams);
     }
 
-    @GetMapping("/price-asc")
-    public List<SanPham> sortPriceAsc() {
-        return sanPhamService.sortPriceAsc();
+    @GetMapping("/cuahang-{id}/price-asc")
+    public List<SanPham> sortPriceAsc(@PathVariable int id) {
+        return sanPhamService.sortPriceAsc(id);
     }
 
-    @GetMapping("/price-desc")
-    public List<SanPham> sortPriceDesc() {
-        return sanPhamService.sortPriceDesc();
+    @GetMapping("/cuahang-{id}/price-desc")
+    public List<SanPham> sortPriceDesc(@PathVariable int id) {
+        return sanPhamService.sortPriceDesc(id);
     }
 }

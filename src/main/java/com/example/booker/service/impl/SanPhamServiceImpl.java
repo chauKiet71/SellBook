@@ -7,10 +7,8 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -20,31 +18,31 @@ public class SanPhamServiceImpl implements SanPhamService {
     SanPhamDao sanPhamDao;
 
     @Override
-    public List<SanPham> findAll() {
-        return sanPhamDao.findAll();
+    public List<SanPham> findAll(int ma_san_pham) {
+        return sanPhamDao.findAllSanPhamByCuahang(ma_san_pham);
     }
 
     @Override
-    public SanPham create(SanPham sanPham) {
+    public SanPham create(int ma_cua_hang, SanPham sanPham) {
         //kiem tra san pham ton tai
-        if (sanPhamDao.existBySanPham(sanPham.getTen_san_pham()))
+        if (sanPhamDao.existBySanPham(ma_cua_hang, sanPham.getTen_san_pham()))
             throw new RuntimeException("Product exist");
         return sanPhamDao.save(sanPham);
     }
 
     @Override
-    public List<SanPham> findByTenSanPham(String tenSanPham) {
-        return sanPhamDao.findByTenSanPhamContainingIgnoreCase(tenSanPham);
+    public List<SanPham> findByTenSanPham(int ma_san_pham, String tenSanPham) {
+        return sanPhamDao.findByTenSanPhamContainingIgnoreCase(ma_san_pham, tenSanPham);
     }
 
     @Override
-    public List<SanPham> findByTheLoai(int id) {
-        return sanPhamDao.findSanPhamByTheLoai(id);
+    public List<SanPham> findByTheLoai(int ma_cua_hang, int id) {
+        return sanPhamDao.findSanPhamByTheLoai(ma_cua_hang, id);
     }
 
     @Override
-    public List<SanPham> findByCreateDate(LocalDate createDate) {
-        return sanPhamDao.findSanPhamByCreateDate(createDate);
+    public List<SanPham> findByCreateDate(int ma_cua_hang, LocalDate createDate) {
+        return sanPhamDao.findSanPhamByCreateDate(ma_cua_hang, createDate);
     }
 
     @Override
@@ -67,13 +65,13 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
-    public List<SanPham> sortPriceAsc() {
-        return sanPhamDao.findAllSanPhamSortPriceAsc();
+    public List<SanPham> sortPriceAsc(int ma_cua_hang) {
+        return sanPhamDao.findAllSanPhamSortPriceAsc(ma_cua_hang);
     }
 
     @Override
-    public List<SanPham> sortPriceDesc() {
-        return sanPhamDao.findAllSanPhamSortPriceDesc();
+    public List<SanPham> sortPriceDesc(int ma_cua_hang) {
+        return sanPhamDao.findAllSanPhamSortPriceDesc(ma_cua_hang);
     }
 
 }
