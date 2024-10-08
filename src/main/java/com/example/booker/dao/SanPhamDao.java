@@ -26,4 +26,14 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
     //Lọc sản phẩm theo ngày tạo
     @Query("SELECT s FROM SanPham s WHERE s.ngay_tao = :createDate")
     List<SanPham> findSanPhamByCreateDate(LocalDate createDate);
+
+//    @Query("SELECT s, DATE_FORMAT(s.ngay_tao, '%d-%m-%Y') FROM  SanPham s")
+//    List<SanPham> findAllSanPham();
+
+    //Loc san pham theo gia tu thap den cao
+    @Query("SELECT s FROM SanPham s ORDER BY s.gia asc")
+    List<SanPham> findAllSanPhamSortPriceAsc();
+
+    @Query("SELECT s FROM SanPham s ORDER BY s.gia desc")
+    List<SanPham> findAllSanPhamSortPriceDesc();
 }

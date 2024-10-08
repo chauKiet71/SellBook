@@ -28,7 +28,7 @@ public class SanPhamServiceImpl implements SanPhamService {
     public SanPham create(SanPham sanPham) {
         //kiem tra san pham ton tai
         if (sanPhamDao.existBySanPham(sanPham.getTen_san_pham()))
-            throw new RuntimeException("Product not found");
+            throw new RuntimeException("Product exist");
         return sanPhamDao.save(sanPham);
     }
 
@@ -65,4 +65,15 @@ public class SanPhamServiceImpl implements SanPhamService {
     public SanPham update(SanPham sanPham) {
         return sanPhamDao.save(sanPham);
     }
+
+    @Override
+    public List<SanPham> sortPriceAsc() {
+        return sanPhamDao.findAllSanPhamSortPriceAsc();
+    }
+
+    @Override
+    public List<SanPham> sortPriceDesc() {
+        return sanPhamDao.findAllSanPhamSortPriceDesc();
+    }
+
 }
