@@ -1,5 +1,6 @@
 package com.example.booker.dao;
 
+import com.example.booker.dto.request.SanPhamDto;
 import com.example.booker.entity.SanPham;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -26,4 +27,9 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
     //Lọc sản phẩm theo ngày tạo
     @Query("SELECT s FROM SanPham s WHERE s.ngay_tao = :createDate")
     List<SanPham> findSanPhamByCreateDate(LocalDate createDate);
+
+    @Query("SELECT new ")
+    List<SanPhamDto> findSanPhamTongSoLuongNative();
+
+
 }
