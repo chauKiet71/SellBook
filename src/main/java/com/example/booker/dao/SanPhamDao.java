@@ -28,8 +28,8 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
     @Query("SELECT s FROM SanPham s WHERE s.ngay_tao = :createDate")
     List<SanPham> findSanPhamByCreateDate(LocalDate createDate);
 
-    @Query("SELECT new ")
-    List<SanPhamDto> findSanPhamTongSoLuongNative();
+//    @Query("SELECT new ")
+//    List<SanPhamDto> findSanPhamTongSoLuongNative();
 
 
 }
