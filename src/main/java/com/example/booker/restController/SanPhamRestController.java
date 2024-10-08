@@ -3,15 +3,16 @@ package com.example.booker.restController;
 import com.example.booker.dao.SanPhamDao;
 import com.example.booker.dto.request.ApiResponse;
 import com.example.booker.entity.SanPham;
-import com.example.booker.service.SanPhamService;
+import com.example.booker.service.nguoidung.SanPhamService;
+import com.example.booker.service.nguoidung.SaveFileExcelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -21,6 +22,10 @@ public class SanPhamRestController {
 
     @Autowired
     SanPhamService sanPhamService;
+
+    @Autowired
+    private SaveFileExcelService saveFileExcelService;
+
     @Autowired
     private SanPhamDao sanPhamDao;
 
@@ -84,5 +89,16 @@ public class SanPhamRestController {
     @GetMapping("/cuahang-{id}/price-desc")
     public List<SanPham> sortPriceDesc(@PathVariable int id) {
         return sanPhamService.sortPriceDesc(id);
+    }
+
+    //Xuat file excel
+    @GetMapping("/cuahang-{id}/save/sanpham/excel")
+    public ResponseEntity<ApiResponse<String>> saveFile(@PathVariable int id) {
+        String file = "D:\\duanCaNhan\\5new\\Booker\\sanpham.xlsx";
+        saveFileExcelService.saveSanPhamExcel(id, file);
+        ApiResponse<String> response = new ApiResponse<>();
+        response.setCode(HttpStatus.OK.value());
+        response.setResult("Lưu file thành công");
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

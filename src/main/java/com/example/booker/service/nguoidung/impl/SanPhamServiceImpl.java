@@ -1,8 +1,8 @@
-package com.example.booker.service.impl;
+package com.example.booker.service.nguoidung.impl;
 
 import com.example.booker.dao.SanPhamDao;
 import com.example.booker.entity.SanPham;
-import com.example.booker.service.SanPhamService;
+import com.example.booker.service.nguoidung.SanPhamService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
