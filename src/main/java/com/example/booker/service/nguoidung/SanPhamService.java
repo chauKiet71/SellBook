@@ -1,6 +1,7 @@
 package com.example.booker.service.nguoidung;
 
 import com.example.booker.entity.SanPham;
+import com.example.booker.entity.SanPhamView;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -9,15 +10,15 @@ import java.util.List;
 @Service
 public interface SanPhamService {
 
-    List<SanPham> findAll(int ma_san_pham);
+    List<SanPhamView> findAll(int ma_san_pham);
 
     SanPham create(int ma_cua_hang, SanPham sanPham);
 
-    List<SanPham> findByTenSanPham(int ma_san_pham, String tenSanPham);
+    List<SanPhamView> findByTenSanPham(int ma_san_pham, String tenSanPham);
 
-    List<SanPham> findByTheLoai(int ma_cua_hang, int id);
+    List<SanPhamView> findByTheLoai(int ma_cua_hang, int id);
 
-    List<SanPham> findByCreateDate(int ma_cua_hang, LocalDate createDate);
+    List<SanPhamView> findByCreateDate(int ma_cua_hang, LocalDate createDate);
 
     SanPham findById(int id);
 

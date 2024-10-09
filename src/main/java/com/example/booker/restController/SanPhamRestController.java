@@ -3,6 +3,7 @@ package com.example.booker.restController;
 import com.example.booker.dao.SanPhamDao;
 import com.example.booker.dto.request.ApiResponse;
 import com.example.booker.entity.SanPham;
+import com.example.booker.entity.SanPhamView;
 import com.example.booker.service.nguoidung.SanPhamService;
 import com.example.booker.service.nguoidung.SaveFileExcelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,30 +30,34 @@ public class SanPhamRestController {
     @Autowired
     private SanPhamDao sanPhamDao;
 
+
     @GetMapping("/cuahang-{id}")
-    public List<SanPham> getSp(@PathVariable int id) {
+    public List<SanPhamView> getSp(@PathVariable int id) {
         return sanPhamService.findAll(id);
     }
 
     @PostMapping("/cuahang-{id}")
     public ApiResponse<SanPham> create(@PathVariable int id, @RequestBody SanPham sanPham) {
         ApiResponse<SanPham> response = new ApiResponse<>();
+        response.setMessage("Tạo sản phẩm thành công");
         response.setResult(sanPhamService.create(id, sanPham));
         return response;
     }
 
     @PutMapping("/cuahang-{id}/{idsp}")
-    public SanPham update(@PathVariable Integer idsp, @RequestBody SanPham sanPham) {
-        return sanPhamService.update(sanPham);
+    public ApiResponse<SanPham> update(@PathVariable Integer idsp, @RequestBody SanPham sanPham) {
+        ApiResponse<SanPham> response = new ApiResponse<>();
+        response.setMessage("Cập nhật sản phẩm thành công");
+        response.setResult(sanPhamService.update(sanPham));
+        return response;
     }
 
     @DeleteMapping("/cuahang-{id}/{idsp}")
     public ResponseEntity<ApiResponse<Void>> deleteSanPham(@PathVariable int idsp) {
         sanPhamService.deleteById(idsp);
         ApiResponse<Void> response = new ApiResponse<>();
-        response.setCode(HttpStatus.OK.value());
         response.setMessage("Đã xóa thành công");
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/cuahang-{id}/{idsp}")
@@ -61,7 +66,7 @@ public class SanPhamRestController {
     }
 
     @GetMapping("/cuahang-{id}/tim-kiem/tensanpham")
-    public List<SanPham> SearchSanPhamByTenSanPham(@PathVariable int id, @RequestParam String ten){
+    public List<SanPhamView> SearchSanPhamByTenSanPham(@PathVariable int id, @RequestParam String ten){
         if (!sanPhamDao.existBySanPham(id, ten)) {
             throw new RuntimeException("Product not found");
         }
@@ -69,14 +74,14 @@ public class SanPhamRestController {
     }
 
     @GetMapping("/cuahang-{id}/tim-kiem/theloai")
-    public List<SanPham> SearchSanPhamByTheLoai(@PathVariable int id, @RequestParam int category){
+    public List<SanPhamView> SearchSanPhamByTheLoai(@PathVariable int id, @RequestParam int category){
         return sanPhamService.findByTheLoai(id, category);
     }
 
     @GetMapping("/cuahang-{id}/tim-kiem/ngay-tao")
-    public ResponseEntity<List<SanPham>> searchCreateDate(@PathVariable int id,
+    public ResponseEntity<List<SanPhamView>> searchCreateDate(@PathVariable int id,
                                                           @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date) {
-        List<SanPham> sanPhams = sanPhamService.findByCreateDate(id, date);
+        List<SanPhamView> sanPhams = sanPhamService.findByCreateDate(id, date);
         System.out.println(sanPhams);
         return ResponseEntity.ok(sanPhams);
     }

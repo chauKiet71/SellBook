@@ -1,7 +1,9 @@
 package com.example.booker.service.nguoidung.impl;
 
 import com.example.booker.dao.SanPhamDao;
+import com.example.booker.dao.SanPhamViewDao;
 import com.example.booker.entity.SanPham;
+import com.example.booker.entity.SanPhamView;
 import com.example.booker.service.nguoidung.SanPhamService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +19,13 @@ public class SanPhamServiceImpl implements SanPhamService {
     @Autowired
     SanPhamDao sanPhamDao;
 
+    @Autowired
+    SanPhamViewDao sanPhamViewDao;
+
+
     @Override
-    public List<SanPham> findAll(int ma_san_pham) {
-        return sanPhamDao.findAllSanPhamByCuahang(ma_san_pham);
+    public List<SanPhamView> findAll(int ma_san_pham) {
+        return sanPhamViewDao.findAllSanPham(ma_san_pham);
     }
 
     @Override
@@ -31,18 +37,18 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
-    public List<SanPham> findByTenSanPham(int ma_san_pham, String tenSanPham) {
-        return sanPhamDao.findByTenSanPhamContainingIgnoreCase(ma_san_pham, tenSanPham);
+    public List<SanPhamView> findByTenSanPham(int ma_san_pham, String tenSanPham) {
+        return sanPhamViewDao.findByTenSanPhamContainingIgnoreCase(ma_san_pham, tenSanPham);
     }
 
     @Override
-    public List<SanPham> findByTheLoai(int ma_cua_hang, int id) {
-        return sanPhamDao.findSanPhamByTheLoai(ma_cua_hang, id);
+    public List<SanPhamView> findByTheLoai(int ma_cua_hang, int id) {
+        return sanPhamViewDao.findSanPhamByTheLoai(ma_cua_hang, id);
     }
 
     @Override
-    public List<SanPham> findByCreateDate(int ma_cua_hang, LocalDate createDate) {
-        return sanPhamDao.findSanPhamByCreateDate(ma_cua_hang, createDate);
+    public List<SanPhamView> findByCreateDate(int ma_cua_hang, LocalDate createDate) {
+        return sanPhamViewDao.findSanPhamByCreateDate(ma_cua_hang, createDate);
     }
 
     @Override

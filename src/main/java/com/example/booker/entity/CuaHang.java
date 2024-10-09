@@ -22,6 +22,10 @@ public class CuaHang {
     String ten_cua_hang;
     String dia_chi_cua_hang;
     int id_tai_khoan;
+    String anh_dai_dien;
+    String anh_bia;
+    String email;
+    Integer so_dien_thoai;
 
     @JsonIgnore
     @OneToMany(mappedBy = "cua_hang")
