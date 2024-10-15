@@ -1,7 +1,8 @@
-package com.example.booker.dto.request;
+package com.example.booker.request;
 
-import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 

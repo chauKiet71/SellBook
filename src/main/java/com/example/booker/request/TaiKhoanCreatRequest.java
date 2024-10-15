@@ -1,4 +1,4 @@
-package com.example.booker.dto.request;
+package com.example.booker.request;
 
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;

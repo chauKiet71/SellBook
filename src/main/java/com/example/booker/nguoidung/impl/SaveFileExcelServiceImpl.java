@@ -1,16 +1,14 @@
-package com.example.booker.service.nguoidung.impl;
+package com.example.booker.nguoidung.impl;
 
 import com.example.booker.dao.SanPhamDao;
 import com.example.booker.dao.SanPhamViewDao;
-import com.example.booker.entity.SanPham;
 import com.example.booker.entity.SanPhamView;
-import com.example.booker.service.nguoidung.SaveFileExcelService;
+import com.example.booker.nguoidung.SaveFileExcelService;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.imageio.stream.FileImageOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;

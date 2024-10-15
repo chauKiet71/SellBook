@@ -1,6 +1,6 @@
 package com.example.booker.dao;
 
-import com.example.booker.entity.SanPham;
+
 import com.example.booker.entity.SanPhamView;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

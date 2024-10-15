@@ -30,4 +30,9 @@ public class CuaHang {
     @JsonIgnore
     @OneToMany(mappedBy = "cua_hang")
     List<SanPham> sanPhamList;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "cua_hang")
+    List<Voucher> voucherList;
+
 }

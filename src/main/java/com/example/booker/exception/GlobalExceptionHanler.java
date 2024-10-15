@@ -1,12 +1,11 @@
 package com.example.booker.exception;
 
-import com.example.booker.dto.request.ApiResponse;
-import org.springframework.http.HttpStatus;
+
+import com.example.booker.request.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @ControllerAdvice
 public class GlobalExceptionHanler {

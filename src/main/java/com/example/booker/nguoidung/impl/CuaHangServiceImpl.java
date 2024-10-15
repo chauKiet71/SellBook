@@ -1,8 +1,8 @@
-package com.example.booker.service.nguoidung.impl;
+package com.example.booker.nguoidung.impl;
 
 import com.example.booker.dao.CuaHangDao;
 import com.example.booker.entity.CuaHang;
-import com.example.booker.service.nguoidung.CuaHangService;
+import com.example.booker.nguoidung.CuaHangService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

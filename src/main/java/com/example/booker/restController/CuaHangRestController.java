@@ -1,8 +1,9 @@
 package com.example.booker.restController;
 
-import com.example.booker.dto.request.ApiResponse;
+
 import com.example.booker.entity.CuaHang;
-import com.example.booker.service.nguoidung.CuaHangService;
+import com.example.booker.nguoidung.CuaHangService;
+import com.example.booker.request.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

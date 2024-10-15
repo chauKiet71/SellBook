@@ -1,8 +1,8 @@
 package com.example.booker.restController;
 
 import com.example.booker.dao.TheLoaiDao;
-import com.example.booker.dto.request.ApiResponse;
 import com.example.booker.entity.TheLoai;
+import com.example.booker.request.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

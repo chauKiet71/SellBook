@@ -1,10 +1,12 @@
-package com.example.booker.service.nguoidung.impl;
+package com.example.booker.nguoidung.impl;
+
+
 
 import com.example.booker.dao.SanPhamDao;
 import com.example.booker.dao.SanPhamViewDao;
 import com.example.booker.entity.SanPham;
 import com.example.booker.entity.SanPhamView;
-import com.example.booker.service.nguoidung.SanPhamService;
+import com.example.booker.nguoidung.SanPhamService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
