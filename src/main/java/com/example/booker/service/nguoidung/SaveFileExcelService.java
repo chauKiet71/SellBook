@@ -1,4 +1,4 @@
-package com.example.booker.nguoidung;
+package com.example.booker.service.nguoidung;
 
 import org.springframework.stereotype.Service;
 

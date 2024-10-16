@@ -1,4 +1,4 @@
-package com.example.booker.nguoidung;
+package com.example.booker.service.nguoidung;
 
 import com.example.booker.entity.Voucher;
 import org.springframework.stereotype.Service;

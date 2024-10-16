@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHanler {
 
     //bat tat ca cac loai Exception
-
     @ExceptionHandler(value = Exception.class)
     ResponseEntity<ApiResponse> runtimeExceptionHandler(RuntimeException e) {
         ApiResponse apiResponse = new ApiResponse();

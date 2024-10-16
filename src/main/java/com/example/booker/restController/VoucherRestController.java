@@ -1,7 +1,7 @@
 package com.example.booker.restController;
 
 import com.example.booker.entity.Voucher;
-import com.example.booker.nguoidung.VoucherService;
+import com.example.booker.service.nguoidung.VoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
