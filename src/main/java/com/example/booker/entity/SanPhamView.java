@@ -25,6 +25,7 @@ public class SanPhamView {
     @Id
     Integer ma_san_pham;
     String ten_san_pham;
+    String anh_san_pham;
     String tac_gia;
     String ten_the_loai;
     Float gia;
