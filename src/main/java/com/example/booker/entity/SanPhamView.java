@@ -28,11 +28,13 @@ public class SanPhamView {
     String anh_san_pham;
     String tac_gia;
     String ten_the_loai;
+    Integer ma_the_loai;
     Float gia;
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     LocalDate ngay_tao;
     Integer da_ban;
+    Float doanh_thu;
+    Float danh_gia;
     Integer so_luong_hang;
     Integer ma_cua_hang;
-    Integer ma_the_loai;
 }
