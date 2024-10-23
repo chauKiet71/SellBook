@@ -37,4 +37,5 @@ public class SanPhamView {
     Float danh_gia;
     Integer so_luong_hang;
     Integer ma_cua_hang;
+
 }
