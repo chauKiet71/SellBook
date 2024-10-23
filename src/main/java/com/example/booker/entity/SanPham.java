@@ -27,7 +27,6 @@ public class SanPham {
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     LocalDate ngay_tao = LocalDate.now();
-    int ma_the_loai;
     String tac_gia;
     LocalDate ngay_xuat_ban;
     int so_trang;
@@ -39,7 +38,7 @@ public class SanPham {
     Boolean trang_thai_khoa = Boolean.TRUE;
 
     @ManyToOne
-    @JoinColumn(name = "ma_the_loai", insertable=false, updatable=false)
+    @JoinColumn(name = "ma_the_loai")
     TheLoai the_loai;
 
     @ManyToOne
