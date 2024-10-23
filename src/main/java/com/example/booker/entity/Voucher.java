@@ -22,10 +22,10 @@ public class Voucher {
     Float giam_gia;
     LocalDate ngay_bat_dau = LocalDate.now();
     LocalDate ngay_het_han;
+    Float gia_ap_dung;
     int ma_cua_hang;
     int so_lan_dung;
     String dieu_kien;
-    int id_tai_khoan;
 
     @ManyToOne
     @JoinColumn(name = "ma_cua_hang", insertable = false, updatable = false)
