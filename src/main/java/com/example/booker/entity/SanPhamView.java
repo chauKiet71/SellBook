@@ -38,4 +38,21 @@ public class SanPhamView {
     Integer so_luong_hang;
     Integer ma_cua_hang;
 
+    Boolean trang_thai_khoa;
+    Boolean trang_thai_duyet;
+
+    public String gettrang_thai() {
+        if(trang_thai_khoa == Boolean.TRUE) {
+            return "Bị khóa";
+        }else if(trang_thai_duyet == Boolean.TRUE) {
+            int quantity = so_luong_hang - da_ban;
+            if(quantity >0 ) {
+                return "Còn hàng";
+            }else {
+                return "Hết hàng";
+            }
+        }else {
+            return "Chờ duyệt";
+        }
+    }
 }
