@@ -29,6 +29,10 @@ public class SanPhamRestController {
     @Autowired
     private SanPhamDao sanPhamDao;
 
+    @GetMapping("/allinfo")
+    public List<SanPham> getAllSanPham(){
+        return sanPhamDao.findAll();
+    }
 
     @GetMapping("/cuahang-{id}")
     public List<SanPhamView> getSp(@PathVariable int id) {

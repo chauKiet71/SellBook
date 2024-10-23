@@ -25,7 +25,6 @@ public class Voucher {
     int ma_cua_hang;
     int so_lan_dung;
     String dieu_kien;
-    boolean trang_thai;
     int id_tai_khoan;
 
     @ManyToOne
