@@ -19,7 +19,9 @@ import java.time.temporal.ChronoUnit;
 public class Voucher {
 
     @Id
-    String ma_voucher;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id_voucher;
+    String ten_voucher;
     Float giam_gia;
     LocalDate ngay_bat_dau = LocalDate.now();
     LocalDate ngay_het_han;
