@@ -3,7 +3,7 @@ package com.example.booker.service.nguoidung;
 
 
 import com.example.booker.entity.SanPham;
-import com.example.booker.entity.SanPhamView;
+import com.example.booker.entity.view.SanPhamView;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
