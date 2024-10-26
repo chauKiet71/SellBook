@@ -102,4 +102,9 @@ public class SanPhamServiceImpl implements SanPhamService {
         return sanPhamViewDao.findAllSanPhamConHang(ma_cua_hang);
     }
 
+    @Override
+    public List<SanPhamView> searchSanPhamByTrangThai(int ma_cua_hang, int matt) {
+        return sanPhamViewDao.searchSanPhamByTrangThai(ma_cua_hang, matt);
+    }
+
 }

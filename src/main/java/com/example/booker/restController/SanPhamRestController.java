@@ -139,4 +139,9 @@ public class SanPhamRestController {
     public List<SanPhamView> getSpConHang(@PathVariable int id) {
         return sanPhamService.sanPhamByConHang(id);
     }
+
+    @GetMapping("/cuahang-{id}/tim-kiem/trangthai/{matt}")
+    public List<SanPhamView> searchSanPhamTrangThai(@PathVariable int id, @PathVariable int matt) {
+        return sanPhamService.searchSanPhamByTrangThai(id, matt);
+    }
 }

@@ -39,4 +39,6 @@ public interface SanPhamService {
     List<SanPhamView> sanPhamByHetHang(int ma_cua_hang);
 
     List<SanPhamView> sanPhamByConHang(int ma_cua_hang);
+
+    List<SanPhamView> searchSanPhamByTrangThai(int ma_cua_hang, int matt);
 }

@@ -54,4 +54,8 @@ public interface SanPhamViewDao extends JpaRepository<SanPhamView,Integer> {
     @Query("SELECT s FROM SanPhamView s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = 1")
     List<SanPhamView> findAllSanPhamConHang(int ma_cua_hang);
 
+
+    // Tìm kiếm sản phẩm theo trang thai
+    @Query("SELECT s FROM SanPhamView s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = :matt")
+    List<SanPhamView> searchSanPhamByTrangThai(int ma_cua_hang, int matt);
 }
