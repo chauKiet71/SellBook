@@ -31,12 +31,12 @@ public class VoucherRestController {
     }
 
     @DeleteMapping("/cuahang-{id}/{idch}")
-    public void deleteVoucher(@PathVariable int id, @PathVariable String ma_voucher) {
-        voucherService.deleteVoucher(id, ma_voucher);
+    public void deleteVoucher(@PathVariable int id, @PathVariable int id_voucher) {
+        voucherService.deleteVoucher(id, id_voucher);
     }
 
     @GetMapping("/cuahang-{id}/{ma_voucher}")
-    public Voucher getVoucher(@PathVariable int id, @PathVariable String ma_voucher) {
+    public Voucher getVoucher(@PathVariable int id, @PathVariable int ma_voucher) {
         return voucherService.getVoucherByMaVoucher(id, ma_voucher);
     }
 }

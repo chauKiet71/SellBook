@@ -13,7 +13,7 @@ public interface SanPhamViewDao extends JpaRepository<SanPhamView,Integer> {
     //Phương thức truy vấn sản phẩm theo cửa hàng
     @Query("SELECT s FROM SanPhamView s " +
             "LEFT JOIN CuaHang c on c.ma_cua_hang = s.ma_cua_hang " +
-            "WHERE c.ma_cua_hang = :ma_cua_hang ORDER BY s.ma_san_pham desc")
+            "WHERE c.ma_cua_hang = :ma_cua_hang  ORDER BY s.ma_san_pham desc")
     List<SanPhamView> findAllSanPham(int ma_cua_hang);
 
     // Phương thức tìm kiếm sản phẩm theo tên không phân biệt hoa thường và trả về danh sách
@@ -33,5 +33,9 @@ public interface SanPhamViewDao extends JpaRepository<SanPhamView,Integer> {
             " JOIN CuaHang c on c.ma_cua_hang = s.ma_cua_hang " +
             "WHERE c.ma_cua_hang = :ma_cua_hang AND s.ngay_tao = :createDate")
     List<SanPhamView> findSanPhamByCreateDate(int ma_cua_hang, LocalDate createDate);
+
+//    Lấy ra số lượng sản phẩm thuộc cửa hàng
+    @Query("SELECT COUNT(s) FROM SanPhamView s WHERE s.ma_cua_hang = :maCuaHang")
+    long countByMaCuaHang(int maCuaHang);
 
 }

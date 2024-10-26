@@ -1,6 +1,7 @@
 package com.example.booker.restController;
 
 import com.example.booker.dao.SanPhamDao;
+import com.example.booker.dao.SanPhamViewDao;
 import com.example.booker.entity.SanPham;
 import com.example.booker.entity.SanPhamView;
 import com.example.booker.service.nguoidung.SanPhamService;
@@ -29,6 +30,9 @@ public class SanPhamRestController {
     @Autowired
     private SanPhamDao sanPhamDao;
 
+    @Autowired
+    private SanPhamViewDao sanPhamViewDao;
+
     @GetMapping("/allinfo")
     public List<SanPham> getAllSanPham(){
         return sanPhamDao.findAll();
@@ -37,6 +41,12 @@ public class SanPhamRestController {
     @GetMapping("/cuahang-{id}")
     public List<SanPhamView> getSp(@PathVariable int id) {
         return sanPhamService.findAll(id);
+    }
+
+//    Lấy số lượng sản pham
+    @GetMapping("/cuahang-{id}/count")
+    public long countSanPhamAll(@PathVariable int id) {
+        return sanPhamViewDao.countByMaCuaHang(id);
     }
 
     @PostMapping("/cuahang-{id}")

@@ -1,6 +1,7 @@
 package com.example.booker.entity;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -33,7 +34,6 @@ public class SanPhamView {
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     LocalDate ngay_tao;
     Integer da_ban;
-    Float doanh_thu;
     Float danh_gia;
     Integer so_luong_hang;
     Integer ma_cua_hang;
@@ -41,18 +41,36 @@ public class SanPhamView {
     Boolean trang_thai_khoa;
     Boolean trang_thai_duyet;
 
-    public String gettrang_thai() {
-        if(trang_thai_khoa == Boolean.TRUE) {
-            return "Bị khóa";
-        }else if(trang_thai_duyet == Boolean.TRUE) {
-            int quantity = so_luong_hang - da_ban;
-            if(quantity >0 ) {
-                return "Còn hàng";
-            }else {
-                return "Hết hàng";
-            }
-        }else {
-            return "Chờ duyệt";
-        }
-    }
+    Byte trang_thai_hoat_dong;
+
+
+//    public String gettrang_thai() {
+//        if(trang_thai_khoa == Boolean.TRUE) {
+//            return "Bị khóa";
+//        }else if(trang_thai_duyet == Boolean.TRUE) {
+//            int quantity = so_luong_hang - da_ban;
+//            if(quantity >0 ) {
+//                return "Còn hàng";
+//            }else {
+//                return "Hết hàng";
+//            }
+//        }else {
+//            return "Chờ duyệt";
+//        }
+//    }
+//
+//    public int gettrang_thai_int() {
+//        if(trang_thai_khoa == Boolean.TRUE) {
+//            return 0;
+//        }else if(trang_thai_duyet == Boolean.TRUE) {
+//            int quantity = so_luong_hang - da_ban;
+//            if(quantity >0 ) {
+//                return 1;
+//            }else {
+//                return 2;
+//            }
+//        }else {
+//            return 3;
+//        }
+//    }
 }
