@@ -1,4 +1,4 @@
-package com.example.booker.entity;
+package com.example.booker.entity.view;
 
 
 import jakarta.persistence.Column;

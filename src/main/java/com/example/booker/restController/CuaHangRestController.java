@@ -2,6 +2,7 @@ package com.example.booker.restController;
 
 
 import com.example.booker.entity.CuaHang;
+import com.example.booker.entity.view.CuaHangView;
 import com.example.booker.service.nguoidung.CuaHangService;
 import com.example.booker.request.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,9 +50,10 @@ public class CuaHangRestController {
     }
 
     @GetMapping("/{id}")
-    public ApiResponse<CuaHang> getCuaHangById(@PathVariable int id){
-        ApiResponse<CuaHang> response = new ApiResponse<>();
+    public ApiResponse<CuaHangView> getCuaHangById(@PathVariable int id){
+        ApiResponse<CuaHangView> response = new ApiResponse<>();
         response.setResult(cuaHangService.getCuaHangById(id));
         return response;
     }
+
 }
