@@ -1,8 +1,10 @@
 package com.example.booker.restController;
 
 import com.example.booker.entity.Voucher;
+import com.example.booker.request.ApiResponse;
 import com.example.booker.service.nguoidung.VoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,9 +32,12 @@ public class VoucherRestController {
         return voucherService.updateVoucher(voucher);
     }
 
-    @DeleteMapping("/cuahang-{id}/{idch}")
-    public void deleteVoucher(@PathVariable int id, @PathVariable int id_voucher) {
-        voucherService.deleteVoucher(id, id_voucher);
+    @DeleteMapping("/{id_voucher}")
+    public ResponseEntity<ApiResponse<Void>> deleteVoucher(@PathVariable int id_voucher) {
+        voucherService.deleteVoucher(id_voucher);
+        ApiResponse<Void> response = new ApiResponse<>();
+        response.setMessage("Xoá thành công");
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/cuahang-{id}/{ma_voucher}")

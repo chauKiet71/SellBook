@@ -119,4 +119,24 @@ public class SanPhamRestController {
         response.setResult("Lưu file thành công");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/cuahang-{id}/spbikhoa")
+    public List<SanPhamView> getSpBiKhoa(@PathVariable int id) {
+        return sanPhamService.sanPhamByTrangThaiKhoa(id);
+    }
+
+    @GetMapping("/cuahang-{id}/choduyet")
+    public List<SanPhamView> getSpChoDuyet(@PathVariable int id) {
+        return sanPhamService.sanPhamByChoDuyet(id);
+    }
+
+    @GetMapping("/cuahang-{id}/hethang")
+    public List<SanPhamView> getSpHetHang(@PathVariable int id) {
+        return sanPhamService.sanPhamByHetHang(id);
+    }
+
+    @GetMapping("/cuahang-{id}/conhang")
+    public List<SanPhamView> getSpConHang(@PathVariable int id) {
+        return sanPhamService.sanPhamByConHang(id);
+    }
 }

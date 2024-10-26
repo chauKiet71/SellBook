@@ -82,4 +82,24 @@ public class SanPhamServiceImpl implements SanPhamService {
         return sanPhamDao.findAllSanPhamSortPriceDesc(ma_cua_hang);
     }
 
+    @Override
+    public List<SanPhamView> sanPhamByTrangThaiKhoa(int ma_cua_hang) {
+        return sanPhamViewDao.findAllSanPhamBiKhoa(ma_cua_hang);
+    }
+
+    @Override
+    public List<SanPhamView> sanPhamByChoDuyet(int ma_cua_hang) {
+        return sanPhamViewDao.findAllSanPhamChoDuyet(ma_cua_hang);
+    }
+
+    @Override
+    public List<SanPhamView> sanPhamByHetHang(int ma_cua_hang) {
+        return sanPhamViewDao.findAllSanPhamHetHang(ma_cua_hang);
+    }
+
+    @Override
+    public List<SanPhamView> sanPhamByConHang(int ma_cua_hang) {
+        return sanPhamViewDao.findAllSanPhamConHang(ma_cua_hang);
+    }
+
 }

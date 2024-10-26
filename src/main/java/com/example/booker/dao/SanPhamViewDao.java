@@ -38,4 +38,20 @@ public interface SanPhamViewDao extends JpaRepository<SanPhamView,Integer> {
     @Query("SELECT COUNT(s) FROM SanPhamView s WHERE s.ma_cua_hang = :maCuaHang")
     long countByMaCuaHang(int maCuaHang);
 
+//  Lấy ra sản phẩm bị khoá
+    @Query("SELECT s FROM SanPhamView s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = 0 ")
+    List<SanPhamView> findAllSanPhamBiKhoa(int ma_cua_hang);
+
+//  Lấy ra sản phẩm chờ duyệt
+    @Query("SELECT s FROM SanPhamView s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = 3")
+    List<SanPhamView> findAllSanPhamChoDuyet(int ma_cua_hang);
+
+    //  Lấy ra sản phẩm hết hàng
+    @Query("SELECT s FROM SanPhamView s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = 2")
+    List<SanPhamView> findAllSanPhamHetHang(int ma_cua_hang);
+
+//  Lấy ra sản phẩm còn hàng
+    @Query("SELECT s FROM SanPhamView s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = 1")
+    List<SanPhamView> findAllSanPhamConHang(int ma_cua_hang);
+
 }

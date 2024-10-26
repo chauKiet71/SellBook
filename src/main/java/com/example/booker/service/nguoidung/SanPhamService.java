@@ -31,4 +31,12 @@ public interface SanPhamService {
     List<SanPham> sortPriceAsc(int ma_cua_hang);
 
     List<SanPham> sortPriceDesc(int ma_cua_hang);
+
+    List<SanPhamView> sanPhamByTrangThaiKhoa(int ma_cua_hang);
+
+    List<SanPhamView> sanPhamByChoDuyet(int ma_cua_hang);
+
+    List<SanPhamView> sanPhamByHetHang(int ma_cua_hang);
+
+    List<SanPhamView> sanPhamByConHang(int ma_cua_hang);
 }

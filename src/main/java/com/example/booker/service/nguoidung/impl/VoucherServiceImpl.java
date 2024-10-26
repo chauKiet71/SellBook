@@ -25,14 +25,14 @@ public class VoucherServiceImpl implements VoucherService {
         return voucherDao.save(voucher);
     }
 
-    @Override
-    public void deleteVoucher(int idch, String ma_voucher) {
+//    @Override
+//    public void deleteVoucher(int idch, String ma_voucher) {
+//
+//    }
 
-    }
-
     @Override
-    public void deleteVoucher(int idch, int ma) {
-        voucherDao.findVoucherByMaVoucher(idch, ma);
+    public void deleteVoucher(int ma) {
+        voucherDao.deleteById(ma);
     }
 
     @Override
