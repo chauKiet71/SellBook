@@ -3,7 +3,6 @@ package com.example.booker.service.nguoidung;
 
 
 import com.example.booker.entity.CuaHang;
-import com.example.booker.entity.view.CuaHangView;
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ public interface CuaHangService {
 
     List<CuaHang> getAllCuaHang();
 
-    CuaHangView getCuaHangById(int id);
+    CuaHang getCuaHangById(int id);
 
     void deleteCuaHang(int id);
 }

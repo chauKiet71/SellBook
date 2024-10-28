@@ -3,7 +3,6 @@ package com.example.booker.service.nguoidung.impl;
 import com.example.booker.dao.CuaHangDao;
 import com.example.booker.dao.CuaHangViewDao;
 import com.example.booker.entity.CuaHang;
-import com.example.booker.entity.view.CuaHangView;
 import com.example.booker.service.nguoidung.CuaHangService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +34,7 @@ public class CuaHangServiceImpl implements CuaHangService {
     }
 
     @Override
-    public CuaHangView getCuaHangById(int id) {
+    public CuaHang getCuaHangById(int id) {
         return cuaHangViewDao.getCuaHangView(id);
     }
 
