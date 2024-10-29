@@ -25,9 +25,14 @@ public class VoucherServiceImpl implements VoucherService {
         return voucherDao.save(voucher);
     }
 
+//    @Override
+//    public void deleteVoucher(int idch, String ma_voucher) {
+//
+//    }
+
     @Override
-    public void deleteVoucher(int idch, String ma) {
-        voucherDao.findVoucherByMaVoucher(idch, ma);
+    public void deleteVoucher(int ma) {
+        voucherDao.deleteById(ma);
     }
 
     @Override
@@ -36,7 +41,7 @@ public class VoucherServiceImpl implements VoucherService {
     }
 
     @Override
-    public Voucher getVoucherByMaVoucher(int idch, String ma_voucher) {
+    public Voucher getVoucherByMaVoucher(int idch, int ma_voucher) {
         return voucherDao.findVoucherByMaVoucher(idch, ma_voucher);
     }
 }

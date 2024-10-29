@@ -1,8 +1,9 @@
 package com.example.booker.restController;
 
 import com.example.booker.dao.SanPhamDao;
+import com.example.booker.dao.SanPhamViewDao;
 import com.example.booker.entity.SanPham;
-import com.example.booker.entity.SanPhamView;
+import com.example.booker.entity.view.SanPhamView;
 import com.example.booker.service.nguoidung.SanPhamService;
 import com.example.booker.service.nguoidung.SaveFileExcelService;
 import com.example.booker.request.ApiResponse;
@@ -29,6 +30,9 @@ public class SanPhamRestController {
     @Autowired
     private SanPhamDao sanPhamDao;
 
+    @Autowired
+    private SanPhamViewDao sanPhamViewDao;
+
     @GetMapping("/allinfo")
     public List<SanPham> getAllSanPham(){
         return sanPhamDao.findAll();
@@ -37,6 +41,12 @@ public class SanPhamRestController {
     @GetMapping("/cuahang-{id}")
     public List<SanPhamView> getSp(@PathVariable int id) {
         return sanPhamService.findAll(id);
+    }
+
+//    Lấy số lượng sản pham
+    @GetMapping("/cuahang-{id}/count")
+    public long countSanPhamAll(@PathVariable int id) {
+        return sanPhamViewDao.countByMaCuaHang(id);
     }
 
     @PostMapping("/cuahang-{id}")
@@ -123,5 +133,30 @@ public class SanPhamRestController {
         response.setCode(HttpStatus.OK.value());
         response.setResult("Lưu file thành công");
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/cuahang-{id}/spbikhoa")
+    public List<SanPhamView> getSpBiKhoa(@PathVariable int id) {
+        return sanPhamService.sanPhamByTrangThaiKhoa(id);
+    }
+
+    @GetMapping("/cuahang-{id}/choduyet")
+    public List<SanPhamView> getSpChoDuyet(@PathVariable int id) {
+        return sanPhamService.sanPhamByChoDuyet(id);
+    }
+
+    @GetMapping("/cuahang-{id}/hethang")
+    public List<SanPhamView> getSpHetHang(@PathVariable int id) {
+        return sanPhamService.sanPhamByHetHang(id);
+    }
+
+    @GetMapping("/cuahang-{id}/conhang")
+    public List<SanPhamView> getSpConHang(@PathVariable int id) {
+        return sanPhamService.sanPhamByConHang(id);
+    }
+
+    @GetMapping("/cuahang-{id}/tim-kiem/trangthai/{matt}")
+    public List<SanPhamView> searchSanPhamTrangThai(@PathVariable int id, @PathVariable int matt) {
+        return sanPhamService.searchSanPhamByTrangThai(id, matt);
     }
 }

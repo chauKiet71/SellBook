@@ -25,5 +25,4 @@ public class DonHangChiTiet {
     String ma_voucher;
     int ma_trang_thai;
 
-
 }

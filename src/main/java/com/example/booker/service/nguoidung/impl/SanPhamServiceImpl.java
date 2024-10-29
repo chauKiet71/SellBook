@@ -5,7 +5,7 @@ package com.example.booker.service.nguoidung.impl;
 import com.example.booker.dao.SanPhamDao;
 import com.example.booker.dao.SanPhamViewDao;
 import com.example.booker.entity.SanPham;
-import com.example.booker.entity.SanPhamView;
+import com.example.booker.entity.view.SanPhamView;
 import com.example.booker.service.nguoidung.SanPhamService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +80,31 @@ public class SanPhamServiceImpl implements SanPhamService {
     @Override
     public List<SanPham> sortPriceDesc(int ma_cua_hang) {
         return sanPhamDao.findAllSanPhamSortPriceDesc(ma_cua_hang);
+    }
+
+    @Override
+    public List<SanPhamView> sanPhamByTrangThaiKhoa(int ma_cua_hang) {
+        return sanPhamViewDao.findAllSanPhamBiKhoa(ma_cua_hang);
+    }
+
+    @Override
+    public List<SanPhamView> sanPhamByChoDuyet(int ma_cua_hang) {
+        return sanPhamViewDao.findAllSanPhamChoDuyet(ma_cua_hang);
+    }
+
+    @Override
+    public List<SanPhamView> sanPhamByHetHang(int ma_cua_hang) {
+        return sanPhamViewDao.findAllSanPhamHetHang(ma_cua_hang);
+    }
+
+    @Override
+    public List<SanPhamView> sanPhamByConHang(int ma_cua_hang) {
+        return sanPhamViewDao.findAllSanPhamConHang(ma_cua_hang);
+    }
+
+    @Override
+    public List<SanPhamView> searchSanPhamByTrangThai(int ma_cua_hang, int matt) {
+        return sanPhamViewDao.searchSanPhamByTrangThai(ma_cua_hang, matt);
     }
 
     @Override

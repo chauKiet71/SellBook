@@ -26,6 +26,10 @@ public class CuaHang {
     String anh_bia;
     String email;
     Integer so_dien_thoai;
+    Float diem_cua_hang;
+    int tong_luot_ban;
+    int luot_bao_cao;
+    Boolean trang_thai_khoa = Boolean.FALSE;
 
     @JsonIgnore
     @OneToMany(mappedBy = "cua_hang")

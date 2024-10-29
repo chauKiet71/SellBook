@@ -19,7 +19,9 @@ import java.time.temporal.ChronoUnit;
 public class Voucher {
 
     @Id
-    String ma_voucher;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id_voucher;
+    String ten_voucher;
     Float giam_gia;
     LocalDate ngay_bat_dau = LocalDate.now();
     LocalDate ngay_het_han;
@@ -28,6 +30,10 @@ public class Voucher {
     int so_lan_dung;
     String dieu_kien;
 
+    @Column(name = "trang_thai")
+    private Byte trangThai;
+
+
     @ManyToOne
     @JoinColumn(name = "ma_cua_hang", insertable = false, updatable = false)
     CuaHang cua_hang;
@@ -35,27 +41,27 @@ public class Voucher {
     // Getter và setter cho các thuộc tính khác
 
     // Getter cho thuộc tính trangThai
-    public String gettrang_thai_text() {
-        LocalDate today = LocalDate.now();
-
-        if (today.isBefore(ngay_bat_dau)) {
-            return "chưa áp dụng";
-        } else if (today.isAfter(ngay_bat_dau)) {
-            return "hết hạn";
-        } else {
-            long daysLeft = ChronoUnit.DAYS.between(today, ngay_het_han);
-            return "còn " + daysLeft + " ngày";
-        }
-    }
-
-    public Integer gettrang_thai_int() {
-        LocalDate today = LocalDate.now();
-        if (today.isBefore(ngay_bat_dau)) {
-            return 0;
-        }else if (today.isAfter(ngay_bat_dau)) {
-            return 1;
-        }else {
-            return 2;
-        }
-    }
+//    public String gettrang_thai_text() {
+//        LocalDate today = LocalDate.now();
+//
+//        if (today.isBefore(ngay_bat_dau)) {
+//            return "chưa áp dụng";
+//        } else if (today.isAfter(ngay_bat_dau)) {
+//            return "hết hạn";
+//        } else {
+//            long daysLeft = ChronoUnit.DAYS.between(today, ngay_het_han);
+//            return "còn " + daysLeft + " ngày";
+//        }
+//    }
+//
+//    public Integer gettrang_thai_int() {
+//        LocalDate today = LocalDate.now();
+//        if (today.isBefore(ngay_bat_dau)) {
+//            return 0;
+//        }else if (today.isAfter(ngay_bat_dau)) {
+//            return 1;
+//        }else {
+//            return 2;
+//        }
+//    }
 }

@@ -12,9 +12,11 @@ public interface VoucherService {
 
     Voucher updateVoucher(Voucher voucher);
 
-    void deleteVoucher(int idch, String ma_voucher);
+    //void deleteVoucher(int idch, String ma_voucher);
+
+    void deleteVoucher(int ma);
 
     List<Voucher> getVouchers(int idch);
 
-    Voucher getVoucherByMaVoucher(int idch, String ma_voucher);
+    Voucher getVoucherByMaVoucher(int idch, int ma_voucher);
 }

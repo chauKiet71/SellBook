@@ -3,7 +3,7 @@ package com.example.booker.service.nguoidung;
 
 
 import com.example.booker.entity.SanPham;
-import com.example.booker.entity.SanPhamView;
+import com.example.booker.entity.view.SanPhamView;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -31,6 +31,16 @@ public interface SanPhamService {
     List<SanPham> sortPriceAsc(int ma_cua_hang);
 
     List<SanPham> sortPriceDesc(int ma_cua_hang);
+
+    List<SanPhamView> sanPhamByTrangThaiKhoa(int ma_cua_hang);
+
+    List<SanPhamView> sanPhamByChoDuyet(int ma_cua_hang);
+
+    List<SanPhamView> sanPhamByHetHang(int ma_cua_hang);
+
+    List<SanPhamView> sanPhamByConHang(int ma_cua_hang);
+
+    List<SanPhamView> searchSanPhamByTrangThai(int ma_cua_hang, int matt);
 
 
     SanPham khoa_sanpham(int id, SanPham sanPham);

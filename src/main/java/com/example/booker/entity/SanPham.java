@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.math.BigInteger;
 import java.time.LocalDate;
 
 @Entity
@@ -30,12 +31,16 @@ public class SanPham {
     String tac_gia;
     LocalDate ngay_xuat_ban;
     int so_trang;
-    int ma_isbn;
+    BigInteger ma_isbn;
     String phien_ban;
     String anh_san_pham;
     int ma_cua_hang;
     Boolean trang_thai_duyet = Boolean.FALSE;
-    Boolean trang_thai_khoa = Boolean.TRUE;
+    Boolean trang_thai_khoa = Boolean.FALSE;
+
+    @Column(name = "trang_thai_hoat_dong", insertable = false, updatable = false)
+    private Byte trangThaiHoatDong;
+
 
     @ManyToOne
     @JoinColumn(name = "ma_the_loai")

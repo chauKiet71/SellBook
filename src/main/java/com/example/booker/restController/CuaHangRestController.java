@@ -54,4 +54,5 @@ public class CuaHangRestController {
         response.setResult(cuaHangService.getCuaHangById(id));
         return response;
     }
+
 }
