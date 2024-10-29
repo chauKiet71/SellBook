@@ -1,5 +1,6 @@
 package com.example.booker.restController;
 
+import com.example.booker.dao.VoucherDao;
 import com.example.booker.entity.Voucher;
 import com.example.booker.request.ApiResponse;
 import com.example.booker.service.nguoidung.VoucherService;
@@ -16,6 +17,8 @@ public class VoucherRestController {
 
     @Autowired
     VoucherService voucherService;
+    @Autowired
+    private VoucherDao voucherDao;
 
     @GetMapping("/cuahang-{id}")
     public List<Voucher> cuahang(@PathVariable int id) {
@@ -44,4 +47,35 @@ public class VoucherRestController {
     public Voucher getVoucher(@PathVariable int id, @PathVariable int ma_voucher) {
         return voucherService.getVoucherByMaVoucher(id, ma_voucher);
     }
+
+//  Hàm đếm soos lượng voucher thuộc của hàng
+    @GetMapping("/cuahang-{id}/count-voucher-by-store")
+    public long getVoucherCount(@PathVariable int id) {
+        return voucherDao.countVouchersByCuaHang(id);
+    }
+
+//    Hàm đếm voucher theo trạng thái
+    @GetMapping("/cuahang-{id}/count-voucher-by-status/{trangthai}")
+    public long getVoucherCountByStatus(@PathVariable("id") int id, @PathVariable("trangthai") int trangthai) {
+        return voucherDao.countVouchersByCuaHangAndTrangThai(id, trangthai);
+    }
+
+//  Hàm tìm kiếm sản phẩm
+    @GetMapping("/cuahang-{id}/tim-kiem/status")
+    public List<Voucher> searchVoucher(@PathVariable("id") int maCuaHang, @RequestParam("trangthai") int trangThai) {
+        return voucherDao.findVoucherByTrangThai(maCuaHang, trangThai);
+    }
+
+//    Hàm tìm kiếm theo tên voucher
+    @GetMapping("/cuahang-{id}/tim-kiem/ten-voucher")
+    public List<Voucher> searchVoucherByName(@PathVariable("id") int maCuaHang, @RequestParam("voucherName") String voucherName) {
+        return voucherDao.findVouchersByName(maCuaHang, voucherName);
+    }
+
+//    Hàm ti kiếm voucher theo giá giảm
+    @GetMapping("/cuahang-{id}/tim-kiem/gia-giam")
+    public List<Voucher> searchVoucherbySale(@PathVariable("id") int maCuaHang, @RequestParam("saleOff") int saleOff) {
+        return voucherDao.findVouchersByGiamGia(maCuaHang, saleOff);
+    }
+
 }

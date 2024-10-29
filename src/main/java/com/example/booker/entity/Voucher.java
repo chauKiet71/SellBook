@@ -30,7 +30,7 @@ public class Voucher {
     int so_lan_dung;
     String dieu_kien;
 
-    @Column(name = "trang_thai", insertable = false, updatable = false)
+    @Column(name = "trang_thai")
     private Byte trangThai;
 
 
