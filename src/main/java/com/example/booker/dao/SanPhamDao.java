@@ -3,6 +3,7 @@ package com.example.booker.dao;
 import com.example.booker.entity.SanPham;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -26,4 +27,6 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
             "WHERE c.ma_cua_hang = :ma_cua_hang" +
             " ORDER BY s.gia desc")
     List<SanPham> findAllSanPhamSortPriceDesc(int ma_cua_hang);
+
+
 }

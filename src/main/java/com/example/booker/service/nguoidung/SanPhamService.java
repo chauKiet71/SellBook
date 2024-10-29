@@ -31,4 +31,10 @@ public interface SanPhamService {
     List<SanPham> sortPriceAsc(int ma_cua_hang);
 
     List<SanPham> sortPriceDesc(int ma_cua_hang);
+
+
+    SanPham khoa_sanpham(int id, SanPham sanPham);
+
+    //duyet san pham
+    SanPham duyet_sanpham(int id, SanPham sanPham);
 }

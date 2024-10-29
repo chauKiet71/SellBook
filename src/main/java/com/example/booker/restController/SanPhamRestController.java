@@ -54,7 +54,22 @@ public class SanPhamRestController {
         response.setResult(sanPhamService.update(sanPham));
         return response;
     }
-
+    //khoa san pham
+    @PutMapping("/cuahang-{id}/khoasp/{idsp}")
+    public ApiResponse<SanPham> update_khoasp(@PathVariable Integer idsp, @RequestBody SanPham sanPham) {
+        ApiResponse<SanPham> response = new ApiResponse<>();
+        response.setMessage(("Khóa sản phẩm thành công"));
+        response.setResult(sanPhamService.khoa_sanpham(idsp, sanPham));
+        return response;
+    }
+    //duyet san pham
+    @PutMapping("/cuahang-{id}/duyet_sp/{idsp}")
+    public ApiResponse<SanPham> update_duyet_sp(@PathVariable Integer idsp, @RequestBody SanPham sanPham) {
+        ApiResponse<SanPham> response = new ApiResponse<>();
+        response.setMessage(("Khóa sản phẩm thành công"));
+        response.setResult(sanPhamService.duyet_sanpham(idsp, sanPham));
+        return response;    
+    }
     @DeleteMapping("/cuahang-{id}/{idsp}")
     public ResponseEntity<ApiResponse<Void>> deleteSanPham(@PathVariable int idsp) {
         sanPhamService.deleteById(idsp);
