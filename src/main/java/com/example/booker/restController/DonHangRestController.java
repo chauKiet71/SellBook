@@ -62,7 +62,7 @@ public class DonHangRestController {
         return ResponseEntity.ok(donHangChiTiet);
     }
 //  Cập nhật thông tin đơn hàng(chủ yếu số lượng)
-    @PutMapping("/{id}")
+    @PutMapping("/dhct-{id}")
     public ResponseEntity<DonHangChiTiet> updateDHCT(@RequestBody DonHangChiTiet dhct, @PathVariable int id) {
         if (donHangChiTietDao.existsById(id)) {
             dhct.setThanh_tien(dhct.getSo_luong() *  dhct.getGia());
@@ -73,7 +73,7 @@ public class DonHangRestController {
         }
     }
 //  Xóa đơn hàng chi tiết khỏi đơn hàng
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/dhct-{id}")
     public ResponseEntity<Void> deleteDHCT(@PathVariable int id) {
         if (donHangChiTietDao.existsById(id)) {
             donHangChiTietDao.deleteById(id);
