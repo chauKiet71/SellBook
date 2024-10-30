@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/v1/cart")
+@RequestMapping("/api/v1/donhang")
 public class DonHangRestController {
 
     @Autowired
@@ -37,7 +37,7 @@ public class DonHangRestController {
         }
     }
 //  Lấy thông tin từng đơn hàng chi tiết
-    @GetMapping("/{id}")
+    @GetMapping("/dhct-{id}")
     public ResponseEntity<DonHangChiTiet> getById(@PathVariable int id) {
         if (donHangChiTietDao.existsById(id)) {
             return ResponseEntity.ok(donHangChiTietDao.findById(id).get());

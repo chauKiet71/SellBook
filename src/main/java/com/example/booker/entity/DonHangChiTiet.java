@@ -18,7 +18,7 @@ public class DonHangChiTiet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int ma_don_hang_chi_tiet;
-    int so_luong;
+    int so_luong = 1;
     float gia;
     float thanh_tien;
 
