@@ -1,7 +1,6 @@
 package com.example.booker.service.nguoidung.impl;
 
 
-
 import com.example.booker.dao.SanPhamDao;
 import com.example.booker.dao.SanPhamViewDao;
 import com.example.booker.entity.SanPham;
@@ -41,6 +40,11 @@ public class SanPhamServiceImpl implements SanPhamService {
     @Override
     public List<SanPhamView> findByTenSanPham(int ma_san_pham, String tenSanPham) {
         return sanPhamViewDao.findByTenSanPhamContainingIgnoreCase(ma_san_pham, tenSanPham);
+    }
+
+    @Override
+    public List<SanPham> getSanPhamByTheLoai(int ma_the_loai) {
+        return sanPhamDao.findByMaTheLoai(ma_the_loai);
     }
 
     @Override

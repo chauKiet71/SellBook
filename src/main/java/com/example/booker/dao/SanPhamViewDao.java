@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface SanPhamViewDao extends JpaRepository<SanPhamView,Integer> {
+public interface SanPhamViewDao extends JpaRepository<SanPhamView, Integer> {
 
     //Phương thức truy vấn sản phẩm theo cửa hàng
     @Query("SELECT s FROM SanPhamView s " +
@@ -26,7 +26,7 @@ public interface SanPhamViewDao extends JpaRepository<SanPhamView,Integer> {
     @Query("SELECT s FROM SanPhamView s JOIN TheLoai t on s.ma_the_loai = t.ma_the_loai " +
             "JOIN CuaHang c on c.ma_cua_hang = s.ma_cua_hang " +
             "WHERE c.ma_cua_hang = :ma_cua_hang AND t.ma_the_loai = :id")
-    List<SanPhamView> findSanPhamByTheLoai(int ma_cua_hang,int id);
+    List<SanPhamView> findSanPhamByTheLoai(int ma_cua_hang, int id);
 
     //Lọc sản phẩm theo ngày tạo
     @Query("SELECT s FROM SanPhamView s" +

@@ -1,5 +1,6 @@
 package com.example.booker.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "TaiKhoan")
@@ -33,6 +35,10 @@ public class TaiKhoan {
 
     @Temporal(TemporalType.DATE)
     private Date ngay_tao;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "tai_khoan")
+    List<DonHang> donHangs;
 
 //    @ManyToOne
 //    @JoinColumn(name = "ma_vai_tro", referencedColumnName = "ma_vai_tro")

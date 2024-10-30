@@ -1,5 +1,6 @@
 package com.example.booker.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,10 +38,14 @@ public class SanPham {
     int ma_cua_hang;
 
     @ManyToOne
-    @JoinColumn(name = "ma_the_loai", insertable=false, updatable=false)
+    @JoinColumn(name = "ma_the_loai", insertable = false, updatable = false)
     TheLoai the_loai;
 
     @ManyToOne
-    @JoinColumn(name = "ma_cua_hang", insertable=false, updatable=false)
+    @JoinColumn(name = "ma_cua_hang", insertable = false, updatable = false)
     CuaHang cua_hang;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "san_pham")
+    DonHangChiTiet don_hang_chi_tiet;
 }

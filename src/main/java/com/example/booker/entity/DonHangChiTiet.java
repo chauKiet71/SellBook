@@ -1,5 +1,6 @@
 package com.example.booker.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,10 +21,20 @@ public class DonHangChiTiet {
     int so_luong;
     float gia;
     float thanh_tien;
-    int ma_san_pham;
-    int ma_don_hang;
+
+    @OneToOne
+    @JoinColumn(name = "ma_san_pham", insertable = false, updatable = false)
+    SanPham san_pham;
+
+    @ManyToOne
+    @JoinColumn(name = "ma_don_hang", insertable = false, updatable = false)
+    DonHang don_hang;
+
     String ma_voucher;
-    int ma_trang_thai;
+
+    @OneToOne
+    @JoinColumn(name = "ma_trang_thai", insertable = false, updatable = false)
+    TrangThaiDonHang trang_thai;
 
 
 }
