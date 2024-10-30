@@ -29,5 +29,4 @@ public class CuaHangView {
     int so_dien_thoai;
     Integer diem_cua_hang;
     Integer tong_luot_ban;
-
 }
