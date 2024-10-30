@@ -83,4 +83,15 @@ public class DonHangRestController {
             return ResponseEntity.notFound().build();
         }
     }
+//  Xóa đơn hàng nếu đơn hàng không còn sản phẩm sau khi xóa sản phẩm cuối cùng
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteDonHang(@PathVariable int id) {
+        if (donHangDao.findAll().isEmpty()) {
+            donHangDao.deleteById(id);
+            return ResponseEntity.ok().build();
+        }
+        else {
+            throw new RuntimeException("Đơn hàng vẫn còn sản phẩm");
+        }
+    }
 }
