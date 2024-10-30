@@ -39,8 +39,7 @@ public class SanPham {
     Boolean trang_thai_khoa = Boolean.FALSE;
 
     @Column(name = "trang_thai_hoat_dong", insertable = false, updatable = false)
-    private Byte trangThaiHoatDong;
-
+    private Byte trang_thai_hoat_dong;
 
     @ManyToOne
     @JoinColumn(name = "ma_the_loai")

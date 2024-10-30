@@ -7,6 +7,7 @@ import com.example.booker.entity.view.SanPhamView;
 import com.example.booker.service.nguoidung.SanPhamService;
 import com.example.booker.service.nguoidung.SaveFileExcelService;
 import com.example.booker.request.ApiResponse;
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -158,5 +159,17 @@ public class SanPhamRestController {
     @GetMapping("/cuahang-{id}/tim-kiem/trangthai/{matt}")
     public List<SanPhamView> searchSanPhamTrangThai(@PathVariable int id, @PathVariable int matt) {
         return sanPhamService.searchSanPhamByTrangThai(id, matt);
+    }
+
+    //lay san pham theo luot ban tu cao den thap
+    @GetMapping("/cuahang-{id}/desc")
+    public List<SanPhamView> findAllSanPhamByDabanDesc(@PathVariable int id) {
+        return sanPhamService.findAllSanPhamByLuotBan(id);
+    }
+
+    //lấy ra sản phẩm bán chạy 7 ngày
+    @GetMapping("/cuahang-{id}/sp-7ngay")
+    public List<SanPhamView> sanPham7Ngay(@PathVariable int id) {
+        return sanPhamService.sanPham7Day(id);
     }
 }
