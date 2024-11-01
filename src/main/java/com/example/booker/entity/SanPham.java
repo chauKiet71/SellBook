@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "san_pham")
@@ -46,6 +47,6 @@ public class SanPham {
     CuaHang cua_hang;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "san_pham")
-    DonHangChiTiet don_hang_chi_tiet;
+    @OneToMany(mappedBy = "san_pham")
+    List<DonHangChiTiet> donHangChiTiets;
 }

@@ -23,6 +23,6 @@ public class DiaChi {
 
     @JsonIgnore
     @OneToMany(mappedBy = "dia_chi")
-    List<DiaChi> diaChis;
+    List<DonHang> donHangs;
 
 }

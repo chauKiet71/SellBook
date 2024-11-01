@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity @Table(name = "trang_thai_don_hang")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,6 +20,6 @@ public class TrangThaiDonHang {
     String mo_ta_trang_thai;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "trang_thai")
-    DonHang don_hang;
+    @OneToMany(mappedBy = "trang_thai")
+    List<DonHangChiTiet> donHangChiTiets;
 }

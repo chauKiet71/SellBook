@@ -14,7 +14,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DonHangChiTiet {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int ma_don_hang_chi_tiet;
@@ -22,7 +21,7 @@ public class DonHangChiTiet {
     float gia;
     float thanh_tien;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "ma_san_pham", insertable = false, updatable = false)
     SanPham san_pham;
 
@@ -32,9 +31,14 @@ public class DonHangChiTiet {
 
     String ma_voucher;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "ma_trang_thai", insertable = false, updatable = false)
     TrangThaiDonHang trang_thai;
 
+    public DonHangChiTiet(String ten_san_pham, int so_luong, float thanh_tien) {
+        this.san_pham.ten_san_pham = ten_san_pham;
+        this.so_luong = so_luong;
+        this.thanh_tien = thanh_tien;
+    }
 
 }
