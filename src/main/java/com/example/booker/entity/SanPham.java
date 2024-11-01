@@ -43,7 +43,7 @@ public class SanPham {
     int con_hang;
 
     @Column(name = "trang_thai_hoat_dong", insertable = false, updatable = false)
-    private Byte trangThaiHoatDong;
+    private Byte trang_thai_hoat_dong;
 
     @ManyToOne
     @JoinColumn(name = "ma_the_loai")

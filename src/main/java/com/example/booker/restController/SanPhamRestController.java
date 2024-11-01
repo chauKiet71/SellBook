@@ -160,6 +160,18 @@ public class SanPhamRestController {
         return sanPhamService.searchSanPhamByTrangThai(id, matt);
     }
 
+    //lay san pham theo luot ban tu cao den thap
+    @GetMapping("/cuahang-{id}/desc")
+    public List<SanPhamView> findAllSanPhamByDabanDesc(@PathVariable int id) {
+        return sanPhamService.findAllSanPhamByLuotBan(id);
+    }
+
+    //lấy ra sản phẩm bán chạy 7 ngày
+    @GetMapping("/cuahang-{id}/sp-7ngay")
+    public List<SanPhamView> sanPham7Ngay(@PathVariable int id) {
+        return sanPhamService.sanPham7Day(id);
+    }
+
     @GetMapping("/cuahang-{id}/sap-xep/diemdanhgia")
     public List<SanPham> getSanPhamOrderByComment(@PathVariable int id) {
         return sanPhamDao.getListProductOrderByComment(id);

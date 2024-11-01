@@ -123,4 +123,14 @@ public class SanPhamServiceImpl implements SanPhamService {
         setting_sanPham.setTrang_thai_duyet(true);
         return sanPhamDao.save(setting_sanPham);
     }
+
+    @Override
+    public List<SanPhamView> findAllSanPhamByLuotBan(int ma_cua_hang) {
+        return sanPhamViewDao.findAllSanPhamByLuotBan(ma_cua_hang);
+    }
+
+    @Override
+    public List<SanPhamView> sanPham7Day(int ma_cua_hang) {
+        return sanPhamViewDao.sanPham7Day(ma_cua_hang);
+    }
 }

@@ -47,4 +47,10 @@ public interface SanPhamService {
 
     //duyet san pham
     SanPham duyet_sanpham(int id, SanPham sanPham);
+
+    //lấy ra sản phẩm theo theo lượt bán từ cao đến thấp
+    List<SanPhamView> findAllSanPhamByLuotBan(int ma_cua_hang);
+
+    //lấy ra sản phẩm bán chạy 7 ngày
+    List<SanPhamView> sanPham7Day(int ma_cua_hang);
 }
