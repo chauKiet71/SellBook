@@ -159,4 +159,9 @@ public class SanPhamRestController {
     public List<SanPhamView> searchSanPhamTrangThai(@PathVariable int id, @PathVariable int matt) {
         return sanPhamService.searchSanPhamByTrangThai(id, matt);
     }
+
+    @GetMapping("/cuahang-{id}/sap-xep/diemdanhgia")
+    public List<SanPham> getSanPhamOrderByComment(@PathVariable int id) {
+        return sanPhamDao.getListProductOrderByComment(id);
+    }
 }

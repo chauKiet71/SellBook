@@ -22,7 +22,9 @@ public class DonHangChiTiet {
     float thanh_tien;
     int ma_san_pham;
     int ma_don_hang;
-    String ma_voucher;
     int ma_trang_thai;
 
+    @ManyToOne
+    @JoinColumn(name = "id_voucher", insertable=false, updatable=false)
+    Voucher voucher;
 }
