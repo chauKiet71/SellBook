@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 
+@Service
 public interface DonHangChiTietService {
 
     //lấy danh sách hóa đơn chi tiết của cửa hàng theo trạng thái

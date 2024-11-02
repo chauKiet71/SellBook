@@ -20,11 +20,11 @@ public class DonHangChiTiet {
     int so_luong;
     float gia;
     float thanh_tien;
-    int ma_san_pham;
-    int ma_don_hang;
-    String ma_voucher;
-    int id_voucher;
     int ma_trang_thai;
+
+    @ManyToOne
+    @JoinColumn(name = "ma_san_pham", insertable=false, updatable=false )
+    SanPham san_pham;
 
     @ManyToOne
     @JoinColumn(name = "ma_don_hang", insertable=false, updatable=false )
