@@ -31,7 +31,7 @@ public class DonHangChiTiet {
 
     @ManyToOne
     @JoinColumn(name = "ma_don_hang", insertable = false, updatable = false)
-    DonHang don_hang;
+    DonHang donHang;
 
     @ManyToOne
     @JoinColumn(name = "id_voucher", insertable = false, updatable = false)
