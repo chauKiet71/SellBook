@@ -7,7 +7,7 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 @Setter
-public class ApiResponse <T> {
+public class ApiResponse<T> {
 
     private int code;
     private String message;

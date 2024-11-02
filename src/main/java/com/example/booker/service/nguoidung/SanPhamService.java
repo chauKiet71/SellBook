@@ -1,7 +1,6 @@
 package com.example.booker.service.nguoidung;
 
 
-
 import com.example.booker.entity.SanPham;
 import com.example.booker.entity.view.SanPhamView;
 import org.springframework.stereotype.Service;
@@ -17,6 +16,8 @@ public interface SanPhamService {
     SanPham create(int ma_cua_hang, SanPham sanPham);
 
     List<SanPhamView> findByTenSanPham(int ma_san_pham, String tenSanPham);
+
+    List<SanPham> getSanPhamByTheLoai(int ma_the_loai);
 
     List<SanPhamView> findByTheLoai(int ma_cua_hang, int id);
 

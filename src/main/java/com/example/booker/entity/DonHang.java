@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -29,12 +28,10 @@ public class DonHang {
     TaiKhoan tai_khoan;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "donHang")
-    List<DonHangChiTiet> don_hang_chi_tiet;
+    @OneToMany(mappedBy = "don_hang")
+    List<DonHangChiTiet> donHangChiTiets;
 
     @ManyToOne
     @JoinColumn(name = "ma_dia_chi", insertable = false, updatable = false)
     DiaChi dia_chi;
-
-
 }
