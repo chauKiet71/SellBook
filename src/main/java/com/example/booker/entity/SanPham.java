@@ -41,7 +41,6 @@ public class SanPham {
     @Column(name = "trang_thai_hoat_dong", insertable = false, updatable = false)
     private Byte trangThaiHoatDong;
 
-
     @ManyToOne
     @JoinColumn(name = "ma_the_loai")
     TheLoai the_loai;

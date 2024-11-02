@@ -33,7 +33,6 @@ public class Voucher {
     @Column(name = "trang_thai", insertable = false, updatable = false)
     private Byte trangThai;
 
-
     @ManyToOne
     @JoinColumn(name = "ma_cua_hang", insertable = false, updatable = false)
     CuaHang cua_hang;
