@@ -34,7 +34,7 @@ public class SanPham {
     String tac_gia;
     LocalDate ngay_xuat_ban;
     int so_trang;
-    int ma_isbn;
+    Float ma_isbn;
     String phien_ban;
     String anh_san_pham;
     int ma_cua_hang;
