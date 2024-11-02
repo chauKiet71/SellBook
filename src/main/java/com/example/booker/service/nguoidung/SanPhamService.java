@@ -32,4 +32,8 @@ public interface SanPhamService {
     List<SanPham> sortPriceAsc(int ma_cua_hang);
 
     List<SanPham> sortPriceDesc(int ma_cua_hang);
+
+    List<SanPham> findSanPhamByKeyword(String keyword);
+
+    List<SanPham> findSanPhamByTheLoaiAndGia(List<Integer> dsTheLoai, float minPrice, float maxPrice);
 }

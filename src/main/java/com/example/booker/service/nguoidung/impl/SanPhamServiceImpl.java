@@ -86,4 +86,13 @@ public class SanPhamServiceImpl implements SanPhamService {
         return sanPhamDao.findAllSanPhamSortPriceDesc(ma_cua_hang);
     }
 
+    @Override
+    public List<SanPham> findSanPhamByKeyword(String keyword) {
+        return sanPhamDao.findAllSanPhamByTen(keyword);
+    }
+
+    @Override
+    public List<SanPham> findSanPhamByTheLoaiAndGia(List<Integer> dsTheLoai, float minPrice, float maxPrice) {
+        return sanPhamDao.findAllByTheLoaiAndGia(dsTheLoai, minPrice, maxPrice);
+    }
 }
