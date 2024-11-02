@@ -31,10 +31,11 @@ public class DonHangChiTiet {
 
     @ManyToOne
     @JoinColumn(name = "ma_don_hang", insertable = false, updatable = false)
-    DonHang donHang;
+    DonHang don_hang;
 
     @ManyToOne
     @JoinColumn(name = "id_voucher", insertable = false, updatable = false)
     Voucher voucher;
+
 
 }

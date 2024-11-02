@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.util.Date;
 
 @Entity
-@Table(name = "TaiKhoan")
+@Table(name = "tai_khoan")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -34,7 +34,17 @@ public class TaiKhoan {
     @Temporal(TemporalType.DATE)
     private Date ngay_tao;
 
-//    @ManyToOne
-//    @JoinColumn(name = "ma_vai_tro", referencedColumnName = "ma_vai_tro")
-//    private VaiTro ma_vai_tro;
+    private Boolean trang_thai_tk = Boolean.TRUE;
+
+    @ManyToOne
+    @JoinColumn(name = "ma_vai_tro")
+    private VaiTro ma_vai_tro;
+
+    // Đặt giá trị ngày tạo mặc định là ngày hiện tại
+    @PrePersist
+    protected void onCreate() {
+        this.ngay_tao = new Date();
+    }
+
+
 }

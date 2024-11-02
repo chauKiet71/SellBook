@@ -107,4 +107,30 @@ public class SanPhamServiceImpl implements SanPhamService {
         return sanPhamViewDao.searchSanPhamByTrangThai(ma_cua_hang, matt);
     }
 
+    @Override
+    public SanPham khoa_sanpham(int id, SanPham sanPham){
+        SanPham setting_sanPham = sanPhamDao.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("San phan kho ton tai id: " + id));
+        setting_sanPham.setTrang_thai_khoa(true);
+        return sanPhamDao.save(setting_sanPham);
+    }
+
+    //duyet san pham
+    @Override
+    public SanPham duyet_sanpham(int id, SanPham sanPham){
+        SanPham setting_sanPham = sanPhamDao.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("San phan kho ton tai id: " + id));
+        setting_sanPham.setTrang_thai_duyet(true);
+        return sanPhamDao.save(setting_sanPham);
+    }
+
+    @Override
+    public List<SanPhamView> findAllSanPhamByLuotBan(int ma_cua_hang) {
+        return sanPhamViewDao.findAllSanPhamByLuotBan(ma_cua_hang);
+    }
+
+    @Override
+    public List<SanPhamView> sanPham7Day(int ma_cua_hang) {
+        return sanPhamViewDao.sanPham7Day(ma_cua_hang);
+    }
 }
