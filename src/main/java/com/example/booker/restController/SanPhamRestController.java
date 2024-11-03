@@ -176,4 +176,10 @@ public class SanPhamRestController {
     public List<SanPham> getSanPhamOrderByComment(@PathVariable int id) {
         return sanPhamDao.getListProductOrderByComment(id);
     }
+
+//    lấy danh sách sản phẩm sắp xếp theo bán bán theo
+    @GetMapping("/cuahang-{id}/ban-chay")
+    public List<SanPham> getSanPham(@PathVariable int id) {
+        return sanPhamDao.getListProductOrderByDaBanDesc(id);
+    }
 }
