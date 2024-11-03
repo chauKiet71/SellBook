@@ -21,6 +21,7 @@ public class DonHangChiTiet {
     float gia;
     float thanh_tien;
 
+
     @ManyToOne
     @JoinColumn(name = "ma_san_pham", insertable = false, updatable = false)
     SanPham san_pham;
@@ -28,12 +29,6 @@ public class DonHangChiTiet {
     @ManyToOne
     @JoinColumn(name = "ma_don_hang", insertable = false, updatable = false)
     DonHang don_hang;
-
-    String ma_voucher;
-    int ma_san_pham;
-    int ma_don_hang;
-    int id_voucher;
-    int ma_trang_thai;
 
     @ManyToOne
     @JoinColumn(name = "ma_trang_thai", insertable = false, updatable = false)
@@ -44,17 +39,9 @@ public class DonHangChiTiet {
         this.so_luong = so_luong;
         this.thanh_tien = thanh_tien;
     }
-    @ManyToOne
-    @JoinColumn(name = "ma_san_pham", insertable=false, updatable=false)
-    SanPham sanPham;
 
     @ManyToOne
-    @JoinColumn(name = "ma_don_hang", insertable = false, updatable = false)
-    DonHang donHang;
-
-    @ManyToOne
-    @JoinColumn(name = "id_voucher", insertable = false, updatable = false)
+    @JoinColumn(name = "id_voucher",  insertable=false, updatable=false)
     Voucher voucher;
-
 
 }

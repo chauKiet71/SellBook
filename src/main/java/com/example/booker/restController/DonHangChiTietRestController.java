@@ -1,5 +1,6 @@
 package com.example.booker.restController;
 
+import com.example.booker.dao.DonHangChiTietDao;
 import com.example.booker.entity.DonHangChiTiet;
 import com.example.booker.service.nguoidung.DonHangChiTietService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ public class DonHangChiTietRestController {
 
     @Autowired
     DonHangChiTietService donHangChiTietService;
+    @Autowired
+    private DonHangChiTietDao donHangChiTietDao;
 
     //lấy danh sách hóa đơn chi tiết của cửa hàng theo trạng thái
     @GetMapping("/cuahang-{id}/sort/trangthai-{matt}")
@@ -29,20 +32,20 @@ public class DonHangChiTietRestController {
     }
 
     //lọc hóa đơn chi tiết theo mã hóa đơn
-    @GetMapping("/cuahang-{id}/sort/trangthai-{matt}/donhang-{madh}")
+    @GetMapping("/cuahang-{id}/trangthai-{matt}/tim_kiem_by_idhd-{madh}")
     public List<DonHangChiTiet> sortByMadh(@PathVariable int id, @PathVariable int matt, @PathVariable int madh) {
         return donHangChiTietService.LocDHCTByCuahangAndByMaHoaDon(id, matt, madh);
     }
 
     //lấy thông tin chi tiết của một hóa đơn chi tiết
-    @GetMapping("/cuahang-{id}/donhang-{madh}")
+    @GetMapping("/cuahang-{id}/don_hang_chi_tiet-{madh}")
     public DonHangChiTiet InfoDetalDonHangChiTiet(@PathVariable int id, @PathVariable int madh) {
         return donHangChiTietService.infoDetailDonHangChiTiet(id, madh);
     }
 
     // cập nhat don hang chi tiet
-    @PutMapping("/cuahang-{id}/donhangchitiet-{maDhct}")
-    public DonHangChiTiet update(@PathVariable int id, @PathVariable int maDhct, @RequestBody DonHangChiTiet donHangChiTiet) {
+    @PutMapping("/cap-nhat_don_hang_chi_tiet")
+    public DonHangChiTiet update(@RequestBody DonHangChiTiet donHangChiTiet) {
         return donHangChiTietService.updateTrangThai(donHangChiTiet);
     }
 
@@ -57,4 +60,11 @@ public class DonHangChiTietRestController {
     public List<DonHangChiTiet> getDonHang(@PathVariable int id, @PathVariable int matt) {
         return donHangChiTietService.findDonHangChiTiet(id, matt);
     }
+
+//    Đếm
+    @GetMapping("dem_hoa_don_chi_tiet/cuahang-{storeID}/trangthai-{maTrangThai}")
+    public Long count(@PathVariable int storeID, @PathVariable int maTrangThai) {
+        return donHangChiTietDao.countProductsByStoreAndStatus(storeID, maTrangThai);
+    }
+
 }
