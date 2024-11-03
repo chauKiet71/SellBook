@@ -21,7 +21,6 @@ public class CuaHang {
     int ma_cua_hang;
     String ten_cua_hang;
     String dia_chi_cua_hang;
-    int id_tai_khoan;
     String anh_dai_dien;
     String anh_bia;
     String email;
@@ -30,6 +29,10 @@ public class CuaHang {
     int tong_luot_ban;
     int luot_bao_cao;
     Boolean trang_thai_khoa = Boolean.FALSE;
+
+    @ManyToOne
+    @JoinColumn(name = "id_tai_khoan", insertable=false, updatable=false)
+    TaiKhoan tai_khoan;
 
     @JsonIgnore
     @OneToMany(mappedBy = "cua_hang")

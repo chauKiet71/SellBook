@@ -38,6 +38,7 @@ public class SanPham {
     String phien_ban;
     String anh_san_pham;
     int ma_cua_hang;
+    
     Boolean trang_thai_duyet = Boolean.FALSE;
     Boolean trang_thai_khoa = Boolean.FALSE;
     int da_ban;

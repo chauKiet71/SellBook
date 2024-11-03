@@ -3,6 +3,7 @@ package com.example.booker.dao;
 import com.example.booker.entity.DonHangChiTiet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
@@ -60,6 +61,14 @@ public interface DonHangChiTietDao extends JpaRepository<DonHangChiTiet, Integer
             "AND dhct.ma_trang_thai = :ma_trang_thai " +
             "AND s.ma_cua_hang = :ma_cua_hang", nativeQuery = true)
     List<DonHangChiTiet> findDonHangChiTiet(int ma_cua_hang, int ma_trang_thai);
+
+    //    Đếm sô lượng hóa đơn chi ti theo mã trạng thái
+    @Query("SELECT COUNT(s) FROM SanPham s " +
+            "JOIN DonHangChiTiet dhct ON dhct.san_pham.ma_san_pham = s.ma_san_pham " +
+            "JOIN CuaHang c ON c.ma_cua_hang = s.ma_cua_hang " +
+            "WHERE c.ma_cua_hang = :maCuaHang AND dhct.ma_trang_thai = :maTrangThai")
+    long countProductsByStoreAndStatus(@Param("maCuaHang") int maCuaHang,
+                                       @Param("maTrangThai") int maTrangThai);
     //load gio hang
     @Query("select dhct from DonHangChiTiet dhct " +
             "join DonHang dh on dhct.don_hang.ma_don_hang = dh.ma_don_hang " +

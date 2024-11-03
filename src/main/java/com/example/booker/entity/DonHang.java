@@ -27,6 +27,14 @@ public class DonHang {
     @JoinColumn(name = "id_tai_khoan", insertable = false, updatable = false)
     TaiKhoan tai_khoan;
 
+    @ManyToOne
+    @JoinColumn(name = "id_tai_khoan", insertable=false, updatable=false )
+    TaiKhoan tai_khoan;
+
+    @ManyToOne
+    @JoinColumn(name = "ma_dia_chi", insertable=false, updatable=false )
+    DiaChi dia_chi;
+
     @JsonIgnore
     @OneToMany(mappedBy = "don_hang")
     List<DonHangChiTiet> donHangChiTiets;

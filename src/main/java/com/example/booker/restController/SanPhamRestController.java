@@ -76,7 +76,7 @@ public class SanPhamRestController {
     @PutMapping("/cuahang-{id}/duyet_sp/{idsp}")
     public ApiResponse<SanPham> update_duyet_sp(@PathVariable Integer idsp, @RequestBody SanPham sanPham) {
         ApiResponse<SanPham> response = new ApiResponse<>();
-        response.setMessage(("Khóa sản phẩm thành công"));
+        response.setMessage(("duyet sản phẩm thành công"));
         response.setResult(sanPhamService.duyet_sanpham(idsp, sanPham));
         return response;    
     }
@@ -175,5 +175,11 @@ public class SanPhamRestController {
     @GetMapping("/cuahang-{id}/sap-xep/diemdanhgia")
     public List<SanPham> getSanPhamOrderByComment(@PathVariable int id) {
         return sanPhamDao.getListProductOrderByComment(id);
+    }
+
+//    lấy danh sách sản phẩm sắp xếp theo bán bán theo
+    @GetMapping("/cuahang-{id}/ban-chay")
+    public List<SanPham> getSanPham(@PathVariable int id) {
+        return sanPhamDao.getListProductOrderByDaBanDesc(id);
     }
 }

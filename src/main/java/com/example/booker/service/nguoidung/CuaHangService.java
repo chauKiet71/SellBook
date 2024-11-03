@@ -11,6 +11,14 @@ public interface CuaHangService {
 
     CuaHang updateCuaHang(CuaHang cuaHang);
 
+    //    public SanPham khoa_sanpham(int id, SanPham sanPham){
+    //        SanPham setting_sanPham = sanPhamDao.findById(id)
+    //                .orElseThrow(() -> new EntityNotFoundException("San phan kho ton tai id: " + id));
+    //        setting_sanPham.setTrang_thai_khoa(true);
+    //        return sanPhamDao.save(setting_sanPham);
+    //    }
+    CuaHang khoaCuaHang(int id, CuaHang cuaHang);
+
     List<CuaHang> getAllCuaHang();
 
     CuaHang getCuaHangById(int id);
