@@ -179,7 +179,13 @@ public class SanPhamRestController {
 
 //    lấy danh sách sản phẩm sắp xếp theo bán bán theo
     @GetMapping("/cuahang-{id}/ban-chay")
-    public List<SanPham> getSanPham(@PathVariable int id) {
+    public List<SanPham> getSanPhamByBanChay(@PathVariable int id) {
         return sanPhamDao.getListProductOrderByDaBanDesc(id);
+    }
+
+    //    Lấy danh sách sản phẩm sắp xê theo doanh thu
+    @GetMapping("/cuahang-{id}/doanh-thu")
+    public List<SanPham> getSanPhamByDoanhThu(@PathVariable int id) {
+        return sanPhamDao.getListProductOrderByDoanhThuDesc(id);
     }
 }

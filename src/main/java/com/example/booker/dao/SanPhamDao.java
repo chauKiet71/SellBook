@@ -44,4 +44,10 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
            "ORDER BY s.da_ban desc")
     List<SanPham> getListProductOrderByDaBanDesc(int ma_cua_hang);
 
+    @Query("SELECT s FROM SanPham s " +
+            "JOIN CuaHang c on c.ma_cua_hang = s.ma_cua_hang " +
+            "WHERE c.ma_cua_hang = :ma_cua_hang " +
+            "ORDER BY s.doanh_thu desc")
+    List<SanPham> getListProductOrderByDoanhThuDesc(int ma_cua_hang);
+
 }
