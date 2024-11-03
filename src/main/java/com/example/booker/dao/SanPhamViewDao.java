@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface SanPhamViewDao extends JpaRepository<SanPhamView,Integer> {
+public interface SanPhamViewDao extends JpaRepository<SanPhamView, Integer> {
 
     //Phương thức truy vấn sản phẩm theo cửa hàng
     @Query("SELECT s FROM SanPhamView s " +
@@ -26,7 +26,7 @@ public interface SanPhamViewDao extends JpaRepository<SanPhamView,Integer> {
     @Query("SELECT s FROM SanPhamView s JOIN TheLoai t on s.ma_the_loai = t.ma_the_loai " +
             "JOIN CuaHang c on c.ma_cua_hang = s.ma_cua_hang " +
             "WHERE c.ma_cua_hang = :ma_cua_hang AND t.ma_the_loai = :id")
-    List<SanPhamView> findSanPhamByTheLoai(int ma_cua_hang,int id);
+    List<SanPhamView> findSanPhamByTheLoai(int ma_cua_hang, int id);
 
     //Lọc sản phẩm theo ngày tạo
     @Query("SELECT s FROM SanPhamView s" +
@@ -58,4 +58,50 @@ public interface SanPhamViewDao extends JpaRepository<SanPhamView,Integer> {
     // Tìm kiếm sản phẩm theo trang thai
     @Query("SELECT s FROM SanPhamView s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = :matt")
     List<SanPhamView> searchSanPhamByTrangThai(int ma_cua_hang, int matt);
+
+    // danh sách sản phẩm thuộc cửa hàng sắp xếp theo lượt bán từ cao đến thấp
+    @Query("select s from SanPhamView s " +
+            "where s.ma_cua_hang = :ma_cua_hang " +
+            "order by s.da_ban desc ")
+    List<SanPhamView> findAllSanPhamByLuotBan(int ma_cua_hang);
+
+
+            //lấy ra danh sách sản phẩm bán chạy nhất trong 7 ngày gần nhất
+//    @Query( "SELECT * FROM san_pham_view s " +
+//            "JOIN don_hang_chi_tiet dhct " +
+//            "ON dhct.ma_san_pham = s.ma_san_pham " +
+//            "JOIN don_hang dh ON dh.ma_don_hang = dhct.ma_don_hang " +
+//            "WHERE s.ma_cua_hang = :maCuaHang " +
+//            "AND dh.ngay_tao BETWEEN CURDATE() - INTERVAL 7 DAY AND CURDATE() " +
+//            "ORDER BY s.da_ban DESC")
+//    List<SanPhamView> sanPham7Day(int ma_cua_hang);
+
+
+    @Query(value = "SELECT s.* FROM san_pham_view s " +
+            "JOIN don_hang_chi_tiet dhct " +
+            "ON dhct.ma_san_pham = s.ma_san_pham " +
+            "JOIN don_hang dh ON dh.ma_don_hang = dhct.ma_don_hang " +
+            "WHERE s.ma_cua_hang = :ma_cua_hang " +
+            "AND dh.ngay_tao BETWEEN CURDATE() - INTERVAL 7 DAY AND CURDATE() " +
+            "GROUP BY " +
+            "s.ma_san_pham," +
+            "s.ten_san_pham, " +
+            "s.anh_san_pham, " +
+            "s.tac_gia, " +
+            "s.ten_the_loai ," +
+            "s.ma_the_loai, " +
+            "s.gia, " +
+            "s.trang_thai_duyet, " +
+            "s.trang_thai_khoa, " +
+            "s.trang_thai_hoat_dong ," +
+            "s.ngay_tao ," +
+            "s.so_luong_hang ," +
+            "s.ma_cua_hang, " +
+            "s.da_ban, " +
+            "s.doanh_thu, " +
+            "s.danh_gia " +
+            "ORDER BY s.da_ban DESC", nativeQuery = true)
+    List<SanPhamView> sanPham7Day(int ma_cua_hang);
 }
+
+

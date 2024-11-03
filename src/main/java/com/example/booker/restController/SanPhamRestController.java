@@ -94,7 +94,7 @@ public class SanPhamRestController {
     }
 
     @GetMapping("/cuahang-{id}/tim-kiem/tensanpham")
-    public List<SanPhamView> SearchSanPhamByTenSanPham(@PathVariable int id, @RequestParam String ten){
+    public List<SanPhamView> SearchSanPhamByTenSanPham(@PathVariable int id, @RequestParam String ten) {
         if (!sanPhamDao.existBySanPham(id, ten)) {
             throw new RuntimeException("Product not found");
         }
@@ -102,13 +102,13 @@ public class SanPhamRestController {
     }
 
     @GetMapping("/cuahang-{id}/tim-kiem/theloai")
-    public List<SanPhamView> SearchSanPhamByTheLoai(@PathVariable int id, @RequestParam int category){
+    public List<SanPhamView> SearchSanPhamByTheLoai(@PathVariable int id, @RequestParam int category) {
         return sanPhamService.findByTheLoai(id, category);
     }
 
     @GetMapping("/cuahang-{id}/tim-kiem/ngay-tao")
     public ResponseEntity<List<SanPhamView>> searchCreateDate(@PathVariable int id,
-                                                          @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date) {
+                                                              @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date) {
         List<SanPhamView> sanPhams = sanPhamService.findByCreateDate(id, date);
         System.out.println(sanPhams);
         return ResponseEntity.ok(sanPhams);
@@ -158,5 +158,22 @@ public class SanPhamRestController {
     @GetMapping("/cuahang-{id}/tim-kiem/trangthai/{matt}")
     public List<SanPhamView> searchSanPhamTrangThai(@PathVariable int id, @PathVariable int matt) {
         return sanPhamService.searchSanPhamByTrangThai(id, matt);
+    }
+
+    //lay san pham theo luot ban tu cao den thap
+    @GetMapping("/cuahang-{id}/desc")
+    public List<SanPhamView> findAllSanPhamByDabanDesc(@PathVariable int id) {
+        return sanPhamService.findAllSanPhamByLuotBan(id);
+    }
+
+    //lấy ra sản phẩm bán chạy 7 ngày
+    @GetMapping("/cuahang-{id}/sp-7ngay")
+    public List<SanPhamView> sanPham7Ngay(@PathVariable int id) {
+        return sanPhamService.sanPham7Day(id);
+    }
+
+    @GetMapping("/cuahang-{id}/sap-xep/diemdanhgia")
+    public List<SanPham> getSanPhamOrderByComment(@PathVariable int id) {
+        return sanPhamDao.getListProductOrderByComment(id);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.booker.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 @Entity
 @Table(name = "voucher")
@@ -33,11 +35,13 @@ public class Voucher {
     @Column(name = "trang_thai")
     private Byte trangThai;
 
-
     @ManyToOne
     @JoinColumn(name = "ma_cua_hang", insertable = false, updatable = false)
     CuaHang cua_hang;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "voucher")
+    List<DonHangChiTiet> donHangChiTiets;
     // Getter và setter cho các thuộc tính khác
 
     // Getter cho thuộc tính trangThai

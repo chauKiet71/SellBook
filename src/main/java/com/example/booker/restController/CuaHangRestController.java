@@ -20,19 +20,19 @@ public class CuaHangRestController {
     CuaHangService cuaHangService;
 
     @GetMapping()
-    public List<CuaHang> getCuaHang(){
+    public List<CuaHang> getCuaHang() {
         return cuaHangService.getAllCuaHang();
     }
 
     @PostMapping()
-    public ApiResponse<CuaHang> addCuaHang(@RequestBody CuaHang cuaHang){
+    public ApiResponse<CuaHang> addCuaHang(@RequestBody CuaHang cuaHang) {
         ApiResponse<CuaHang> response = new ApiResponse<>();
         response.setResult(cuaHangService.createCuaHang(cuaHang));
         return response;
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<CuaHang> updateCuaHang(@RequestBody CuaHang cuaHang, @PathVariable int id){
+    public ApiResponse<CuaHang> updateCuaHang(@RequestBody CuaHang cuaHang, @PathVariable int id) {
         ApiResponse<CuaHang> response = new ApiResponse<>();
         response.setMessage("Cập nhật cửa hàng thành công");
         response.setResult(cuaHangService.updateCuaHang(cuaHang));
@@ -47,7 +47,7 @@ public class CuaHangRestController {
         return response;
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<Void>> deleteCuaHang(@PathVariable int id){
+    public ResponseEntity<ApiResponse<Void>> deleteCuaHang(@PathVariable int id) {
         cuaHangService.deleteCuaHang(id);
         ApiResponse<Void> response = new ApiResponse<>();
         response.setCode(HttpStatus.OK.value());
@@ -56,10 +56,9 @@ public class CuaHangRestController {
     }
 
     @GetMapping("/{id}")
-    public ApiResponse<CuaHang> getCuaHangById(@PathVariable int id){
+    public ApiResponse<CuaHang> getCuaHangById(@PathVariable int id) {
         ApiResponse<CuaHang> response = new ApiResponse<>();
         response.setResult(cuaHangService.getCuaHangById(id));
         return response;
     }
-
 }

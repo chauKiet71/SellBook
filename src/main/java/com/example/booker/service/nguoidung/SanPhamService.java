@@ -1,7 +1,6 @@
 package com.example.booker.service.nguoidung;
 
 
-
 import com.example.booker.entity.SanPham;
 import com.example.booker.entity.view.SanPhamView;
 import org.springframework.stereotype.Service;
@@ -17,6 +16,8 @@ public interface SanPhamService {
     SanPham create(int ma_cua_hang, SanPham sanPham);
 
     List<SanPhamView> findByTenSanPham(int ma_san_pham, String tenSanPham);
+
+    List<SanPham> getSanPhamByTheLoai(int ma_the_loai);
 
     List<SanPhamView> findByTheLoai(int ma_cua_hang, int id);
 
@@ -47,4 +48,10 @@ public interface SanPhamService {
 
     //duyet san pham
     SanPham duyet_sanpham(int id, SanPham sanPham);
+
+    //lấy ra sản phẩm theo theo lượt bán từ cao đến thấp
+    List<SanPhamView> findAllSanPhamByLuotBan(int ma_cua_hang);
+
+    //lấy ra sản phẩm bán chạy 7 ngày
+    List<SanPhamView> sanPham7Day(int ma_cua_hang);
 }
