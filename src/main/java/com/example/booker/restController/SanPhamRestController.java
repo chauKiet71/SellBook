@@ -76,7 +76,7 @@ public class SanPhamRestController {
     @PutMapping("/cuahang-{id}/duyet_sp/{idsp}")
     public ApiResponse<SanPham> update_duyet_sp(@PathVariable Integer idsp, @RequestBody SanPham sanPham) {
         ApiResponse<SanPham> response = new ApiResponse<>();
-        response.setMessage(("Khóa sản phẩm thành công"));
+        response.setMessage(("duyet sản phẩm thành công"));
         response.setResult(sanPhamService.duyet_sanpham(idsp, sanPham));
         return response;    
     }

@@ -39,6 +39,13 @@ public class CuaHangRestController {
         return response;
     }
 
+    @PutMapping("/khoa/{id}")
+    public ApiResponse<CuaHang> updateKhoaCuaHang(@RequestBody CuaHang cuaHang, @PathVariable int id){
+        ApiResponse<CuaHang> response = new ApiResponse<>();
+        response.setMessage("Khóa cửa hàng thành công");
+        response.setResult(cuaHangService.khoaCuaHang(id,cuaHang));
+        return response;
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteCuaHang(@PathVariable int id){
         cuaHangService.deleteCuaHang(id);
