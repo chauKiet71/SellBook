@@ -13,9 +13,10 @@ import lombok.Setter;
 @Setter
 @Getter
 public class DiaChi {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ma_dia_chi;
+    private Integer ma_dia_chi;
     private String ten_dia_chi;
 
     @ManyToOne

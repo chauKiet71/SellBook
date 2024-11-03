@@ -22,10 +22,8 @@ public class DonHang {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ma_don_hang;
     private LocalDate ngay_tao;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "don_hang")
-    List<DonHangChiTiet> donHangChiTiets;
+    private Integer id_tai_khoan;
+    private Integer ma_dia_chi;
 
     @ManyToOne
     @JoinColumn(name = "id_tai_khoan", insertable=false, updatable=false )
@@ -34,5 +32,9 @@ public class DonHang {
     @ManyToOne
     @JoinColumn(name = "ma_dia_chi", insertable=false, updatable=false )
     DiaChi dia_chi;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "don_hang")
+    List<DonHangChiTiet> donHangChiTiets;
 
 }

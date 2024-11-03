@@ -15,7 +15,7 @@ public interface DonHangChiTietDao extends JpaRepository<DonHangChiTiet, Integer
     @Query("SELECT dhct FROM SanPham s " +
             "JOIN DonHangChiTiet dhct " +
             "on s.ma_san_pham = dhct.san_pham.ma_san_pham" +
-            " WHERE s.ma_cua_hang = :ma_cua_hang AND dhct.ma_trang_thai = :ma_trang_thai order by dhct.ma_don_hang_chi_tiet desc")
+            " WHERE s.ma_cua_hang = :ma_cua_hang AND dhct.ma_trang_thai = :ma_trang_thai ")
     List<DonHangChiTiet> findByMaTrangThaiAndMaCuaHang(int ma_cua_hang, int ma_trang_thai);
 
     //[NB] API lọc hóa đơn chi tiết theo theo ngày tạo
@@ -26,10 +26,10 @@ public interface DonHangChiTietDao extends JpaRepository<DonHangChiTiet, Integer
             "on dh.ma_don_hang = dhct.don_hang.ma_don_hang " +
             "WHERE s.ma_cua_hang = :ma_cua_hang " +
             "AND dhct.ma_trang_thai = :ma_trang_thai " +
-            "AND dh.ngay_tao = :ngay_tao order by dhct.don_hang.ngay_tao desc ")
+            "AND dh.ngay_tao = :ngay_tao")
     List<DonHangChiTiet> sortDonHangChiTietByNgayTao(int ma_cua_hang, int ma_trang_thai, LocalDate ngay_tao);
 
-    //[NB] API lọc hóa đơn chi tiết theo mã hóa đơn
+    //[NB] API lọc hóa đơn chi tiết theo mã đơn hàng chi tiết
     @Query("SELECT dhct FROM DonHangChiTiet dhct " +
             "JOIN SanPham s " +
             "on s.ma_san_pham = dhct.san_pham.ma_san_pham " +
@@ -37,8 +37,8 @@ public interface DonHangChiTietDao extends JpaRepository<DonHangChiTiet, Integer
             "on dh.ma_don_hang = dhct.don_hang.ma_don_hang " +
             "WHERE s.ma_cua_hang = :ma_cua_hang " +
             "AND dhct.ma_trang_thai = :ma_trang_thai " +
-            "AND dh.ma_don_hang = :ma_don_hang")
-    List<DonHangChiTiet> sortDonHangChiTietByMaDonHang(int ma_cua_hang, int ma_trang_thai, int ma_don_hang);
+            "AND dhct.ma_don_hang_chi_tiet = :ma_don_hang_chi_tiet")
+    List<DonHangChiTiet> sortDonHangChiTietByMaDonHang(int ma_cua_hang, int ma_trang_thai, int ma_don_hang_chi_tiet);
 
     //lấy thông tin chi tiết của một hóa đơn chi tiết
     @Query("SELECT dhct FROM DonHangChiTiet dhct " +
@@ -62,17 +62,11 @@ public interface DonHangChiTietDao extends JpaRepository<DonHangChiTiet, Integer
             "AND s.ma_cua_hang = :ma_cua_hang", nativeQuery = true)
     List<DonHangChiTiet> findDonHangChiTiet(int ma_cua_hang, int ma_trang_thai);
 
-//    Đếm số lượng đơnhangfgf theo mã cửa hàng và mã trạng thái
-    @Query("SELECT count(dhct) FROM SanPham s " +
-            "JOIN DonHangChiTiet dhct " +
-            "on s.ma_san_pham = dhct.san_pham.ma_san_pham" +
-            " WHERE s.ma_cua_hang = :ma_cua_hang AND dhct.ma_trang_thai = :ma_trang_thai order by dhct.ma_don_hang_chi_tiet desc")
-    long countOrderDetailsByIdCHAndIdTT(int ma_cua_hang, int ma_trang_thai);
-
-    @Query("SELECT hd FROM DonHangChiTiet hd JOIN SanPham s ON hd.san_pham.ma_san_pham = s.ma_san_pham WHERE s.ma_cua_hang = :maCuaHang AND hd.ma_trang_thai = :maTrangThai AND hd.ma_don_hang_chi_tiet = :maDonHangChiTiet")
-    List<DonHangChiTiet> findOrderDetailByStoreAndStatus(
-            @Param("maCuaHang") int maCuaHang,
-            @Param("maTrangThai") int maTrangThai,
-            @Param("maDonHangChiTiet") int maDonHangChiTiet);
-
+    //    Đếm sô lượng hóa đơn chi ti theo mã trạng thái
+    @Query("SELECT COUNT(s) FROM SanPham s " +
+            "JOIN DonHangChiTiet dhct ON dhct.san_pham.ma_san_pham = s.ma_san_pham " +
+            "JOIN CuaHang c ON c.ma_cua_hang = s.ma_cua_hang " +
+            "WHERE c.ma_cua_hang = :maCuaHang AND dhct.ma_trang_thai = :maTrangThai")
+    long countProductsByStoreAndStatus(@Param("maCuaHang") int maCuaHang,
+                                       @Param("maTrangThai") int maTrangThai);
 }

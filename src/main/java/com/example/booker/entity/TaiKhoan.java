@@ -19,18 +19,12 @@ public class TaiKhoan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_tai_khoan;
-
     private String email;
-
     private String mat_khau;
-
     private String ho_ten;
-
     @Temporal(TemporalType.DATE)
     private Date ngay_sinh;
-
     private String so_dt;
-
     @Temporal(TemporalType.DATE)
     private Date ngay_tao;
 

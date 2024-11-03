@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-@Transactional
 public class DonHangChiTietImpl implements DonHangChiTietService {
 
     @Autowired
