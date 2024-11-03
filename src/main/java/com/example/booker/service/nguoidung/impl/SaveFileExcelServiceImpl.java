@@ -37,7 +37,7 @@ public class SaveFileExcelServiceImpl implements SaveFileExcelService {
             //Tao header
             Row headerRow = sheet.createRow(0);
             String[] header = {"Mã sản phẩm", "Tên sản phẩm", "Tác giả", "Thể loại", "Giá", "Ngày tạo",
-                            "Đã bán", "Còn hàng"};
+                    "Đã bán", "Còn hàng"};
 
             // Tạo CellStyle cho ngày tháng
             CellStyle dateCellStyle = workbook.createCellStyle();
@@ -45,7 +45,7 @@ public class SaveFileExcelServiceImpl implements SaveFileExcelService {
             short dateFormat = creationHelper.createDataFormat().getFormat("dd-MM-yyyy"); // Định dạng ngày tháng
             dateCellStyle.setDataFormat(dateFormat);
 
-            for (int col = 0 ; col < header.length; col++) {
+            for (int col = 0; col < header.length; col++) {
                 Cell cell = headerRow.createCell(col);
                 cell.setCellValue(header[col]);
                 CellStyle headerStyle = workbook.createCellStyle();
@@ -56,7 +56,7 @@ public class SaveFileExcelServiceImpl implements SaveFileExcelService {
             }
             //Tao data row
             int rowIndex = 1;
-            for (SanPhamView sanPham: listSp) {
+            for (SanPhamView sanPham : listSp) {
                 Row row = sheet.createRow(rowIndex++);
                 row.createCell(0).setCellValue(sanPham.getMa_san_pham());
                 row.createCell(1).setCellValue(sanPham.getTen_san_pham());
@@ -75,12 +75,12 @@ public class SaveFileExcelServiceImpl implements SaveFileExcelService {
                 Cell cellDaban = row.createCell(6);
                 if (sanPham.getDa_ban() != null) {
                     cellDaban.setCellValue(sanPham.getDa_ban());
-                }else{
+                } else {
                     cellDaban.setCellValue(0);
                 }
                 row.createCell(7).setCellValue(sanPham.getSo_luong_hang());
             }
-            for (int i = 0; i<header.length; i++) {
+            for (int i = 0; i < header.length; i++) {
                 sheet.autoSizeColumn(i);
             }
             workbook.write(fileOut);

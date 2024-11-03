@@ -1,15 +1,17 @@
 package com.example.booker.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.List;
 
-@Entity
-@Table(name = "dia_chi")
-@AllArgsConstructor
+
+@Entity @Table(name = "dia_chi")
 @NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
 public class DiaChi {
@@ -22,4 +24,9 @@ public class DiaChi {
     @ManyToOne
     @JoinColumn(name = "id_tai_khoan", insertable=false, updatable=false )
     TaiKhoan tai_khoan;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "dia_chi")
+    List<DonHang> donHangs;
+
 }

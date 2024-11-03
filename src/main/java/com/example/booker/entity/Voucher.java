@@ -35,7 +35,6 @@ public class Voucher {
     @Column(name = "trang_thai")
     private Byte trangThai;
 
-
     @ManyToOne
     @JoinColumn(name = "ma_cua_hang", insertable = false, updatable = false)
     CuaHang cua_hang;
