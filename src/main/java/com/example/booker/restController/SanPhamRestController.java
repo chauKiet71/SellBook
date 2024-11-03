@@ -1,8 +1,9 @@
 package com.example.booker.restController;
 
 import com.example.booker.dao.SanPhamDao;
+import com.example.booker.dao.SanPhamViewDao;
 import com.example.booker.entity.SanPham;
-import com.example.booker.entity.SanPhamView;
+import com.example.booker.entity.view.SanPhamView;
 import com.example.booker.service.nguoidung.SanPhamService;
 import com.example.booker.service.nguoidung.SaveFileExcelService;
 import com.example.booker.request.ApiResponse;
@@ -29,10 +30,23 @@ public class SanPhamRestController {
     @Autowired
     private SanPhamDao sanPhamDao;
 
+    @Autowired
+    private SanPhamViewDao sanPhamViewDao;
+
+    @GetMapping("/allinfo")
+    public List<SanPham> getAllSanPham(){
+        return sanPhamDao.findAll();
+    }
 
     @GetMapping("/cuahang-{id}")
     public List<SanPhamView> getSp(@PathVariable int id) {
         return sanPhamService.findAll(id);
+    }
+
+//    Lấy số lượng sản pham
+    @GetMapping("/cuahang-{id}/count")
+    public long countSanPhamAll(@PathVariable int id) {
+        return sanPhamViewDao.countByMaCuaHang(id);
     }
 
     @PostMapping("/cuahang-{id}")
@@ -50,7 +64,22 @@ public class SanPhamRestController {
         response.setResult(sanPhamService.update(sanPham));
         return response;
     }
-
+    //khoa san pham
+    @PutMapping("/cuahang-{id}/khoasp/{idsp}")
+    public ApiResponse<SanPham> update_khoasp(@PathVariable Integer idsp, @RequestBody SanPham sanPham) {
+        ApiResponse<SanPham> response = new ApiResponse<>();
+        response.setMessage(("Khóa sản phẩm thành công"));
+        response.setResult(sanPhamService.khoa_sanpham(idsp, sanPham));
+        return response;
+    }
+    //duyet san pham
+    @PutMapping("/cuahang-{id}/duyet_sp/{idsp}")
+    public ApiResponse<SanPham> update_duyet_sp(@PathVariable Integer idsp, @RequestBody SanPham sanPham) {
+        ApiResponse<SanPham> response = new ApiResponse<>();
+        response.setMessage(("Khóa sản phẩm thành công"));
+        response.setResult(sanPhamService.duyet_sanpham(idsp, sanPham));
+        return response;    
+    }
     @DeleteMapping("/cuahang-{id}/{idsp}")
     public ResponseEntity<ApiResponse<Void>> deleteSanPham(@PathVariable int idsp) {
         sanPhamService.deleteById(idsp);
@@ -104,5 +133,47 @@ public class SanPhamRestController {
         response.setCode(HttpStatus.OK.value());
         response.setResult("Lưu file thành công");
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/cuahang-{id}/spbikhoa")
+    public List<SanPhamView> getSpBiKhoa(@PathVariable int id) {
+        return sanPhamService.sanPhamByTrangThaiKhoa(id);
+    }
+
+    @GetMapping("/cuahang-{id}/choduyet")
+    public List<SanPhamView> getSpChoDuyet(@PathVariable int id) {
+        return sanPhamService.sanPhamByChoDuyet(id);
+    }
+
+    @GetMapping("/cuahang-{id}/hethang")
+    public List<SanPhamView> getSpHetHang(@PathVariable int id) {
+        return sanPhamService.sanPhamByHetHang(id);
+    }
+
+    @GetMapping("/cuahang-{id}/conhang")
+    public List<SanPhamView> getSpConHang(@PathVariable int id) {
+        return sanPhamService.sanPhamByConHang(id);
+    }
+
+    @GetMapping("/cuahang-{id}/tim-kiem/trangthai/{matt}")
+    public List<SanPhamView> searchSanPhamTrangThai(@PathVariable int id, @PathVariable int matt) {
+        return sanPhamService.searchSanPhamByTrangThai(id, matt);
+    }
+
+    //lay san pham theo luot ban tu cao den thap
+    @GetMapping("/cuahang-{id}/desc")
+    public List<SanPhamView> findAllSanPhamByDabanDesc(@PathVariable int id) {
+        return sanPhamService.findAllSanPhamByLuotBan(id);
+    }
+
+    //lấy ra sản phẩm bán chạy 7 ngày
+    @GetMapping("/cuahang-{id}/sp-7ngay")
+    public List<SanPhamView> sanPham7Ngay(@PathVariable int id) {
+        return sanPhamService.sanPham7Day(id);
+    }
+
+    @GetMapping("/cuahang-{id}/sap-xep/diemdanhgia")
+    public List<SanPham> getSanPhamOrderByComment(@PathVariable int id) {
+        return sanPhamDao.getListProductOrderByComment(id);
     }
 }

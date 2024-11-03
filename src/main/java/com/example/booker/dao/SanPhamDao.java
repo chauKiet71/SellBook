@@ -31,15 +31,55 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
             " ORDER BY s.gia desc")
     List<SanPham> findAllSanPhamSortPriceDesc(int ma_cua_hang);
 
-    //Tìm kiếm sản phẩm theo tên sản phẩm
-    @Query("select s from SanPham s " +
-            "where s.ten_san_pham like concat('%', :tenSanPham, '%')")
-    List<SanPham> findAllSanPhamByTen(String tenSanPham);
+    @Query("SELECT s FROM SanPham s " +
+            "JOIN CuaHang c on c.ma_cua_hang = s.ma_cua_hang " +
+            "WHERE c.ma_cua_hang = :ma_cua_hang " +
+            "ORDER BY s.diem_trung_binh desc")
+    List<SanPham> getListProductOrderByComment(int ma_cua_hang);
 
-    //Sắp xếp sản phẩm theo ngày tạo mới nhất
+//  Hiển thị sản phẩm theo từ khóa
     @Query("select s from SanPham s " +
-            "where s.ma_the_loai in :theloais and (s.gia >= :min and s.gia <= :max) " +
+            "where s.ten_san_pham like concat('%', :keyword, '%') ")
+    List<SanPham> findSanPhamByTen(String keyword);
+
+//  Hiển thị sản phẩm theo loại và khoảng giá
+    @Query("select s from SanPham s " +
+            "where (:theloais is null or s.ma_the_loai in :theloais) " +
+            "and (:min is null or s.gia >= :min) " +
+            "and (:max is null or s.gia <= :max)")
+    List<SanPham> findSanPhamByTheloaiAndGia(List<Integer> theloais, Float min, Float max);
+
+//  Hiển thị sản phẩm theo loại và khoảng giá sắp xếp theo ngày tạo mới nhất
+    @Query("select s from SanPham s " +
+            "where (:theloais is null or s.ma_the_loai in :theloais) " +
+            "and (:min is null or s.gia >= :min) " +
+            "and (:max is null or s.gia <= :max) " +
             "order by s.ngay_tao desc")
-    List<SanPham> findAllByTheLoaiAndGia(List<Integer> theloais, float min, float max);
+    List<SanPham> findSanPhamByTheloaiAndGiaSortByDate(List<Integer> theloais, Float min, Float max);
 
+//  Hiển thị sản phẩm theo loại và khoảng giá sắp xếp theo lượt bán giảm dần
+    @Query("select s from SanPham s " +
+            "left join DonHangChiTiet dhct on dhct.san_pham.ma_san_pham = s.ma_san_pham and dhct.trang_thai.ma_trang_thai = 4 " +
+            "where (:theloais is null or s.ma_the_loai in :theloais) " +
+            "and (:min is null or s.gia >= :min) " +
+            "and (:max is null or s.gia <= :max) " +
+            "group by s.ma_san_pham " +
+            "order by count(dhct.so_luong) desc")
+    List<SanPham> findSanPhamByTheLoaiAndGiaSortByBuyCount(List<Integer> theloais, Float min, Float max);
+
+//  Hiển thị sản phẩm theo loại và khoảng giá sắp xếp theo giá tăng dần
+    @Query("select s from SanPham s " +
+            "where (:theloais is null or s.ma_the_loai in :theloais) " +
+            "and (:min is null or s.gia >= :min) " +
+            "and (:max is null or s.gia <= :max) " +
+            "order by s.gia")
+    List<SanPham> findSanPhamByTheloaiAndGiaSortByGiaAesc(List<Integer> theloais, Float min, Float max);
+
+//  Hiển thị sản phẩm theo loại và khoảng giá sắp xếp theo giá giảm dần
+    @Query("select s from SanPham s " +
+            "where (:theloais is null or s.ma_the_loai in :theloais) " +
+            "and (:min is null or s.gia >= :min) " +
+            "and (:max is null or s.gia <= :max) " +
+            "order by s.gia desc")
+    List<SanPham> findSanPhamByTheloaiAndGiaSortByGiaDesc(List<Integer> theloais, Float min, Float max);
 }

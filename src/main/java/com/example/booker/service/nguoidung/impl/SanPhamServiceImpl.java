@@ -4,7 +4,7 @@ package com.example.booker.service.nguoidung.impl;
 import com.example.booker.dao.SanPhamDao;
 import com.example.booker.dao.SanPhamViewDao;
 import com.example.booker.entity.SanPham;
-import com.example.booker.entity.SanPhamView;
+import com.example.booker.entity.view.SanPhamView;
 import com.example.booker.service.nguoidung.SanPhamService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -48,7 +49,7 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
-    public List<SanPhamView> findByTheLoai(int ma_cua_hang, int id) {
+    public List<com.example.booker.entity.view.SanPhamView> findByTheLoai(int ma_cua_hang, int id) {
         return sanPhamViewDao.findSanPhamByTheLoai(ma_cua_hang, id);
     }
 
@@ -87,12 +88,82 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
-    public List<SanPham> findSanPhamByKeyword(String keyword) {
-        return sanPhamDao.findAllSanPhamByTen(keyword);
+    public List<SanPhamView> sanPhamByTrangThaiKhoa(int ma_cua_hang) {
+        return sanPhamViewDao.findAllSanPhamBiKhoa(ma_cua_hang);
     }
 
     @Override
-    public List<SanPham> findSanPhamByTheLoaiAndGia(List<Integer> dsTheLoai, float minPrice, float maxPrice) {
-        return sanPhamDao.findAllByTheLoaiAndGia(dsTheLoai, minPrice, maxPrice);
+    public List<SanPhamView> sanPhamByChoDuyet(int ma_cua_hang) {
+        return sanPhamViewDao.findAllSanPhamChoDuyet(ma_cua_hang);
+    }
+
+    @Override
+    public List<SanPhamView> sanPhamByHetHang(int ma_cua_hang) {
+        return sanPhamViewDao.findAllSanPhamHetHang(ma_cua_hang);
+    }
+
+    @Override
+    public List<SanPhamView> sanPhamByConHang(int ma_cua_hang) {
+        return sanPhamViewDao.findAllSanPhamConHang(ma_cua_hang);
+    }
+
+    @Override
+    public List<SanPhamView> searchSanPhamByTrangThai(int ma_cua_hang, int matt) {
+        return sanPhamViewDao.searchSanPhamByTrangThai(ma_cua_hang, matt);
+    }
+
+    @Override
+    public SanPham khoa_sanpham(int id, SanPham sanPham){
+        SanPham setting_sanPham = sanPhamDao.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("San phan kho ton tai id: " + id));
+        setting_sanPham.setTrang_thai_khoa(true);
+        return sanPhamDao.save(setting_sanPham);
+    }
+
+    //duyet san pham
+    @Override
+    public SanPham duyet_sanpham(int id, SanPham sanPham){
+        SanPham setting_sanPham = sanPhamDao.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("San phan kho ton tai id: " + id));
+        setting_sanPham.setTrang_thai_duyet(true);
+        return sanPhamDao.save(setting_sanPham);
+    }
+
+    @Override
+    public List<SanPhamView> findAllSanPhamByLuotBan(int ma_cua_hang) {
+        return sanPhamViewDao.findAllSanPhamByLuotBan(ma_cua_hang);
+    }
+
+    @Override
+    public List<SanPhamView> sanPham7Day(int ma_cua_hang) {
+        return sanPhamViewDao.sanPham7Day(ma_cua_hang);
+    }
+
+    @Override
+    public List<SanPham> findSanPhamByKeyword(String keyword) {
+        return sanPhamDao.findSanPhamByTen(keyword);
+    }
+
+    @Override
+    public List<SanPham> findSanPhamByTheLoaiAndGiaOrderBy(List<Integer> theloais, Float minPrice, Float maxPrice, String orderBy) {
+        List<SanPham> results = new ArrayList<>();
+        switch (orderBy) {
+            case "lastest":
+                results = sanPhamDao.findSanPhamByTheloaiAndGiaSortByDate(theloais, minPrice, maxPrice);
+                break;
+            case "buy count":
+                results = sanPhamDao.findSanPhamByTheLoaiAndGiaSortByBuyCount(theloais, minPrice, maxPrice);
+                break;
+            case "price asce":
+                results = sanPhamDao.findSanPhamByTheloaiAndGiaSortByGiaAesc(theloais, minPrice, maxPrice);
+                break;
+            case "price desc":
+                results = sanPhamDao.findSanPhamByTheloaiAndGiaSortByGiaDesc(theloais, minPrice, maxPrice);
+                break;
+            case "no sort":
+                results = sanPhamDao.findSanPhamByTheloaiAndGia(theloais, minPrice, maxPrice);
+                break;
+        }
+        return results;
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -30,9 +31,9 @@ public class NguoiDung_SPRestController {
         }
     }
 
-    @GetMapping("/{minPrice}-{maxPrice}/theloai")
-    public ResponseEntity<List<SanPham>> getSanPhamByTheLoaiAndGia(@RequestParam("ma_the_loai") List<Integer> the_loais,
-                                       @PathVariable("minPrice") float minPrice, @PathVariable("maxPrice") float maxPrice) {
-        return ResponseEntity.ok(sanPhamService.findSanPhamByTheLoaiAndGia(the_loais, minPrice, maxPrice));
+    @GetMapping("/{minPrice}-{maxPrice}/orderBy-{orderBy}/theloai")
+    public ResponseEntity<List<SanPham>> getSanPhamByTheLoaiAndGia(@RequestParam(value = "ma_the_loai", required = false) List<Integer> the_loais,
+                                   @PathVariable(value = "minPrice", required = false) Float minPrice, @PathVariable(value = "maxPrice", required = false) Float maxPrice, @PathVariable("orderBy") String orderBy) {
+        return ResponseEntity.ok(sanPhamService.findSanPhamByTheLoaiAndGiaOrderBy(the_loais.isEmpty() ? null : the_loais, minPrice, maxPrice, orderBy));
     }
 }

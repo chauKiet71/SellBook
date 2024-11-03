@@ -1,6 +1,7 @@
 package com.example.booker.service.nguoidung.impl;
 
 import com.example.booker.dao.CuaHangDao;
+import com.example.booker.dao.CuaHangViewDao;
 import com.example.booker.entity.CuaHang;
 import com.example.booker.service.nguoidung.CuaHangService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ public class CuaHangServiceImpl implements CuaHangService {
 
     @Autowired
     private CuaHangDao cuaHangDao;
+
+    @Autowired
+    private CuaHangViewDao cuaHangViewDao;
 
     @Override
     public CuaHang createCuaHang(CuaHang cuaHang) {
@@ -31,7 +35,7 @@ public class CuaHangServiceImpl implements CuaHangService {
 
     @Override
     public CuaHang getCuaHangById(int id) {
-        return cuaHangDao.findById(id).get();
+        return cuaHangViewDao.getCuaHangView(id);
     }
 
     @Override

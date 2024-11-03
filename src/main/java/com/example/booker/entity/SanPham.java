@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -33,17 +34,27 @@ public class SanPham {
     String tac_gia;
     LocalDate ngay_xuat_ban;
     int so_trang;
-    int ma_isbn;
+    Float ma_isbn;
     String phien_ban;
     String anh_san_pham;
     int ma_cua_hang;
+    Boolean trang_thai_duyet = Boolean.FALSE;
+    Boolean trang_thai_khoa = Boolean.FALSE;
+    int da_ban;
+    Float diem_trung_binh;
+    Float doanh_thu;
+    int con_hang;
+
+    @Column(name = "trang_thai_hoat_dong", insertable = false, updatable = false)
+
+    private Byte trang_thai_hoat_dong;
 
     @ManyToOne
     @JoinColumn(name = "ma_the_loai", insertable = false, updatable = false)
     TheLoai the_loai;
 
     @ManyToOne
-    @JoinColumn(name = "ma_cua_hang", insertable = false, updatable = false)
+    @JoinColumn(name = "ma_cua_hang", insertable=false, updatable=false)
     CuaHang cua_hang;
 
     @JsonIgnore
