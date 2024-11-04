@@ -28,10 +28,6 @@ public class DonHang {
     TaiKhoan tai_khoan;
 
     @ManyToOne
-    @JoinColumn(name = "id_tai_khoan", insertable=false, updatable=false )
-    TaiKhoan tai_khoan;
-
-    @ManyToOne
     @JoinColumn(name = "ma_dia_chi", insertable=false, updatable=false )
     DiaChi dia_chi;
 
@@ -39,7 +35,4 @@ public class DonHang {
     @OneToMany(mappedBy = "don_hang")
     List<DonHangChiTiet> donHangChiTiets;
 
-    @ManyToOne
-    @JoinColumn(name = "ma_dia_chi", insertable = false, updatable = false)
-    DiaChi dia_chi;
 }

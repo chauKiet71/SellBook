@@ -53,19 +53,19 @@ public class InHoaDonPdf {
             document.add(new Paragraph("Giao hàng hoả tốc").setFont(font).setFontSize(12).setTextAlignment(TextAlignment.CENTER));
 
             // Thông tin người gửi và người nhận
-            document.add(new Paragraph("Người gửi: " + dhct.getSanPham().getCua_hang().getTen_cua_hang())
+            document.add(new Paragraph("Người gửi: " + dhct.getSan_pham().getCua_hang().getTen_cua_hang())
                     .setFont(font).setFontSize(10).setBold());
-            document.add(new Paragraph(dhct.getSanPham().getCua_hang().getDia_chi_cua_hang())
+            document.add(new Paragraph(dhct.getSan_pham().getCua_hang().getDia_chi_cua_hang())
                     .setFont(font).setFontSize(10));
 
-            document.add(new Paragraph("Người nhận: " + dhct.getDonHang().getTai_khoan().getHo_ten())
+            document.add(new Paragraph("Người nhận: " + dhct.getDon_hang().getTai_khoan().getHo_ten())
                     .setFont(font).setFontSize(10).setBold());
-            document.add(new Paragraph(dhct.getDonHang().getTai_khoan().getSo_dt()+"\n" + dhct.getDonHang().getDia_chi().getDia_chi_gian_hang())
+            document.add(new Paragraph(dhct.getDon_hang().getTai_khoan().getSo_dt()+"\n" + dhct.getDon_hang().getDia_chi().getTen_dia_chi())
                     .setFont(font).setFontSize(10));
 
             // Chi tiết đơn hàng
             document.add(new Paragraph("Mã đơn hàng: " + dhct.getMa_don_hang_chi_tiet()).setFont(font).setFontSize(10).setBold());
-            document.add(new Paragraph("Ngày đặt hàng: " + dhct.getDonHang().getNgay_tao()).setFont(font).setFontSize(10));
+            document.add(new Paragraph("Ngày đặt hàng: " + dhct.getDon_hang().getNgay_tao()).setFont(font).setFontSize(10));
 
             // Bảng chi tiết sản phẩm
             float[] columnWidths = {3, 1, 2};
@@ -76,7 +76,7 @@ public class InHoaDonPdf {
             table.addCell(new Paragraph("Số lượng").setFont(font).setBold());
             table.addCell(new Paragraph("Giá").setFont(font).setBold());
 
-            table.addCell(new Paragraph(dhct.getSanPham().getTen_san_pham()).setFont(font));
+            table.addCell(new Paragraph(dhct.getSan_pham().getTen_san_pham()).setFont(font));
             table.addCell(new Paragraph(String.valueOf(dhct.getSo_luong())).setFont(font));
             table.addCell(new Paragraph(String.valueOf(dhct.getThanh_tien())).setFont(font));
 

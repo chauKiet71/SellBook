@@ -52,6 +52,11 @@ public class NguoiDungRestController {
             return ResponseEntity.notFound().build();
         }
     }
+//  Thêm địa chỉ
+    @PostMapping("/diachi")
+    public ResponseEntity<DiaChi> addDiaChi(@RequestBody DiaChi diaChi) {
+        return ResponseEntity.ok(diaChiDao.save(diaChi));
+    }
 //  Cập nhật địa chỉ
     @PutMapping("/{nguoidung_id}/diachi-{dia_chi_id}")
     public ResponseEntity<DiaChi> updateDiaChi(@RequestBody DiaChi diaChi, @PathVariable int nguoidung_id, @PathVariable int dia_chi_id) {

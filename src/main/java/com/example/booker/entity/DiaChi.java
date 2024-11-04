@@ -29,4 +29,6 @@ public class DiaChi {
     @OneToMany(mappedBy = "dia_chi")
     List<DonHang> donHangs;
 
+    private Boolean dia_chi_mac_dinh = false;
+
 }
