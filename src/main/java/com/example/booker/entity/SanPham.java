@@ -13,11 +13,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "san_pham")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "san_pham")
 public class SanPham {
 
     @Id
@@ -47,7 +47,6 @@ public class SanPham {
     int con_hang;
 
     @Column(name = "trang_thai_hoat_dong", insertable = false, updatable = false)
-
     private Byte trang_thai_hoat_dong;
 
     @ManyToOne

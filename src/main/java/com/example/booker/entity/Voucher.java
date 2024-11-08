@@ -22,7 +22,7 @@ public class Voucher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int ma_voucher;
+    int id_voucher;
     String ten_voucher;
     Float giam_gia;
     LocalDate ngay_bat_dau = LocalDate.now();

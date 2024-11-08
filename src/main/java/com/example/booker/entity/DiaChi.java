@@ -22,7 +22,7 @@ public class DiaChi {
     private String ten_dia_chi;
 
     @ManyToOne
-    @JoinColumn(name = "id_tai_khoan", insertable=false, updatable=false )
+    @JoinColumn(name = "id_tai_khoan")
     TaiKhoan tai_khoan;
 
     @JsonIgnore

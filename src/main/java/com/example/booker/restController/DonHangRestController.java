@@ -1,10 +1,10 @@
 package com.example.booker.restController;
 
-import com.example.booker.dao.DonHangChiTietDao;
-import com.example.booker.dao.DonHangDao;
+import com.example.booker.dao.*;
 import com.example.booker.entity.DonHang;
 import com.example.booker.entity.DonHangChiTiet;
 import com.example.booker.service.nguoidung.DonHangService;
+import com.example.booker.service.nguoidung.VoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +24,16 @@ public class DonHangRestController {
     DonHangDao donHangDao;
 
     @Autowired
-    DonHangService donHangService;
+    TaiKhoanDao taiKhoanDao;
+
+    @Autowired
+    DiaChiDao diaChiDao;
+
+    @Autowired
+    TrangThaiDonHangDao trangThaiDonHangDao;
+
+    @Autowired
+    VoucherService voucherService;
 
 //  Hiển thị đơn hàng chi tiết theo người dùng
     @GetMapping("/taikhoan-{ma_tai_khoan}")
@@ -46,20 +55,29 @@ public class DonHangRestController {
             return ResponseEntity.notFound().build();
         }
     }
-//  Thêm sản phẩm vào đơn hàng
-    @PostMapping
-    public ResponseEntity<DonHangChiTiet> add(@RequestBody DonHangChiTiet donHangChiTiet, @RequestBody DonHang donHang) {
-//       Lưu đơn hàng của người dùng đang xử lí(chưa bấm nút đặt hàng) vào session để lấy thông tin đơn hàng và set vào hàm
-        if (donHangService.isExistDonHang(donHang.getTai_khoan().getId_tai_khoan(), donHang.getNgay_tao(), 2)) {
-            donHangChiTiet.setSo_luong(donHangChiTiet.getSo_luong() + 1);
-            donHangChiTietDao.save(donHangChiTiet);
+//  Tạo đơn hàng mới và thêm đơn hàng chi tiết cho đơn hàng
+    @PostMapping("/taikhoan-{tkid}/diachi-{dcid}")
+    public ResponseEntity<List<DonHangChiTiet>> add(@RequestBody List<DonHangChiTiet> donHangChiTiets, @PathVariable int tkid, @PathVariable int dcid) {
+//       Lưu đơn hàng của người dùng đang xử lí
+        if ((taiKhoanDao.existsById(tkid)) && (diaChiDao.getListDiaChi(tkid).contains(diaChiDao.findById(dcid).get()))) {
+            DonHang donHang = new DonHang();
+            donHang.setTai_khoan(taiKhoanDao.findById(tkid).get());
+            donHang.setDia_chi(diaChiDao.findById(dcid).get());
+            donHang.setNgay_tao(new Date());
+            donHangChiTiets.forEach(donHangChiTiet -> {
+                if (voucherService.getVouchers(donHangChiTiet.getSan_pham().getMa_cua_hang()).contains(donHangChiTiet.getVoucher())) {
+                    donHangChiTiet.setThanh_tien(donHangChiTiet.getGia() * donHangChiTiet.getSo_luong());
+                    donHangChiTiet.setDon_hang(donHang);
+                    donHangChiTiet.setTrang_thai(trangThaiDonHangDao.findById(11).get());
+                }
+            });
+            donHangDao.save(donHang);
+            donHangChiTietDao.saveAll(donHangChiTiets);
+            return ResponseEntity.ok(donHangChiTiets);
         }
         else {
-            donHang.setNgay_tao(new Date());
-            donHangDao.save(donHang);
-            donHangChiTietDao.save(donHangChiTiet);
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(donHangChiTiet);
     }
 //  Cập nhật thông tin đơn hàng(chủ yếu số lượng)
     @PutMapping("/dhct-{id}")

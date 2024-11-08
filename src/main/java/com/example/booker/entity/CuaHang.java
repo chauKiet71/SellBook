@@ -31,7 +31,7 @@ public class CuaHang {
     Boolean trang_thai_khoa = Boolean.FALSE;
 
     @ManyToOne
-    @JoinColumn(name = "id_tai_khoan", insertable=false, updatable=false)
+    @JoinColumn(name = "id_tai_khoan")
     TaiKhoan tai_khoan;
 
     @JsonIgnore

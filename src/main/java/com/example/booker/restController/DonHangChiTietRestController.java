@@ -67,4 +67,10 @@ public class DonHangChiTietRestController {
         return donHangChiTietDao.countProductsByStoreAndStatus(storeID, maTrangThai);
     }
 
-}
+//    Lâý tất cả hóa đơn chi tiết thuộc cửa hàng
+    @GetMapping("/cuahang-{id}")
+    public List<DonHangChiTiet> get(@PathVariable int id) {
+        return donHangChiTietDao.findDonHangChiTietByCuaHang(id);
+    }
+
+ }

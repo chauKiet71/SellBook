@@ -18,6 +18,7 @@ public interface DonHangChiTietDao extends JpaRepository<DonHangChiTiet, Integer
             " WHERE s.ma_cua_hang = :ma_cua_hang AND dhct.trang_thai.ma_trang_thai = :ma_trang_thai ")
     List<DonHangChiTiet> findByMaTrangThaiAndMaCuaHang(int ma_cua_hang, int ma_trang_thai);
 
+
     //[NB] API lọc hóa đơn chi tiết theo theo ngày tạo
     @Query("SELECT dhct FROM DonHangChiTiet dhct " +
             "JOIN SanPham s " +
@@ -80,4 +81,13 @@ public interface DonHangChiTietDao extends JpaRepository<DonHangChiTiet, Integer
             "join SanPham sp on dhct.san_pham.ma_san_pham = sp.ma_san_pham " +
             "where dhct.trang_thai.ma_trang_thai = :ma_trang_thai and dh.tai_khoan.id_tai_khoan = :ma_tai_khoan")
     List<DonHangChiTiet> getDonHangChiTietByTTAndTK(int ma_tai_khoan, int ma_trang_thai);
+
+
+    @Query("SELECT dhct FROM DonHangChiTiet dhct " +
+            "JOIN SanPham s " +
+            "on s.ma_san_pham = dhct.san_pham.ma_san_pham " +
+            "WHERE s.ma_cua_hang = :ma_cua_hang")
+    List<DonHangChiTiet> findDonHangChiTietByCuaHang(int ma_cua_hang);
+
+
 }
