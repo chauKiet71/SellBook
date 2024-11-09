@@ -30,17 +30,17 @@ public class SanPham {
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     LocalDate ngay_tao = LocalDate.now();
-    int ma_the_loai;
     String tac_gia;
     LocalDate ngay_xuat_ban;
     int so_trang;
-    Float ma_isbn;
+    String ma_isbn;
     String phien_ban;
     String anh_san_pham;
     int ma_cua_hang;
     
     Boolean trang_thai_duyet = Boolean.FALSE;
     Boolean trang_thai_khoa = Boolean.FALSE;
+
     int da_ban;
     Float diem_trung_binh;
     Float doanh_thu;
@@ -50,7 +50,7 @@ public class SanPham {
     private Byte trang_thai_hoat_dong;
 
     @ManyToOne
-    @JoinColumn(name = "ma_the_loai", insertable = false, updatable = false)
+    @JoinColumn(name = "ma_the_loai") //, insertable=false, updatable=false
     TheLoai the_loai;
 
     @ManyToOne

@@ -73,4 +73,10 @@ public class DonHangChiTietRestController {
         return donHangChiTietDao.findDonHangChiTietByCuaHang(id);
     }
 
+//    ADMIN - lấy đơn hàng chi tiết theo trạng thái
+    @GetMapping("/admin/trangthai-{matt}")
+    public List<DonHangChiTiet> getAll(@PathVariable int matt) {
+        return donHangChiTietDao.getAllDonHangChiTietByTrangThai(matt);
+    }
+
  }

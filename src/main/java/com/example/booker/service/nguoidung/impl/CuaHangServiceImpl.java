@@ -29,13 +29,13 @@ public class CuaHangServiceImpl implements CuaHangService {
         return cuaHangDao.save(cuaHang);
     }
 
-    @Override
-    public CuaHang khoaCuaHang(int id, CuaHang cuaHang){
-        CuaHang settting_cuaHang = cuaHangDao.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Cua hang kho ton tai id: " + id));
-        settting_cuaHang.setTrang_thai_khoa(true);
-        return cuaHangDao.save(settting_cuaHang);
-    }
+//    @Override
+//    public CuaHang khoaCuaHang(int id, CuaHang cuaHang){
+//        CuaHang settting_cuaHang = cuaHangDao.findById(id)
+//                .orElseThrow(() -> new EntityNotFoundException("Cua hang kho ton tai id: " + id));
+//        settting_cuaHang.setTrang_thai_khoa(true);
+//        return cuaHangDao.save(settting_cuaHang);
+//    }
 
     @Override
     public List<CuaHang> getAllCuaHang() {

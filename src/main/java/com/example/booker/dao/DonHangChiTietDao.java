@@ -89,5 +89,7 @@ public interface DonHangChiTietDao extends JpaRepository<DonHangChiTiet, Integer
             "WHERE s.ma_cua_hang = :ma_cua_hang")
     List<DonHangChiTiet> findDonHangChiTietByCuaHang(int ma_cua_hang);
 
-
+//    ADMIN - lấy hóa đơn theo trạng thái
+    @Query("select dhct from DonHangChiTiet dhct where dhct.trang_thai.ma_trang_thai = :maTrangThai")
+    List<DonHangChiTiet> getAllDonHangChiTietByTrangThai(int maTrangThai);
 }

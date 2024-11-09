@@ -2,6 +2,7 @@ package com.example.booker.service.nguoidung;
 
 
 import com.example.booker.entity.SanPham;
+import com.example.booker.entity.TaiKhoanNganHang;
 import com.example.booker.entity.view.SanPhamView;
 import org.springframework.stereotype.Service;
 
@@ -54,4 +55,5 @@ public interface SanPhamService {
 
     //lấy ra sản phẩm bán chạy 7 ngày
     List<SanPhamView> sanPham7Day(int ma_cua_hang);
+
 }

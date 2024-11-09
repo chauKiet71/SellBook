@@ -28,7 +28,10 @@ public class CuaHang {
     Float diem_cua_hang;
     int tong_luot_ban;
     int luot_bao_cao;
-    Boolean trang_thai_khoa = Boolean.FALSE;
+
+    @ManyToOne
+    @JoinColumn(name = "ma_trang_thai_cua_hang", insertable=false, updatable=false)
+    TrangThaiCuaHang trang_thai_cua_hang;
 
     @ManyToOne
     @JoinColumn(name = "id_tai_khoan", insertable=false, updatable=false)
@@ -41,5 +44,4 @@ public class CuaHang {
     @JsonIgnore
     @OneToMany(mappedBy = "cua_hang")
     List<Voucher> voucherList;
-
 }

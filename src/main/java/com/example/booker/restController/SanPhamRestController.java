@@ -188,4 +188,20 @@ public class SanPhamRestController {
     public List<SanPham> getSanPhamByDoanhThu(@PathVariable int id) {
         return sanPhamDao.getListProductOrderByDoanhThuDesc(id);
     }
+
+//    ADMIN - lấy sản phẩm chờ duyê
+    @GetMapping("/cho-duyet")
+    public List<SanPham> getConHang(){
+        return sanPhamDao.getListProductConHang();
+    }
+    //    ADMIN - lấy sản phẩm bị khóa
+    @GetMapping("/vo-hieu-hoa")
+    public List<SanPham> getKhoa(){
+        return sanPhamDao.getListProductKhoa();
+    }
+    //    ADMIN - lấy sản phẩm còn hàng  va hết hangf
+    @GetMapping("/dang-ban")
+    public List<SanPham> DangBan(){
+        return sanPhamDao.getListBookDangBan();
+    }
 }

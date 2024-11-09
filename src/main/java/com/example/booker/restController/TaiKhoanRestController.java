@@ -1,5 +1,6 @@
 package com.example.booker.restController;
 
+import com.example.booker.dao.TaiKhoanDao;
 import com.example.booker.entity.TaiKhoan;
 import com.example.booker.request.ApiResponse;
 import com.example.booker.service.nguoidung.TaiKhoanService;
@@ -16,10 +17,20 @@ public class TaiKhoanRestController {
     @Autowired
     TaiKhoanService tkService;
 
+    @Autowired
+    TaiKhoanDao tkDao;
+
     @GetMapping
     public List<TaiKhoan> getAll() {
         return tkService.getTaiKhoans();
     }
+
+//    ADMIN - lấy tài khoản khách hàng: user , seller
+    @GetMapping("/customer-all")
+    public List<TaiKhoan> getAllCustomer() {
+        return tkDao.findAllCustomer();
+    }
+
     @GetMapping("/email/{email}")
     public ApiResponse<TaiKhoan> getByEmail(@PathVariable String email) {
         ApiResponse<TaiKhoan> response = new ApiResponse<>();
