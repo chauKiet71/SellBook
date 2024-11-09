@@ -36,7 +36,8 @@ public class InHoaDonPdf {
         DonHangChiTiet dhct = donHangChiTietDao.findById(id).get();
         try {
             // Đường dẫn tới file PDF xuất ra và file font
-            String dest = System.getProperty("user.home") + "/Desktop/hoa_don.pdf";
+//            String dest = System.getProperty("user.home") + "/Desktop/hoa_don.pdf";
+            String dest = "D:\\du_an_tot_nghiep\\hoa_don.pdf";
             String fontPath = "font/arial.ttf"; // Thay bằng đường dẫn chính xác tới file font của bạn
 
             PdfWriter writer = new PdfWriter(dest);

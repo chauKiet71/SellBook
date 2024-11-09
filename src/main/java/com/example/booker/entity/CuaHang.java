@@ -29,6 +29,7 @@ public class CuaHang {
     int tong_luot_ban;
     int luot_bao_cao;
     Boolean trang_thai_khoa = Boolean.FALSE;
+    String so_tai_khoan;
 
     @ManyToOne
     @JoinColumn(name = "id_tai_khoan", insertable=false, updatable=false)
@@ -42,4 +43,11 @@ public class CuaHang {
     @OneToMany(mappedBy = "cua_hang")
     List<Voucher> voucherList;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "cua_hang")
+    List<GiaoDichCuaHang> giaoDichCuaHangList;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "cua_hang")
+    List<TaiKhoanNganHang> tai_khoan_ngan_hang;
 }
