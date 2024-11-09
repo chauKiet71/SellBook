@@ -1,6 +1,7 @@
 package com.example.booker.dao;
 
 import com.example.booker.entity.DonHangChiTiet;
+import com.example.booker.entity.view.DonHangChiTietView;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
@@ -88,6 +89,11 @@ public interface DonHangChiTietDao extends JpaRepository<DonHangChiTiet, Integer
             "on s.ma_san_pham = dhct.san_pham.ma_san_pham " +
             "WHERE s.ma_cua_hang = :ma_cua_hang")
     List<DonHangChiTiet> findDonHangChiTietByCuaHang(int ma_cua_hang);
+
+
+    @Query( "SELECT dhct FROM DonHangChiTietView dhct " +
+            "WHERE dhct.ma_cua_hang = :ma_cua_hang ")
+    List<DonHangChiTietView> findOrderCountByStoreAndDate(int ma_cua_hang);
 
 //    ADMIN - lấy hóa đơn theo trạng thái
     @Query("select dhct from DonHangChiTiet dhct where dhct.trang_thai.ma_trang_thai = :maTrangThai")

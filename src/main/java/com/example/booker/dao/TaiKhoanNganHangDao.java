@@ -13,4 +13,6 @@ public interface TaiKhoanNganHangDao extends JpaRepository<TaiKhoanNganHang, Int
         TaiKhoanNganHang findByMaCuaHang(int ma_cua_hang);
 
 
+//    @Query("SELECT tk FROM TaiKhoanNganHang tk WHERE tk.ma_cua_hang = :ma_cua_hang")
+//    List<TaiKhoanNganHang> findByMaCuaHang(int ma_cua_hang);
 }

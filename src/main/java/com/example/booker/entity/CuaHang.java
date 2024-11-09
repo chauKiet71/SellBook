@@ -33,6 +33,9 @@ public class CuaHang {
     @JoinColumn(name = "ma_trang_thai_cua_hang", insertable=false, updatable=false)
     TrangThaiCuaHang trang_thai_cua_hang;
 
+    Boolean trang_thai_khoa = Boolean.FALSE;
+    String so_tai_khoan;
+
     @ManyToOne
     @JoinColumn(name = "id_tai_khoan", insertable=false, updatable=false)
     TaiKhoan tai_khoan;
@@ -44,4 +47,12 @@ public class CuaHang {
     @JsonIgnore
     @OneToMany(mappedBy = "cua_hang")
     List<Voucher> voucherList;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "cua_hang")
+    List<GiaoDichCuaHang> giaoDichCuaHangList;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "cua_hang")
+    List<TaiKhoanNganHang> tai_khoan_ngan_hang;
 }

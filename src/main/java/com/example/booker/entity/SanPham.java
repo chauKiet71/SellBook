@@ -46,8 +46,8 @@ public class SanPham {
     Float doanh_thu;
     int con_hang;
 
-    @Column(name = "trang_thai_hoat_dong", insertable = false, updatable = false)
-    private Byte trang_thai_hoat_dong;
+
+     int trang_thai_hoat_dong;
 
     @ManyToOne
     @JoinColumn(name = "ma_the_loai") //, insertable=false, updatable=false

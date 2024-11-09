@@ -38,6 +38,4 @@ public class TaiKhoanNganHangRestController {
         return taiKhoanNganHangDao.findByMaCuaHang(maCh);
     }
 
-
-
 }
