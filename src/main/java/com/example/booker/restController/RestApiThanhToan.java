@@ -1,8 +1,10 @@
 package com.example.booker.restController;
 
 import com.example.booker.dao.TransactionDao;
+import com.example.booker.dao.ViDao;
 import com.example.booker.entity.Transaction;
 import com.example.booker.entity.TransactionResponse;
+import com.example.booker.entity.Vi;
 import com.example.booker.request.ApiResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -14,6 +16,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -29,11 +32,14 @@ public class RestApiThanhToan {
     @Autowired
     TransactionDao transactionDao;
 
+    @Autowired
+    ViDao viDao;
+
     private static final String URL = "https://api.web2m.com/historyapiacbv3/Kiet999/12897891/654249E7-3D9B-5306-E6DA-6DA177FD9882";
     private static final String API_KEY = "654249E7-3D9B-5306-E6DA-6DA177FD9882"; // Đặt API key nếu cần
 
-    @GetMapping("/api/v1/get-thanhtoan")
-    public ResponseEntity<String> proxyApi() {
+    @GetMapping("/api/v1/get-thanhtoan/{id_vi}")
+    public ResponseEntity<String> proxyApi(@PathVariable("id_vi") String id_vi) {
         // Thiết lập các headers
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + API_KEY); // Thay đổi nếu API yêu cầu header khác
@@ -46,23 +52,8 @@ public class RestApiThanhToan {
         try {
             ObjectMapper mapper = new ObjectMapper();
             ApiResponse<List<Transaction>> resp = mapper.readValue(response.getBody(), ApiResponse.class);
-//            List<Transaction> transactions = resp.getTransactions();
             for (Transaction transaction : resp.getTransactions()) {
-                System.out.println("Transaction ID: " + transaction.getTransaction_id());
-                System.out.println("Amount: " + transaction.getAmount());
-                System.out.println("Description: " + transaction.getDescription());
-                System.out.println("Transaction Date: " + transaction.getTransactionDate());
-                System.out.println("---------------------------");
-
-                String start = "70592550064 0327142982 ";
-                String result = response.getBody().substring(response.getBody().indexOf(start) + start.length());
-                int endIndex = result.indexOf(" GD");
-                if (endIndex != -1) {
-                    result = result.substring(0, endIndex);
-                }
-                result = result.trim();
-                System.out.println("Result id vi: " + result);
-                transaction.setId_vi(result);
+                transaction.setId_vi(id_vi);
                 transaction.setTransaction_id(transaction.getTransaction_id());
                 transaction.setAmount(transaction.getAmount());
                 transaction.setDescription(transaction.getDescription());
@@ -75,5 +66,10 @@ public class RestApiThanhToan {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @GetMapping("/api/v1/get-vi/{id}")
+    public Vi proxyApi2(@PathVariable int id) {
+        return viDao.findByTaiKhoan(id);
     }
 }

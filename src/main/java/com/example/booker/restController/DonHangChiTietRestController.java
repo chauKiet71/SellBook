@@ -2,11 +2,13 @@ package com.example.booker.restController;
 
 import com.example.booker.dao.DonHangChiTietDao;
 import com.example.booker.entity.DonHangChiTiet;
+import com.example.booker.entity.view.DonHangChiTietView;
 import com.example.booker.service.nguoidung.DonHangChiTietService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -73,4 +75,9 @@ public class DonHangChiTietRestController {
         return donHangChiTietDao.findDonHangChiTietByCuaHang(id);
     }
 
- }
+    @GetMapping("/thongke-donhang/{mach}")
+    public List<DonHangChiTietView> getThongKe(@PathVariable("mach") int mach){
+        return donHangChiTietDao.findOrderCountByStoreAndDate(mach);
+    }
+
+}
