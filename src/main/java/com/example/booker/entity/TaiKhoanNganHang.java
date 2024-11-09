@@ -19,7 +19,7 @@ public class TaiKhoanNganHang {
     private int id_tai_khoan;
     private int ma_cua_hang;
 
-//    @ManyToOne
-//    @JoinColumn(name = "ma_cua_hang", insertable = false, updatable = false)
-//    private CuaHang cua_hang;
+    @ManyToOne
+    @JoinColumn(name = "ma_cua_hang", insertable = false, updatable = false)
+    private CuaHang cua_hang;
 }
