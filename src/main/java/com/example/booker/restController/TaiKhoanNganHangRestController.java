@@ -5,11 +5,8 @@ import com.example.booker.entity.TaiKhoanNganHang;
 import com.example.booker.service.nguoidung.SanPhamService;
 import com.example.booker.service.nguoidung.TaiKhoanNganHangService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.jdbc.metadata.DataSourcePoolMetadataProvidersConfiguration;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @CrossOrigin("*")

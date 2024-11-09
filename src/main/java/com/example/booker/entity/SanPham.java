@@ -47,7 +47,7 @@ public class SanPham {
     int con_hang;
 
 
-     int trang_thai_hoat_dong;
+     Byte trang_thai_hoat_dong;
 
     @ManyToOne
     @JoinColumn(name = "ma_the_loai") //, insertable=false, updatable=false

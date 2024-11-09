@@ -10,7 +10,7 @@ public interface TaiKhoanNganHangService {
 
     TaiKhoanNganHang create(TaiKhoanNganHang bank);
 
-    List<TaiKhoanNganHang> get(int ma_cua_hang);
+//    List<TaiKhoanNganHang> get(int ma_cua_hang);
 
     TaiKhoanNganHang update(TaiKhoanNganHang tk);
 
