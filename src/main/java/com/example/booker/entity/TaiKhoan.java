@@ -37,11 +37,11 @@ public class TaiKhoan {
 //    @ManyToOne
 //    @JoinColumn(name = "ma_vai_tro", referencedColumnName = "ma_vai_tro")
 //    private VaiTro ma_vai_tro;
-    private Boolean trang_thai_tk = Boolean.TRUE;
+    private Boolean trang_thai_tk = Boolean.FALSE;
 
     @ManyToOne
     @JoinColumn(name = "ma_vai_tro")
-    private VaiTro ma_vai_tro;
+    private VaiTro vai_tro;
 
     // Đặt giá trị ngày tạo mặc định là ngày hiện tại
     @PrePersist

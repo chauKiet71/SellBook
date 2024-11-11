@@ -22,6 +22,7 @@ public class DanhGia {
     int diem_danh_gia;
     String noi_dung_danh_gia;
     LocalDate ngay_danh_gia = LocalDate.now();
+    Boolean an_danh_gia = Boolean.FALSE;
 
     @ManyToOne
     @JoinColumn(name = "ma_don_hang_chi_tiet")

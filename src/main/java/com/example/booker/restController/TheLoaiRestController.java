@@ -36,13 +36,19 @@ public class TheLoaiRestController {
         return response;
     }
 
-    @PostMapping()
+    @PostMapping("/add")
     public ApiResponse<TheLoai> create(@RequestBody @Valid TheLoai theLoais) {
         ApiResponse<TheLoai> response = new ApiResponse<>();
         if (tlDao.existsByTenTheLoai(theLoais.getTen_the_loai()))
             throw new RuntimeException("CATEGORY EXISTS");
         response.setResult(tlDao.save(theLoais));
         return response;
+    }
+
+//    Cập nhật thể loại
+    @PutMapping("/update")
+    public TheLoai update(@RequestBody TheLoai theLoais) {
+        return tlDao.save(theLoais);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -67,6 +73,23 @@ public class TheLoaiRestController {
         return response;
     }
 
+//    Hàm đếm số lượng thể loại
+    @GetMapping("/count-all-category")
+    public Long countAllCategorys(){
+        return tlDao.countAllCategory();
+    }
+
+//    đếm số lượng sản phâ thuộc cửa hàng
+    @GetMapping("/count-{matl}")
+    public Long count(@PathVariable int matl) {
+        return tlDao.countByTheLoaiId(matl);
+    }
+
+//    Tìm kiếm thể loại theo tên
+    @GetMapping("/search-{name}")
+    public List<TheLoai> search(@PathVariable String name) {
+        return tlDao.findByTenTheLoaiContaining(name);
+    }
 
 
     //    @PostMapping()

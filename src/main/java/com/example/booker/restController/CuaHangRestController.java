@@ -1,6 +1,7 @@
 package com.example.booker.restController;
 
 
+import com.example.booker.dao.CuaHangDao;
 import com.example.booker.entity.CuaHang;
 import com.example.booker.service.nguoidung.CuaHangService;
 import com.example.booker.request.ApiResponse;
@@ -18,6 +19,9 @@ public class CuaHangRestController {
 
     @Autowired
     CuaHangService cuaHangService;
+
+    @Autowired
+    CuaHangDao cuaHangDao;
 
     @GetMapping()
     public List<CuaHang> getCuaHang() {
@@ -39,13 +43,14 @@ public class CuaHangRestController {
         return response;
     }
 
-    @PutMapping("/khoa/{id}")
-    public ApiResponse<CuaHang> updateKhoaCuaHang(@RequestBody CuaHang cuaHang, @PathVariable int id){
-        ApiResponse<CuaHang> response = new ApiResponse<>();
-        response.setMessage("Khóa cửa hàng thành công");
-        response.setResult(cuaHangService.khoaCuaHang(id,cuaHang));
-        return response;
-    }
+//    @PutMapping("/khoa/{id}")
+//    public ApiResponse<CuaHang> updateKhoaCuaHang(@RequestBody CuaHang cuaHang, @PathVariable int id){
+//        ApiResponse<CuaHang> response = new ApiResponse<>();
+//        response.setMessage("Khóa cửa hàng thành công");
+//        response.setResult(cuaHangService.khoaCuaHang(id,cuaHang));
+//        return response;
+//    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteCuaHang(@PathVariable int id) {
         cuaHangService.deleteCuaHang(id);
@@ -61,4 +66,34 @@ public class CuaHangRestController {
         response.setResult(cuaHangService.getCuaHangById(id));
         return response;
     }
+
+//    ADMIN - lấy cửa hàng theo mã trạng thái cửa hàng
+    @GetMapping("/trang_thai/{id}")
+    public List<CuaHang> getCuaHangByDuyet(@PathVariable("id") Integer id) {
+        return cuaHangDao.getCuaHangByTrangThai(id);
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

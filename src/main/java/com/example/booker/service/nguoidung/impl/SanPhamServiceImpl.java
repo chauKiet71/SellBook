@@ -2,9 +2,8 @@ package com.example.booker.service.nguoidung.impl;
 
 
 import com.example.booker.dao.SanPhamDao;
-import com.example.booker.dao.SanPhamViewDao;
 import com.example.booker.entity.SanPham;
-import com.example.booker.entity.view.SanPhamView;
+import com.example.booker.entity.SanPham;
 import com.example.booker.service.nguoidung.SanPhamService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,7 @@ public class SanPhamServiceImpl implements SanPhamService {
 
 
     @Override
-    public List<SanPhamView> findAll(int ma_san_pham) {
+    public List<SanPham> findAll(int ma_san_pham) {
         return sanPhamViewDao.findAllSanPham(ma_san_pham);
     }
 
@@ -39,7 +38,7 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
-    public List<SanPhamView> findByTenSanPham(int ma_san_pham, String tenSanPham) {
+    public List<SanPham> findByTenSanPham(int ma_san_pham, String tenSanPham) {
         return sanPhamViewDao.findByTenSanPhamContainingIgnoreCase(ma_san_pham, tenSanPham);
     }
 
@@ -49,12 +48,12 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
-    public List<com.example.booker.entity.view.SanPhamView> findByTheLoai(int ma_cua_hang, int id) {
+    public List<SanPham> findByTheLoai(int ma_cua_hang, int id) {
         return sanPhamViewDao.findSanPhamByTheLoai(ma_cua_hang, id);
     }
 
     @Override
-    public List<SanPhamView> findByCreateDate(int ma_cua_hang, LocalDate createDate) {
+    public List<SanPham> findByCreateDate(int ma_cua_hang, LocalDate createDate) {
         return sanPhamViewDao.findSanPhamByCreateDate(ma_cua_hang, createDate);
     }
 
@@ -88,27 +87,27 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
-    public List<SanPhamView> sanPhamByTrangThaiKhoa(int ma_cua_hang) {
+    public List<SanPham> sanPhamByTrangThaiKhoa(int ma_cua_hang) {
         return sanPhamViewDao.findAllSanPhamBiKhoa(ma_cua_hang);
     }
 
     @Override
-    public List<SanPhamView> sanPhamByChoDuyet(int ma_cua_hang) {
+    public List<SanPham> sanPhamByChoDuyet(int ma_cua_hang) {
         return sanPhamViewDao.findAllSanPhamChoDuyet(ma_cua_hang);
     }
 
     @Override
-    public List<SanPhamView> sanPhamByHetHang(int ma_cua_hang) {
+    public List<SanPham> sanPhamByHetHang(int ma_cua_hang) {
         return sanPhamViewDao.findAllSanPhamHetHang(ma_cua_hang);
     }
 
     @Override
-    public List<SanPhamView> sanPhamByConHang(int ma_cua_hang) {
+    public List<SanPham> sanPhamByConHang(int ma_cua_hang) {
         return sanPhamViewDao.findAllSanPhamConHang(ma_cua_hang);
     }
 
     @Override
-    public List<SanPhamView> searchSanPhamByTrangThai(int ma_cua_hang, int matt) {
+    public List<SanPham> searchSanPhamByTrangThai(int ma_cua_hang, int matt) {
         return sanPhamViewDao.searchSanPhamByTrangThai(ma_cua_hang, matt);
     }
 
@@ -130,7 +129,7 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
-    public List<SanPhamView> findAllSanPhamByLuotBan(int ma_cua_hang) {
+    public List<SanPham> findAllSanPhamByLuotBan(int ma_cua_hang) {
         return sanPhamViewDao.findAllSanPhamByLuotBan(ma_cua_hang);
     }
 

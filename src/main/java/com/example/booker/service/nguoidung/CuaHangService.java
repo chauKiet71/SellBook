@@ -17,7 +17,7 @@ public interface CuaHangService {
     //        setting_sanPham.setTrang_thai_khoa(true);
     //        return sanPhamDao.save(setting_sanPham);
     //    }
-    CuaHang khoaCuaHang(int id, CuaHang cuaHang);
+//    CuaHang khoaCuaHang(int id, CuaHang cuaHang);
 
     List<CuaHang> getAllCuaHang();
 
