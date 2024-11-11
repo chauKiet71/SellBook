@@ -162,14 +162,14 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
 
 //  Hiển thị sản phẩm theo loại và khoảng giá
     @Query("select s from SanPham s " +
-            "where (:theloais is null or s.ma_the_loai in :theloais) " +
+            "where (:theloais is null or s.the_loai.ma_the_loai in :theloais) " +
             "and (:min is null or s.gia >= :min) " +
             "and (:max is null or s.gia <= :max)")
     List<SanPham> findSanPhamByTheloaiAndGia(List<Integer> theloais, Float min, Float max);
 
 //  Hiển thị sản phẩm theo loại và khoảng giá sắp xếp theo ngày tạo mới nhất
     @Query("select s from SanPham s " +
-            "where (:theloais is null or s.ma_the_loai in :theloais) " +
+            "where (:theloais is null or s.the_loai.ma_the_loai in :theloais) " +
             "and (:min is null or s.gia >= :min) " +
             "and (:max is null or s.gia <= :max) " +
             "order by s.ngay_tao desc")
@@ -178,7 +178,7 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
 //  Hiển thị sản phẩm theo loại và khoảng giá sắp xếp theo lượt bán giảm dần
     @Query("select s from SanPham s " +
             "left join DonHangChiTiet dhct on dhct.san_pham.ma_san_pham = s.ma_san_pham and dhct.trang_thai.ma_trang_thai = 4 " +
-            "where (:theloais is null or s.ma_the_loai in :theloais) " +
+            "where (:theloais is null or s.the_loai.ma_the_loai in :theloais) " +
             "and (:min is null or s.gia >= :min) " +
             "and (:max is null or s.gia <= :max) " +
             "group by s.ma_san_pham " +
@@ -187,7 +187,7 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
 
 //  Hiển thị sản phẩm theo loại và khoảng giá sắp xếp theo giá tăng dần
     @Query("select s from SanPham s " +
-            "where (:theloais is null or s.ma_the_loai in :theloais) " +
+            "where (:theloais is null or s.the_loai.ma_the_loai in :theloais) " +
             "and (:min is null or s.gia >= :min) " +
             "and (:max is null or s.gia <= :max) " +
             "order by s.gia")
@@ -195,7 +195,7 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
 
 //  Hiển thị sản phẩm theo loại và khoảng giá sắp xếp theo giá giảm dần
     @Query("select s from SanPham s " +
-            "where (:theloais is null or s.ma_the_loai in :theloais) " +
+            "where (:theloais is null or s.the_loai.ma_the_loai in :theloais) " +
             "and (:min is null or s.gia >= :min) " +
             "and (:max is null or s.gia <= :max) " +
             "order by s.gia desc")

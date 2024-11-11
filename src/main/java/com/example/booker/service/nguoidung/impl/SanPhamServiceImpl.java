@@ -21,7 +21,7 @@ public class SanPhamServiceImpl implements SanPhamService {
     SanPhamDao sanPhamDao;
 
     @Autowired
-    SanPhamViewDao sanPhamViewDao;
+    SanPhamDao sanPhamViewDao;
 
 
     @Override
@@ -133,10 +133,10 @@ public class SanPhamServiceImpl implements SanPhamService {
         return sanPhamViewDao.findAllSanPhamByLuotBan(ma_cua_hang);
     }
 
-    @Override
-    public List<SanPhamView> sanPham7Day(int ma_cua_hang) {
-        return sanPhamViewDao.sanPham7Day(ma_cua_hang);
-    }
+//    @Override
+//    public List<SanPhamView> sanPham7Day(int ma_cua_hang) {
+//        return sanPhamViewDao.sanPham7Day(ma_cua_hang);
+//    }
 
     @Override
     public List<SanPham> findSanPhamByKeyword(String keyword) {

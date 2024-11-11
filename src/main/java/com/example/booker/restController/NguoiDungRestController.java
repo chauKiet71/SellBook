@@ -45,7 +45,7 @@ public class NguoiDungRestController {
         if (taikhoanDao.existsById(nguoidung_id)) {
             TaiKhoan tkLogined = taikhoanDao.findById(nguoidung_id).get();
             VaiTro vaiTroND = vaiTroDao.findById(2).get();
-            tkLogined.setMa_vai_tro(vaiTroND);
+            tkLogined.setVai_tro(vaiTroND);
             cuaHang.setTai_khoan(tkLogined);
             cuaHangDao.save(cuaHang);
             taikhoanDao.save(tkLogined);
