@@ -41,7 +41,7 @@ public class SanPham {
     Boolean trang_thai_duyet = Boolean.FALSE;
     Boolean trang_thai_khoa = Boolean.FALSE;
 
-    int da_ban;
+    Integer da_ban;
     Float diem_trung_binh;
     Float doanh_thu;
     int con_hang;

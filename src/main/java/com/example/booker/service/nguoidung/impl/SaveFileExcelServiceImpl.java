@@ -2,6 +2,7 @@ package com.example.booker.service.nguoidung.impl;
 
 import com.example.booker.dao.SanPhamDao;
 import com.example.booker.dao.SanPhamViewDao;
+import com.example.booker.entity.SanPham;
 import com.example.booker.entity.view.SanPhamView;
 import com.example.booker.service.nguoidung.SaveFileExcelService;
 import org.apache.poi.ss.usermodel.*;
@@ -22,12 +23,11 @@ public class SaveFileExcelServiceImpl implements SaveFileExcelService {
 
     @Autowired
     SanPhamDao sanPhamDao;
-    @Autowired
-    private SanPhamViewDao sanPhamViewDao;
+
 
     @Override
     public void saveSanPhamExcel(int ma_cua_hang, String filePath) {
-        List<SanPhamView> listSp = sanPhamViewDao.findAllSanPham(ma_cua_hang);
+        List<SanPham> listSp = sanPhamDao.findAllSanPham(ma_cua_hang);
 
         try {
             FileOutputStream fileOut = new FileOutputStream(filePath);
@@ -56,12 +56,12 @@ public class SaveFileExcelServiceImpl implements SaveFileExcelService {
             }
             //Tao data row
             int rowIndex = 1;
-            for (SanPhamView sanPham : listSp) {
+            for (SanPham sanPham : listSp) {
                 Row row = sheet.createRow(rowIndex++);
                 row.createCell(0).setCellValue(sanPham.getMa_san_pham());
                 row.createCell(1).setCellValue(sanPham.getTen_san_pham());
                 row.createCell(2).setCellValue(sanPham.getTac_gia());
-                row.createCell(3).setCellValue(sanPham.getTen_the_loai());
+                row.createCell(3).setCellValue(sanPham.getThe_loai().getTen_the_loai());
                 row.createCell(4).setCellValue(sanPham.getGia());
                 Cell cellNgayTao = row.createCell(5);
                 if (sanPham.getNgay_tao() != null) {
