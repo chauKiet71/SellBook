@@ -69,6 +69,12 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
             "WHERE c.ma_cua_hang = :ma_cua_hang  ORDER BY s.ma_san_pham desc")
     List<SanPham> findAllSanPham(int ma_cua_hang);
 
+    //Phương thức truy vấn sản phẩm theo cửa hàng
+    @Query("SELECT s FROM SanPham s " +
+            "LEFT JOIN CuaHang c on c.ma_cua_hang = s.ma_cua_hang " +
+            "WHERE c.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = :matt  ORDER BY s.ma_san_pham desc")
+    List<SanPham>findSanPhamByTrangThai(int ma_cua_hang, int matt);
+
     // Phương thức tìm kiếm sản phẩm theo tên không phân biệt hoa thường và trả về danh sách
     @Query("SELECT p FROM SanPham p " +
             "JOIN CuaHang c on c.ma_cua_hang = p.ma_cua_hang " +
