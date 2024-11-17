@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@RestController
-@CrossOrigin("*")
-@RequestMapping("/api/v1/product")
-public class SanPhamRestController {
+    @RestController
+    @CrossOrigin("*")
+    @RequestMapping("/api/v1/product")
+    public class SanPhamRestController {
 
     @Autowired
     SanPhamService sanPhamService;
@@ -63,8 +63,8 @@ public class SanPhamRestController {
         return response;
     }
 
-    @PutMapping("/cuahang-{id}/{idsp}")
-    public ApiResponse<SanPham> update(@PathVariable Integer idsp, @RequestBody SanPham sanPham) {
+    @PutMapping("/update")
+    public ApiResponse<SanPham> update(@RequestBody SanPham sanPham) {
         ApiResponse<SanPham> response = new ApiResponse<>();
         response.setMessage("Cập nhật sản phẩm thành công");
         response.setResult(sanPhamService.update(sanPham));
