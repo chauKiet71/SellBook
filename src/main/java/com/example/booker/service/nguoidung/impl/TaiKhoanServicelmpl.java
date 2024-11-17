@@ -9,6 +9,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaiKhoanServicelmpl implements TaiKhoanService {
@@ -60,6 +61,42 @@ public class TaiKhoanServicelmpl implements TaiKhoanService {
         } catch (EmptyResultDataAccessException ex) {
             throw new EntityNotFoundException("not tk id: " + id);
         }
+    }
+    @Override
+    public TaiKhoan validateLogin(String email, String matKhau) {
+        Optional<TaiKhoan> optionalUser = taiKhoanDao.findByEmail(email);
+
+        // Kiểm tra nếu tài khoản tồn tại và mật khẩu khớp
+        if (optionalUser.isPresent()) {
+            TaiKhoan user = optionalUser.get();
+            if (user.getMat_khau().equals(matKhau)) { // Kiểm tra mật khẩu
+                return user; // Đăng nhập thành công
+            }
+        }
+        return null; // Đăng nhập thất bại
+    }
+    @Override
+    public TaiKhoan saveTaiKhoan(TaiKhoan taiKhoan) {
+        if (taiKhoanDao.existsByEmail(taiKhoan.getEmail())) {
+            throw new RuntimeException("Email đã tồn tại.");
+        }
+        return taiKhoanDao.save(taiKhoan);
+    }
+    @Override
+    public boolean changePassword(int idTaiKhoan, String oldPassword, String newPassword) {
+        // Tìm tài khoản theo id
+        TaiKhoan taiKhoan = taiKhoanDao.findById(idTaiKhoan)
+                .orElseThrow(() -> new RuntimeException("Tài khoản không tồn tại"));
+
+        // Kiểm tra mật khẩu cũ
+        if (!taiKhoan.getMat_khau().equals(oldPassword)) {
+            return false; // Mật khẩu cũ không đúng
+        }
+
+        // Cập nhật mật khẩu mới
+        taiKhoan.setMat_khau(newPassword);
+        taiKhoanDao.save(taiKhoan);
+        return true;
     }
 
 

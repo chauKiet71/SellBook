@@ -24,4 +24,6 @@ public interface CuaHangService {
     CuaHang getCuaHangById(int id);
 
     void deleteCuaHang(int id);
+
+    // thong tin cua hang trong chi tiet san pham;
 }

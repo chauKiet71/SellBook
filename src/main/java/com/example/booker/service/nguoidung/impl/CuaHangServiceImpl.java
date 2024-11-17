@@ -42,13 +42,18 @@ public class CuaHangServiceImpl implements CuaHangService {
         return cuaHangDao.findAll();
     }
 
-    @Override
-    public CuaHang getCuaHangById(int id) {
-        return cuaHangViewDao.getCuaHangView(id);
-    }
+//    @Override
+//    public CuaHang getCuaHangById(int id) {
+//        return cuaHangViewDao.getCuaHangView(id);
+//    }
 
     @Override
     public void deleteCuaHang(int id) {
         cuaHangDao.deleteById(id);
+    }
+
+    @Override
+    public CuaHang getCuaHangById(int id) {
+        return cuaHangDao.findById(id).orElse(null);
     }
 }

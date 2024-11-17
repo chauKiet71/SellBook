@@ -3,7 +3,7 @@ package com.example.booker.restController;
 import com.example.booker.dao.SanPhamDao;
 import com.example.booker.dao.SanPhamViewDao;
 import com.example.booker.entity.SanPham;
-import com.example.booker.entity.view.SanPhamView;
+import com.example.booker.entity.SanPham;
 import com.example.booker.service.nguoidung.SanPhamService;
 import com.example.booker.service.nguoidung.SaveFileExcelService;
 import com.example.booker.request.ApiResponse;
@@ -31,7 +31,7 @@ public class SanPhamRestController {
     private SanPhamDao sanPhamDao;
 
     @Autowired
-    private SanPhamViewDao sanPhamViewDao;
+    private SanPhamDao sanPhamViewDao;
 
     @GetMapping("/allinfo")
     public List<SanPham> getAllSanPham(){
@@ -63,8 +63,8 @@ public class SanPhamRestController {
         return response;
     }
 
-    @PutMapping("/update")
-    public ApiResponse<SanPham> update(@RequestBody SanPham sanPham) {
+    @PutMapping("/cuahang-{id}/{idsp}")
+    public ApiResponse<SanPham> update(@PathVariable Integer idsp, @RequestBody SanPham sanPham) {
         ApiResponse<SanPham> response = new ApiResponse<>();
         response.setMessage("Cập nhật sản phẩm thành công");
         response.setResult(sanPhamService.update(sanPham));
@@ -89,10 +89,6 @@ public class SanPhamRestController {
         response.setResult(sanPhamService.duyet_sanpham(idsp, sanPham));
         return response;    
     }
-
-
-
-
     @DeleteMapping("/cuahang-{id}/{idsp}")
     public ResponseEntity<ApiResponse<Void>> deleteSanPham(@PathVariable int idsp) {
         sanPhamService.deleteById(idsp);
@@ -107,22 +103,22 @@ public class SanPhamRestController {
     }
 
     @GetMapping("/cuahang-{id}/tim-kiem/tensanpham")
-    public List<SanPhamView> SearchSanPhamByTenSanPham(@PathVariable int id, @RequestParam String ten) {
+    public List<SanPham> SearchSanPhamByTenSanPham(@PathVariable int id, @RequestParam String ten) {
         if (!sanPhamDao.existBySanPham(id, ten)) {
             throw new RuntimeException("Product not found");
         }
         return sanPhamService.findByTenSanPham(id, ten);
     }
 
-    @GetMapping("/cuahang-{id}/tim-kiem/theloai")
-    public List<SanPhamView> SearchSanPhamByTheLoai(@PathVariable int id, @RequestParam int category) {
+    @GetMapping("/change-{id}/tim-kiem/theloai")
+    public List<SanPham> SearchSanPhamByTheLoai(@PathVariable int id, @RequestParam int category) {
         return sanPhamService.findByTheLoai(id, category);
     }
 
     @GetMapping("/cuahang-{id}/tim-kiem/ngay-tao")
-    public ResponseEntity<List<SanPhamView>> searchCreateDate(@PathVariable int id,
+    public ResponseEntity<List<SanPham>> searchCreateDate(@PathVariable int id,
                                                               @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date) {
-        List<SanPhamView> sanPhams = sanPhamService.findByCreateDate(id, date);
+        List<SanPham> sanPhams = sanPhamService.findByCreateDate(id, date);
         System.out.println(sanPhams);
         return ResponseEntity.ok(sanPhams);
     }
@@ -138,10 +134,10 @@ public class SanPhamRestController {
     }
 
     //Xuat file excel
-    @GetMapping("/cuahang-{id}/save/sanpham/excel")
-    public ResponseEntity<ApiResponse<String>> saveFile(@PathVariable int id) {
+    @GetMapping("/cuahang-{id}/save/sanpham/excel/{matt}")
+    public ResponseEntity<ApiResponse<String>> saveFilem(@PathVariable int id, @PathVariable int matt) {
         String file = "D:\\duanCaNhan\\5new\\Booker\\sanpham.xlsx";
-        saveFileExcelService.saveSanPhamExcel(id, file);
+        saveFileExcelService.saveSanPhamExcel(id,matt, file);
         ApiResponse<String> response = new ApiResponse<>();
         response.setCode(HttpStatus.OK.value());
         response.setResult("Lưu file thành công");
@@ -149,41 +145,41 @@ public class SanPhamRestController {
     }
 
     @GetMapping("/cuahang-{id}/spbikhoa")
-    public List<SanPhamView> getSpBiKhoa(@PathVariable int id) {
+    public List<SanPham> getSpBiKhoa(@PathVariable int id) {
         return sanPhamService.sanPhamByTrangThaiKhoa(id);
     }
 
     @GetMapping("/cuahang-{id}/choduyet")
-    public List<SanPhamView> getSpChoDuyet(@PathVariable int id) {
+    public List<SanPham> getSpChoDuyet(@PathVariable int id) {
         return sanPhamService.sanPhamByChoDuyet(id);
     }
 
     @GetMapping("/cuahang-{id}/hethang")
-    public List<SanPhamView> getSpHetHang(@PathVariable int id) {
+    public List<SanPham> getSpHetHang(@PathVariable int id) {
         return sanPhamService.sanPhamByHetHang(id);
     }
 
     @GetMapping("/cuahang-{id}/conhang")
-    public List<SanPhamView> getSpConHang(@PathVariable int id) {
+    public List<SanPham> getSpConHang(@PathVariable int id) {
         return sanPhamService.sanPhamByConHang(id);
     }
 
     @GetMapping("/cuahang-{id}/tim-kiem/trangthai/{matt}")
-    public List<SanPhamView> searchSanPhamTrangThai(@PathVariable int id, @PathVariable int matt) {
+    public List<SanPham> searchSanPhamTrangThai(@PathVariable int id, @PathVariable int matt) {
         return sanPhamService.searchSanPhamByTrangThai(id, matt);
     }
 
     //lay san pham theo luot ban tu cao den thap
     @GetMapping("/cuahang-{id}/desc")
-    public List<SanPhamView> findAllSanPhamByDabanDesc(@PathVariable int id) {
+    public List<SanPham> findAllSanPhamByDabanDesc(@PathVariable int id) {
         return sanPhamService.findAllSanPhamByLuotBan(id);
     }
 
     //lấy ra sản phẩm bán chạy 7 ngày
-    @GetMapping("/cuahang-{id}/sp-7ngay")
-    public List<SanPhamView> sanPham7Ngay(@PathVariable int id) {
-        return sanPhamService.sanPham7Day(id);
-    }
+//    @GetMapping("/cuahang-{id}/sp-7ngay")
+//    public List<SanPham> sanPham7Ngay(@PathVariable int id) {
+//        return sanPhamService.sanPham7Day(id);
+//    }
 
     @GetMapping("/cuahang-{id}/sap-xep/diemdanhgia")
     public List<SanPham> getSanPhamOrderByComment(@PathVariable int id) {
@@ -216,5 +212,12 @@ public class SanPhamRestController {
     @GetMapping("/dang-ban")
     public List<SanPham> DangBan(){
         return sanPhamDao.getListBookDangBan();
+    }
+
+
+    // lay san pham voi id cua hang
+    @GetMapping("/cuahang-{storeId}/allinfo")
+    public List<SanPham> getProductsByStoreId(@PathVariable("storeId") int storeId) {
+        return sanPhamService.getProductsByStoreId(storeId);
     }
 }
