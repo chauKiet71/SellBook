@@ -123,10 +123,10 @@ public class SanPhamRestController {
     }
 
     //Xuat file excel
-    @GetMapping("/cuahang-{id}/save/sanpham/excel")
-    public ResponseEntity<ApiResponse<String>> saveFile(@PathVariable int id) {
-        String file = "D:\\duanCaNhan\\5new\\Booker\\sanpham.xlsx";
-        saveFileExcelService.saveSanPhamExcel(id, file);
+    @GetMapping("/cuahang-{id}/save/sanpham/excel/{matt}")
+    public ResponseEntity<ApiResponse<String>> saveFile(@PathVariable int id, @PathVariable int matt) {
+        String file = "D:\\du_an_tot_nghiep\\sanpham.xlsx";
+        saveFileExcelService.saveSanPhamExcel(id, matt, file);
         ApiResponse<String> response = new ApiResponse<>();
         response.setCode(HttpStatus.OK.value());
         response.setResult("Lưu file thành công");

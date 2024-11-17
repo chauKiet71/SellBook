@@ -26,8 +26,8 @@ public class SaveFileExcelServiceImpl implements SaveFileExcelService {
 
 
     @Override
-    public void saveSanPhamExcel(int ma_cua_hang, String filePath) {
-        List<SanPham> listSp = sanPhamDao.findAllSanPham(ma_cua_hang);
+    public void saveSanPhamExcel(int ma_cua_hang, int ma_trang_thai, String filePath) {
+        List<SanPham> listSp = sanPhamDao.findSanPhamByTrangThai(ma_cua_hang, ma_trang_thai);
 
         try {
             FileOutputStream fileOut = new FileOutputStream(filePath);
