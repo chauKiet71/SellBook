@@ -38,15 +38,21 @@ public class SanPhamRestController {
         return sanPhamDao.findAll();
     }
 
-    @GetMapping("/cuahang-{id}")
-    public List<SanPhamView> getSp(@PathVariable int id) {
-        return sanPhamService.findAll(id);
-    }
+//    @GetMapping("/cuahang-{id}")
+//    public List<SanPhamView> getSp(@PathVariable int id) {
+//        return sanPhamService.findAll(id);
+//    }
 
 //    Lấy số lượng sản pham
     @GetMapping("/cuahang-{id}/count")
     public long countSanPhamAll(@PathVariable int id) {
         return sanPhamViewDao.countByMaCuaHang(id);
+    }
+
+//    lấy sản phẩm thuộc cửa hàng
+    @GetMapping("/cuahang-{id}")
+    public List<SanPham> getSp(@PathVariable int id) {
+        return sanPhamDao.getAllSanPhamByMaCuaHang(id);
     }
 
     @PostMapping("/cuahang-{id}")
@@ -57,13 +63,16 @@ public class SanPhamRestController {
         return response;
     }
 
-    @PutMapping("/cuahang-{id}/{idsp}")
-    public ApiResponse<SanPham> update(@PathVariable Integer idsp, @RequestBody SanPham sanPham) {
+    @PutMapping("/update")
+    public ApiResponse<SanPham> update(@RequestBody SanPham sanPham) {
         ApiResponse<SanPham> response = new ApiResponse<>();
         response.setMessage("Cập nhật sản phẩm thành công");
         response.setResult(sanPhamService.update(sanPham));
         return response;
     }
+
+
+
     //khoa san pham
     @PutMapping("/cuahang-{id}/khoasp/{idsp}")
     public ApiResponse<SanPham> update_khoasp(@PathVariable Integer idsp, @RequestBody SanPham sanPham) {
@@ -80,6 +89,10 @@ public class SanPhamRestController {
         response.setResult(sanPhamService.duyet_sanpham(idsp, sanPham));
         return response;    
     }
+
+
+
+
     @DeleteMapping("/cuahang-{id}/{idsp}")
     public ResponseEntity<ApiResponse<Void>> deleteSanPham(@PathVariable int idsp) {
         sanPhamService.deleteById(idsp);

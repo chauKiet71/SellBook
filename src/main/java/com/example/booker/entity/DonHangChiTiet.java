@@ -33,7 +33,7 @@ public class DonHangChiTiet {
     DonHang don_hang;
 
     @ManyToOne
-    @JoinColumn(name = "ma_trang_thai", insertable = false, updatable = false)
+    @JoinColumn(name = "ma_trang_thai")
     TrangThaiDonHang trang_thai;
 
     public DonHangChiTiet(String ten_san_pham, int so_luong, float thanh_tien) {

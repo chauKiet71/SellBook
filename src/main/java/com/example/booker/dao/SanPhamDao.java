@@ -13,6 +13,12 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
     @Query("select s from SanPham s where s.the_loai.ma_the_loai = :ma_the_loai")
     List<SanPham> findByMaTheLoai(int ma_the_loai);
 
+//    SELLER - lấy sản phẩm theo mã cửa hàng
+    @Query("SELECT s FROM SanPham s " +
+            "JOIN CuaHang c on c.ma_cua_hang = s.ma_cua_hang " +
+            "WHERE c.ma_cua_hang = :ma_cua_hang order by s.ma_san_pham desc")
+    List<SanPham> getAllSanPhamByMaCuaHang(int ma_cua_hang);
+
     //Phương thức kiểm tra san da ton tai
     @Query("SELECT (COUNT(s) > 0) FROM SanPham s " +
             "JOIN CuaHang c on c.ma_cua_hang = s.ma_cua_hang " +
@@ -61,5 +67,11 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
 //    ADMIN - lấy sách còn hàng và hê hàng
     @Query("SELECT s FROM SanPham s WHERE s.trang_thai_hoat_dong = 1 OR s.trang_thai_hoat_dong = 2")
     List<SanPham> getListBookDangBan();
+
+//    SELLER - lấy sách còn hàng
+//    @Query("SELECT s FROM SanPham s " +
+//            "JOIN CuaHang c on c.ma_cua_hang = s.ma_cua_hang " +
+//            "WHERE c.ma_cua_hang = :ma_cua_hang " +
+//            "ORDER BY s.da_ban desc")
 
 }

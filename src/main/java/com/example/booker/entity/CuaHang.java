@@ -28,6 +28,7 @@ public class CuaHang {
     Float diem_cua_hang;
     int tong_luot_ban;
     int luot_bao_cao;
+    Float doanh_thu;
 
     @ManyToOne
     @JoinColumn(name = "ma_trang_thai_cua_hang", insertable=false, updatable=false)

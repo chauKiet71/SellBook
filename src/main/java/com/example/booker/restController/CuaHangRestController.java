@@ -73,7 +73,8 @@ public class CuaHangRestController {
         return cuaHangDao.getCuaHangByTrangThai(id);
     }
 
-
+//    SELLER - hàm lấy doanh thucuawua hàng
+//    @GetMapping("/mystore-doanh-thu")
 }
 
 
