@@ -98,4 +98,10 @@ public interface DonHangChiTietDao extends JpaRepository<DonHangChiTiet, Integer
 //    ADMIN - lấy hóa đơn theo trạng thái
     @Query("select dhct from DonHangChiTiet dhct where dhct.trang_thai.ma_trang_thai = :maTrangThai")
     List<DonHangChiTiet> getAllDonHangChiTietByTrangThai(int maTrangThai);
+
+
+    @Query("SELECT d FROM DonHangChiTiet d WHERE d.don_hang.ma_don_hang = :maDonHang")
+    List<DonHangChiTiet> findByDonHangId(@Param("maDonHang") int maDonHang);
+    @Query("SELECT d FROM DonHangChiTiet d JOIN d.don_hang dh WHERE dh.tai_khoan.id_tai_khoan = :userId")
+    List<DonHangChiTiet> findAllByUserId(@Param("userId") int userId);
 }

@@ -58,4 +58,7 @@ public interface SanPhamService {
     //  Lọc sản phẩm và sắp xếp
     List<SanPham> findSanPhamByTheLoaiAndGiaOrderBy(List<Integer> theloais, Float minPrice, Float maxPrice, String orderBy);
 
+    // lay san pham theo id cua hang
+    List<SanPham> getProductsByStoreId(int storeId);
+
 }

@@ -165,4 +165,9 @@ public class SanPhamServiceImpl implements SanPhamService {
         }
         return results;
     }
+    // lay san pham theo id cua hang
+    @Override
+    public List<SanPham> getProductsByStoreId(int storeId) {
+        return sanPhamDao.findByStoreId(storeId);
+    }
 }

@@ -21,4 +21,7 @@ public interface TaiKhoanService {
     TaiKhoan vohieuhoa_khachhang(int id, TaiKhoan taiKhoan);
 
     void deleteById(int id);
+    TaiKhoan validateLogin(String email, String matKhau);
+    TaiKhoan saveTaiKhoan(TaiKhoan taiKhoan);
+    boolean changePassword(int idTaiKhoan, String oldPassword, String newPassword);
 }

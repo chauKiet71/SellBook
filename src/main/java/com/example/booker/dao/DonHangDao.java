@@ -5,6 +5,7 @@ import com.example.booker.entity.DonHangChiTiet;
 import com.example.booker.entity.SanPham;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
 import java.util.List;
@@ -17,5 +18,8 @@ public interface DonHangDao extends JpaRepository<DonHang, Integer> {
             "where " +
             "dh.tai_khoan.id_tai_khoan = :ma_tai_khoan and dh.ngay_tao = :createDate and dhct.trang_thai.ma_trang_thai = :trang_thai")
     DonHang getDonHangByTaikhoanAndCreatedate(int ma_tai_khoan, Date createDate, int trang_thai);
+
+    @Query("SELECT dh FROM DonHang dh WHERE dh.tai_khoan.id_tai_khoan = :userId ORDER BY dh.ngay_tao DESC")
+    List<DonHang> findByTaiKhoanId(@Param("userId") int userId);
 
 }

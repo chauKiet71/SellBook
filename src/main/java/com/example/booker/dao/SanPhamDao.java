@@ -200,4 +200,8 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
             "and (:max is null or s.gia <= :max) " +
             "order by s.gia desc")
     List<SanPham> findSanPhamByTheloaiAndGiaSortByGiaDesc(List<Integer> theloais, Float min, Float max);
+
+    // Query để lấy danh sách sản phẩm theo mã cửa hàng
+    @Query("SELECT sp FROM SanPham sp WHERE sp.cua_hang.ma_cua_hang = :storeId")
+    List<SanPham> findByStoreId(int storeId);
 }

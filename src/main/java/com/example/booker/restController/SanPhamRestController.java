@@ -202,4 +202,11 @@ public class SanPhamRestController {
     public List<SanPham> DangBan(){
         return sanPhamDao.getListBookDangBan();
     }
+
+
+    // lay san pham voi id cua hang
+    @GetMapping("/cuahang-{storeId}/allinfo")
+    public List<SanPham> getProductsByStoreId(@PathVariable("storeId") int storeId) {
+        return sanPhamService.getProductsByStoreId(storeId);
+    }
 }
