@@ -1,7 +1,9 @@
 package com.example.booker.restController;
 
 import com.example.booker.dao.TaiKhoanDao;
+import com.example.booker.dao.ViDao;
 import com.example.booker.entity.TaiKhoan;
+import com.example.booker.entity.Vi;
 import com.example.booker.request.ApiResponse;
 import com.example.booker.service.nguoidung.TaiKhoanService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/taikhoan")
@@ -20,6 +23,8 @@ public class TaiKhoanRestController {
 
     @Autowired
     TaiKhoanDao tkDao;
+    @Autowired
+    private ViDao viDao;
 
     @GetMapping
     public List<TaiKhoan> getAll() {
@@ -48,13 +53,7 @@ public class TaiKhoanRestController {
         return response;
     }
 
-    @PostMapping
-    public ApiResponse<TaiKhoan> create(@RequestBody TaiKhoan taiKhoan) {
-        ApiResponse<TaiKhoan> response = new ApiResponse<>();
-        response.setResult(tkService.saveTaikhoan(taiKhoan));
-        response.setMessage("Tạo tài khoản thành công");
-        return response;
-    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteTK(@PathVariable int id) {
         tkService.deleteById(id);
@@ -96,15 +95,16 @@ public class TaiKhoanRestController {
         return response;
     }
     @PostMapping("/register")
-    public ApiResponse<TaiKhoan> register(@RequestBody TaiKhoan taiKhoan) {
+    public ApiResponse<TaiKhoan> create(@RequestBody TaiKhoan taiKhoan) {
         ApiResponse<TaiKhoan> response = new ApiResponse<>();
-        try {
-            TaiKhoan newTaiKhoan = tkService.saveTaiKhoan(taiKhoan);
-            response.setResult(newTaiKhoan);
-            response.setMessage("Đăng ký tài khoản thành công");
-        } catch (Exception e) {
-            response.setMessage("Đăng ký thất bại: " + e.getMessage());
-        }
+        response.setResult(tkService.saveTaikhoan(taiKhoan));
+        System.out.println("id tk moi tao: " + taiKhoan.getId_tai_khoan());
+        Vi newVi = new Vi();
+        newVi.setId_vi("TTTSS" + taiKhoan.getId_tai_khoan());// tu set random
+        newVi.setSo_tien(0.00F);
+        newVi.setTai_khoan(taiKhoan);
+        viDao.save(newVi);
+        response.setMessage("Tạo tài khoản thành công");
         return response;
     }
     // API để lấy thông tin hồ sơ của người dùng
