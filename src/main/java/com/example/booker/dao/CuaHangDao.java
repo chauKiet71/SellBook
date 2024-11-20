@@ -13,4 +13,7 @@ public interface CuaHangDao extends JpaRepository<CuaHang, Integer> {
     @Query("select c from CuaHang c where c.trang_thai_cua_hang.ma_trang_thai_cua_hang = :maTrangThai")
     List<CuaHang> getCuaHangByTrangThai(@Param("maTrangThai") Integer maTrangThai);
 
+//    SELLER - lấy doanh thu cửa hàng
+//    @Query("select ch.doanh_thu from CuaHang ch where ch.ma_cua_hang = :")
+
 }

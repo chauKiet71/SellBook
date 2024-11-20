@@ -11,11 +11,11 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "don_hang")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "don_hang")
 public class DonHang {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,11 +24,11 @@ public class DonHang {
     Date ngay_tao;
 
     @ManyToOne
-    @JoinColumn(name = "id_tai_khoan", insertable = false, updatable = false)
+    @JoinColumn(name = "id_tai_khoan")
     TaiKhoan tai_khoan;
 
     @ManyToOne
-    @JoinColumn(name = "ma_dia_chi", insertable=false, updatable=false )
+    @JoinColumn(name = "ma_dia_chi")
     DiaChi dia_chi;
 
 
@@ -36,4 +36,8 @@ public class DonHang {
     @JsonIgnore
     @OneToMany(mappedBy = "don_hang")
     List<DonHangChiTiet> donHangChiTiets;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "donHang")
+    List<HuyDonHang> huyDonHangs;
 }

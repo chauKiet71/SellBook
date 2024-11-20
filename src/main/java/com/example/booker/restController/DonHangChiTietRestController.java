@@ -1,10 +1,13 @@
 package com.example.booker.restController;
 
 import com.example.booker.dao.DonHangChiTietDao;
+import com.example.booker.dao.TrangThaiDonHangDao;
 import com.example.booker.entity.DonHangChiTiet;
+import com.example.booker.entity.TrangThaiDonHang;
 import com.example.booker.entity.view.DonHangChiTietView;
 import com.example.booker.service.nguoidung.DonHangChiTietService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -20,6 +23,8 @@ public class DonHangChiTietRestController {
     DonHangChiTietService donHangChiTietService;
     @Autowired
     private DonHangChiTietDao donHangChiTietDao;
+    @Autowired
+    private TrangThaiDonHangDao trangThaiDonHangDao;
 
     //lấy danh sách hóa đơn chi tiết của cửa hàng theo trạng thái
     @GetMapping("/cuahang-{id}/sort/trangthai-{matt}")
@@ -86,5 +91,48 @@ public class DonHangChiTietRestController {
 //    public List<DonHangChiTietView> getThongKe(@PathVariable("mach") int mach){
 //        return donHangChiTietDao.findOrderCountByStoreAndDate(mach);
 //    }
+@GetMapping("/taikhoan-{userId}")
+public ResponseEntity<List<DonHangChiTiet>> getOrderDetailsByUserId(@PathVariable int userId) {
+    List<DonHangChiTiet> orderDetails = donHangChiTietDao.findAllByUserId(userId);
+    if (!orderDetails.isEmpty()) {
+        return ResponseEntity.ok(orderDetails);
+    } else {
+        return ResponseEntity.noContent().build();
+    }
+}
+    @DeleteMapping("/{maDonHangChiTiet}")
+    public ResponseEntity<Void> deleteOrderDetail(@PathVariable int maDonHangChiTiet) {
+        if (donHangChiTietDao.existsById(maDonHangChiTiet)) {
+            donHangChiTietDao.deleteById(maDonHangChiTiet);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @PutMapping("/huy/{maDonHangChiTiet}")
+    public ResponseEntity<DonHangChiTiet> cancelOrderDetail(
+            @PathVariable int maDonHangChiTiet,
+            @RequestParam String lyDoHuy) {
+
+        if (donHangChiTietDao.existsById(maDonHangChiTiet)) {
+            DonHangChiTiet donHangChiTiet = donHangChiTietDao.findById(maDonHangChiTiet).get();
+
+            // Cập nhật trạng thái của chi tiết đơn hàng thành 14
+            TrangThaiDonHang trangThaiHuy = trangThaiDonHangDao.findById(14).orElse(null);
+            if (trangThaiHuy != null) {
+                donHangChiTiet.setTrang_thai(trangThaiHuy);
+            } else {
+                return ResponseEntity.status(500).build(); // Trạng thái 14 không tồn tại
+            }
+
+            // Bạn có thể lưu lý do hủy vào một cột mới nếu bạn muốn lưu lý do trong cơ sở dữ liệu
+            // Ví dụ, nếu có cột "ly_do_huy", bạn có thể dùng: donHangChiTiet.setLyDoHuy(lyDoHuy);
+
+            donHangChiTietDao.save(donHangChiTiet);
+            return ResponseEntity.ok(donHangChiTiet);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 }

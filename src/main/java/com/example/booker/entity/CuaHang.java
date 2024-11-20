@@ -29,6 +29,7 @@ public class CuaHang {
     int tong_diem_vi_pham;
     int tong_luot_ban;
     int luot_bao_cao;
+    Float doanh_thu;
 
     @ManyToOne
     @JoinColumn(name = "ma_trang_thai_cua_hang", insertable=false, updatable=false)
@@ -38,7 +39,7 @@ public class CuaHang {
     String so_tai_khoan;
 
     @ManyToOne
-    @JoinColumn(name = "id_tai_khoan", insertable=false, updatable=false)
+    @JoinColumn(name = "id_tai_khoan")
     TaiKhoan tai_khoan;
 
     @JsonIgnore

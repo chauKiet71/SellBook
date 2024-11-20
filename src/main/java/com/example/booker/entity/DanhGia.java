@@ -25,14 +25,14 @@ public class DanhGia {
     Boolean an_danh_gia = Boolean.FALSE;
 
     @ManyToOne
-    @JoinColumn(name = "ma_don_hang_chi_tiet", insertable=false, updatable=false)
+    @JoinColumn(name = "ma_don_hang_chi_tiet")
     DonHangChiTiet don_hang_chi_tiet;
 
     @ManyToOne
-    @JoinColumn(name = "tai_khoan_danh_gia", insertable=false, updatable=false)
+    @JoinColumn(name = "tai_khoan_danh_gia")
     TaiKhoan tai_khoan_danh_gia;
 
     @ManyToOne
-    @JoinColumn(name = "ma_san_pham", insertable=false, updatable=false)
+    @JoinColumn(name = "ma_san_pham")
     SanPham san_pham;
 }
