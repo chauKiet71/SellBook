@@ -31,6 +31,8 @@ public class DonHang {
     @JoinColumn(name = "ma_dia_chi", insertable=false, updatable=false )
     DiaChi dia_chi;
 
+
+
     @JsonIgnore
     @OneToMany(mappedBy = "don_hang")
     List<DonHangChiTiet> donHangChiTiets;

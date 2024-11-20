@@ -1,14 +1,17 @@
 package com.example.booker.service.nguoidung;
 
 import com.example.booker.entity.TaiKhoanNganHang;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface TaiKhoanNganHangService {
 
-    List<TaiKhoanNganHang> get(int ma_cua_hang);
+    TaiKhoanNganHang create(TaiKhoanNganHang bank);
 
-    TaiKhoanNganHang create(TaiKhoanNganHang tk);
+//    List<TaiKhoanNganHang> get(int ma_cua_hang);
 
     TaiKhoanNganHang update(TaiKhoanNganHang tk);
+
 }

@@ -26,8 +26,14 @@ public class CuaHang {
     String email;
     Integer so_dien_thoai;
     Float diem_cua_hang;
+    int tong_diem_vi_pham;
     int tong_luot_ban;
     int luot_bao_cao;
+
+    @ManyToOne
+    @JoinColumn(name = "ma_trang_thai_cua_hang", insertable=false, updatable=false)
+    TrangThaiCuaHang trang_thai_cua_hang;
+
     Boolean trang_thai_khoa = Boolean.FALSE;
     String so_tai_khoan;
 

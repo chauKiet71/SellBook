@@ -10,7 +10,7 @@ import java.util.List;
 public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
 
     //Lay san pham theo the loai
-    @Query("select s from SanPham s where s.ma_the_loai = :ma_the_loai")
+    @Query("select s from SanPham s where s.the_loai.ma_the_loai = :ma_the_loai")
     List<SanPham> findByMaTheLoai(int ma_the_loai);
 
     //Phương thức kiểm tra san da ton tai
@@ -49,5 +49,17 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
             "WHERE c.ma_cua_hang = :ma_cua_hang " +
             "ORDER BY s.doanh_thu desc")
     List<SanPham> getListProductOrderByDoanhThuDesc(int ma_cua_hang);
+
+//    ADMIN - lấy sách chờ duyệt
+    @Query("SELECT s FROM SanPham s WHERE s.trang_thai_duyet = false ")
+    List<SanPham> getListProductConHang();
+
+//    ADMIN - lấy sách bị khóa
+    @Query("SELECT s FROM SanPham s WHERE s.trang_thai_khoa = true ")
+    List<SanPham> getListProductKhoa();
+
+//    ADMIN - lấy sách còn hàng và hê hàng
+    @Query("SELECT s FROM SanPham s WHERE s.trang_thai_hoat_dong = 1 OR s.trang_thai_hoat_dong = 2")
+    List<SanPham> getListBookDangBan();
 
 }

@@ -9,23 +9,23 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TaiKhoanNganHangServiceImpl implements TaiKhoanNganHangService {
+public class TaiKhoanNganHangImpl implements TaiKhoanNganHangService {
 
     @Autowired
     TaiKhoanNganHangDao taiKhoanNganHangDao;
 
     @Override
-    public List<TaiKhoanNganHang> get(int ma_cua_hang) {
-        return taiKhoanNganHangDao.findByMaCuaHang(ma_cua_hang);
+    public TaiKhoanNganHang create(TaiKhoanNganHang bank) {
+        return taiKhoanNganHangDao.save(bank);
     }
 
-    @Override
-    public TaiKhoanNganHang create(TaiKhoanNganHang tk) {
-        return taiKhoanNganHangDao.save(tk);
-    }
+//    @Override
+//    public List<TaiKhoanNganHang> get(int ma_cua_hang) {
+//        return List.of();
+//    }
 
     @Override
-    public TaiKhoanNganHang update(TaiKhoanNganHang tk) {
+    public TaiKhoanNganHang update( TaiKhoanNganHang tk) {
         return taiKhoanNganHangDao.save(tk);
     }
 }

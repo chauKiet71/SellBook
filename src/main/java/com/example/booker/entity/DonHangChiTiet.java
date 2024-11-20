@@ -22,10 +22,7 @@ public class DonHangChiTiet {
     int so_luong;
     float gia;
     float thanh_tien;
-    int ma_san_pham;
-    int ma_don_hang;
-    int sl_don_hang;
-    LocalDate ngay_dat;
+
 
     @ManyToOne
     @JoinColumn(name = "ma_san_pham", insertable = false, updatable = false)
@@ -48,4 +45,5 @@ public class DonHangChiTiet {
     @ManyToOne
     @JoinColumn(name = "id_voucher",  insertable=false, updatable=false)
     Voucher voucher;
+
 }

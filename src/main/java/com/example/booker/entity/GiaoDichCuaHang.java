@@ -17,14 +17,14 @@ public class GiaoDichCuaHang {
     private int id_gd;
     private String mo_ta;
     private Float so_tien;
-    private int ma_cua_hang;
-    private String anh_qr;
+//    private int ma_cua_hang;
+//    private String anh_qr;
     private int trang_thai;
     //0: chờ xác nhận
     //1: xác nhận
     //2: đã xong
 
     @ManyToOne
-    @JoinColumn(name = "ma_cua_hang", insertable = false, updatable = false)
+    @JoinColumn(name = "ma_cua_hang")
     CuaHang cua_hang;
 }

@@ -2,24 +2,32 @@ package com.example.booker.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Table(name = "tai_khoan_ngan_hang")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Table(name = "tai_khoan_ngan_hang")
 public class TaiKhoanNganHang {
 
     @Id
-    private String so_tai_khoan;
-    private String chu_tai_khoan;
-    private String ten_ngan_hang;
-    private int id_tai_khoan;
-    private int ma_cua_hang;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id_ngan_hang;
+    String accountNo;
+    String acqId;
+    String addInfo;
+    String fomat = "text";
+    String template = "compact2";
+    String nameBank;
+    String code;
+    String icon_url;
+    String account_name;
 
-    @ManyToOne
-    @JoinColumn(name = "ma_cua_hang", insertable = false, updatable = false)
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "ma_cua_hang")
     private CuaHang cua_hang;
 }
