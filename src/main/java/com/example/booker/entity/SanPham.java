@@ -46,7 +46,7 @@ public class SanPham {
     Float doanh_thu;
     int con_hang;
 
-    @Column(name = "trang_thai_hoat_dong", insertable = false, updatable = false)
+    @Column(name = "trang_thai_hoat_dong")
      Byte trang_thai_hoat_dong;
 
     @ManyToOne

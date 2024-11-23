@@ -72,4 +72,9 @@ public class RestApiThanhToan {
     public Vi proxyApi2(@PathVariable int id) {
         return viDao.findByTaiKhoan(id);
     }
+    // lấy list thông tin thanh toán nạp tiền
+    @GetMapping("api/nap/all")
+    public List<Transaction> getALLNapTien() {
+        return transactionDao.findAll();
+    }
 }

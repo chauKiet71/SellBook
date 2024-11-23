@@ -20,6 +20,7 @@ public class DonHang {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int ma_don_hang;
+    float doanh_thu_don_hang;
     @Temporal(TemporalType.DATE)
     Date ngay_tao;
 

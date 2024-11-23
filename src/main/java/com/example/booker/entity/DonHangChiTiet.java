@@ -22,6 +22,8 @@ public class DonHangChiTiet {
     int so_luong;
     float gia;
     float thanh_tien;
+    float phi_dich_vu;
+    float doanh_thu;
 
 
     @ManyToOne
