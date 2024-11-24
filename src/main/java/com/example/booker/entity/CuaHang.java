@@ -1,6 +1,7 @@
 package com.example.booker.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -26,6 +27,7 @@ public class CuaHang {
     String email;
     Integer so_dien_thoai;
     Float diem_cua_hang;
+    int tong_diem_vi_pham;
     int tong_luot_ban;
     int luot_bao_cao;
     Float doanh_thu;
@@ -56,4 +58,11 @@ public class CuaHang {
     @JsonIgnore
     @OneToMany(mappedBy = "cua_hang")
     List<TaiKhoanNganHang> tai_khoan_ngan_hang;
+
+    @Transient
+
+    @JsonProperty("phi_dich_vu_cua_hang")
+    private Float getPhiGiaoDichCuaHang(){
+        return doanh_thu / 9;
+    }
 }

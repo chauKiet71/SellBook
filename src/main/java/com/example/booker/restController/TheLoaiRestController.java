@@ -45,7 +45,7 @@ public class TheLoaiRestController {
         return response;
     }
 
-//    Cập nhật thể loại
+    //    Cập nhật thể loại
     @PutMapping("/update")
     public TheLoai update(@RequestBody TheLoai theLoais) {
         return tlDao.save(theLoais);
