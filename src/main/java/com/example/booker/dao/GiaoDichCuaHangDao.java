@@ -28,4 +28,8 @@ public interface GiaoDichCuaHangDao extends JpaRepository<GiaoDichCuaHang, Integ
     @Query("select gd from GiaoDichCuaHang gd where gd.cua_hang.ma_cua_hang = :maCuaHang and gd.trang_thai = :trangThai order by gd.id_gd desc")
     List<GiaoDichCuaHang> getGiaoDichByMaCuaHangAndTrangThai(int maCuaHang, int trangThai);
 
+//    Xem chi tiết giao dich
+    @Query("select gd from GiaoDichCuaHang gd where gd.id_gd = :id")
+    GiaoDichCuaHang getGiaoDichCuaHangById(int id);
+
 }

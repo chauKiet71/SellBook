@@ -188,14 +188,17 @@ public ResponseEntity<List<DonHangChiTiet>> add(@RequestBody List<DonHangChiTiet
         return ResponseEntity.ok(orderDetails); // Trả về danh sách chi tiết đơn hàng đã lưu
     }
 
+//    SELLER - Lấy thông tin đơn hàng theo mã đơn hàng
+    @GetMapping("/seller/ma_don_hang-{id}")
+    public DonHang getDonHangByID(@PathVariable int id){
+        return donHangDao.getDonHangByMaDonHang(id);
+    }
 
-
-
-
-
-
-
-
+//    ADMIN - lấy tất cả đơn hàng
+    @GetMapping("/admin/all-don-hang")
+    public List<DonHang> getAllDonHang(){
+        return donHangDao.findAll();
+    }
 
 }
 

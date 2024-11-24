@@ -18,4 +18,8 @@ public interface DanhGiaDao extends JpaRepository<DanhGia, Integer> {
     @Query("SELECT d FROM DanhGia d WHERE d.san_pham.ma_san_pham = :maSanPham AND d.diem_danh_gia = :diemDanhGia")
     List<DanhGia> findByMaSanPhamAndDiemDanhGia(@Param("maSanPham") int maSanPham, @Param("diemDanhGia") int diemDanhGia);
 
+//    Hmaf lấy đánh giá theo mã đánh giá
+    @Query("select dg from DanhGia dg where dg.ma_danh_gia = :maDG")
+    DanhGia getDanhGiaById(@Param("maDG") Integer maDG);
+
 }

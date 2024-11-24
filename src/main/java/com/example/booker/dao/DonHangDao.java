@@ -22,4 +22,8 @@ public interface DonHangDao extends JpaRepository<DonHang, Integer> {
     @Query("SELECT dh FROM DonHang dh WHERE dh.tai_khoan.id_tai_khoan = :userId ORDER BY dh.ngay_tao DESC")
     List<DonHang> findByTaiKhoanId(@Param("userId") int userId);
 
+//    SELLER - lấy thông tin đơn hàng theo mã đơn hàng
+    @Query("select dh from DonHang  dh join DonHangChiTiet dhct on dhct.don_hang.ma_don_hang = dh.ma_don_hang where dhct.don_hang.ma_don_hang = :maDonHang")
+    DonHang getDonHangByMaDonHang(@Param("maDonHang") Integer donHang);
+
 }

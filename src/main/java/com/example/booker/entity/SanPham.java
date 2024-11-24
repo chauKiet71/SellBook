@@ -46,6 +46,8 @@ public class SanPham {
     Float doanh_thu;
     int con_hang;
 
+    Boolean an_san_pham = Boolean.FALSE;
+
     @Column(name = "trang_thai_hoat_dong", insertable = false, updatable = false)
      Byte trang_thai_hoat_dong;
 
