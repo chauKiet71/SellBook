@@ -2,6 +2,8 @@ package com.example.booker.entity;
 
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -14,5 +16,12 @@ public class Admin {
   private   Float tong_tien_nap;
     private  Float tong_tien_rut;
     private Float doanh_thu_san;
+
+  @Transient
+
+  @JsonProperty("tong_phi_dich_vu")
+  private Float getTongPhiGiaoDich(){
+    return doanh_thu_san / 9;
+  }
 
 }
