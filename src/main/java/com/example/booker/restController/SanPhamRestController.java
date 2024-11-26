@@ -43,11 +43,17 @@ import java.util.List;
 //        return sanPhamService.findAll(id);
 //    }
 
-//    Lấy số lượng sản pham
+//  SELLER -  Lấy số lượng sản pham
     @GetMapping("/cuahang-{id}/count")
     public long countSanPhamAll(@PathVariable int id) {
         return sanPhamViewDao.countByMaCuaHang(id);
     }
+
+//    ADMIN - lấy tất cả sản phẩm
+        @GetMapping("/admin/all-san-pham")
+        public List<SanPham> getAllSanPhamAdmin(){
+            return sanPhamDao.findAll();
+        }
 
 //    lấy sản phẩm thuộc cửa hàng
     @GetMapping("/cuahang-{id}")
@@ -220,4 +226,16 @@ import java.util.List;
     public List<SanPham> getProductsByStoreId(@PathVariable("storeId") int storeId) {
         return sanPhamService.getProductsByStoreId(storeId);
     }
+
+//    list sản phẩm đang ânr
+        @GetMapping("/cuahang-{id}/an/list")
+        public List<SanPham> getBookHidden(@PathVariable int id) {
+            return sanPhamDao.getBookHidden(id);
+        }
+
+        //    list sản phẩm đang ânr
+        @GetMapping("/cuahang-{id}/an/length")
+        public Long getBookHiddenLength(@PathVariable int id) {
+            return sanPhamDao.getBookHiddenLength(id);
+        }
 }

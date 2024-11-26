@@ -29,7 +29,7 @@ public class TaiKhoan {
     private String so_dt;
     @Temporal(TemporalType.DATE)
     private Date ngay_tao;
-
+    private int tong_diem_vi_pham;
     @JsonIgnore
     @OneToMany(mappedBy = "tai_khoan")
     List<DonHang> donHangs;

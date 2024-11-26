@@ -1,6 +1,7 @@
 package com.example.booker.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,8 +21,10 @@ public class DonHang {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int ma_don_hang;
+    float doanh_thu_don_hang;
     @Temporal(TemporalType.DATE)
     Date ngay_tao;
+    String loi_nhan;
 
     @ManyToOne
     @JoinColumn(name = "id_tai_khoan")
@@ -31,6 +34,8 @@ public class DonHang {
     @JoinColumn(name = "ma_dia_chi")
     DiaChi dia_chi;
 
+
+
     @JsonIgnore
     @OneToMany(mappedBy = "don_hang")
     List<DonHangChiTiet> donHangChiTiets;
@@ -38,4 +43,11 @@ public class DonHang {
     @JsonIgnore
     @OneToMany(mappedBy = "donHang")
     List<HuyDonHang> huyDonHangs;
+
+    @Transient
+
+    @JsonProperty("phi_dich_vu_dh")
+    private Float getTongPhiGiaoDich(){
+        return doanh_thu_don_hang / 9;
+    }
 }

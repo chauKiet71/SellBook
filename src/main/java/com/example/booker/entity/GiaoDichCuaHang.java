@@ -29,8 +29,8 @@ public class GiaoDichCuaHang {
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     LocalDate ngay_giao_dich = LocalDate.now();
     //0: chờ xác nhận
-    //1: xác nhận
-    //2: đã xong
+    //1: đã xong
+    //2: hủy yêu cầu
 
     @ManyToOne
     @JoinColumn(name = "ma_cua_hang")

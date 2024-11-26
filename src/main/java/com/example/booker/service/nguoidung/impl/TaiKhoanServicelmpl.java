@@ -18,8 +18,12 @@ public class TaiKhoanServicelmpl implements TaiKhoanService {
 
     @Override
     public List<TaiKhoan> getTaiKhoans() {
-        return taiKhoanDao.findAll();
+        List<TaiKhoan> taiKhoans = taiKhoanDao.findAll();
+        return taiKhoans;
     }
+
+
+
     @Override
     public TaiKhoan getTaiKhoanById(int id) {
         return taiKhoanDao.findById(id).orElse(null);

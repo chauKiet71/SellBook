@@ -31,6 +31,8 @@ public class TaiKhoanRestController {
     private ViDao viDao;
     @Autowired
     private OtpService otpService;
+    @Autowired
+    private TaiKhoanDao taiKhoanDao;
 
     @GetMapping
     public List<TaiKhoan> getAll() {
@@ -42,6 +44,8 @@ public class TaiKhoanRestController {
     public List<TaiKhoan> getAllCustomer() {
         return tkDao.findAllCustomer();
     }
+
+
 
     @GetMapping("/email/{email}")
     public ApiResponse<TaiKhoan> getByEmail(@PathVariable String email) {
@@ -215,4 +219,21 @@ public class TaiKhoanRestController {
         return response;
     }
 
+    // ADMIN - đếm khách hàng theo trạng thái đang hoạt đng
+    @GetMapping("/customer-active")
+    public Long countCusByFalse(){
+        return taiKhoanDao.countTaiKhoanByFalse();
+    }
+
+    // ADMIN - đếm khách hàng theo trạng thái đang hoạt đng
+    @GetMapping("/customer-inactive")
+    public Long countCusByTrue(){
+        return taiKhoanDao.countTaiKhoanByTrue();
+    }
+
+//    ADMIN - lấy danh sách tài khoa theo trạng thái
+    @GetMapping("/admin/customer/{trangThai}")
+    public List<TaiKhoan> getTaiKhoanByTrangThai(@PathVariable Boolean trangThai) {
+        return taiKhoanDao.findByTrangThai(trangThai);
+    }
 }
