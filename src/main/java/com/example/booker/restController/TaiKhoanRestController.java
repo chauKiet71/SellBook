@@ -236,4 +236,10 @@ public class TaiKhoanRestController {
     public List<TaiKhoan> getTaiKhoanByTrangThai(@PathVariable Boolean trangThai) {
         return taiKhoanDao.findByTrangThai(trangThai);
     }
+
+    //    ADMIN - lấy tài khoản vi phạm
+    @GetMapping("/vi-pham")
+    public List<TaiKhoan> getTaikhoavipham() {
+        return tkDao.findtaikhoanvipham();
+    }
 }
