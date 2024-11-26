@@ -98,6 +98,11 @@ public class CuaHangRestController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Lỗi khi lấy thông tin cửa hàng: " + e.getMessage());
         }
     }
+    //admin lấy cua hang vi pham
+    @GetMapping("/vi_pham")
+    public List<CuaHang> getCuaHangVipham() {
+        return cuaHangDao.getCuaHangvipham();
+    }
 
 
 

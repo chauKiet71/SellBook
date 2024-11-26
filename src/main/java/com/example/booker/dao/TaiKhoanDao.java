@@ -18,6 +18,9 @@ public interface TaiKhoanDao extends JpaRepository<TaiKhoan, Integer> {
     @Query("select t from TaiKhoan t join VaiTro v on v.ma_vai_tro = t.vai_tro.ma_vai_tro where t.vai_tro.ma_vai_tro = 1 or t.vai_tro.ma_vai_tro = 2")
     List<TaiKhoan> findAllCustomer();
 
+    //    ADMIN - lấy tài khoản tài khoản vi phạm
+    @Query("select t from TaiKhoan t where t.tong_diem_vi_pham != 5")
+    List<TaiKhoan> findtaikhoanvipham();
 
 
 }

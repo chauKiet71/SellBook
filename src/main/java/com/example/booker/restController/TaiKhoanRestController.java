@@ -185,4 +185,10 @@ public class TaiKhoanRestController {
 
         return response;
     }
+
+    //    ADMIN - lấy tài khoản vi phạm
+    @GetMapping("/vi-pham")
+    public List<TaiKhoan> getTaikhoavipham() {
+        return tkDao.findtaikhoanvipham();
+    }
 }

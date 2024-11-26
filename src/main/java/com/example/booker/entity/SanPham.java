@@ -66,6 +66,6 @@ public class SanPham {
 
     @JsonProperty("phi_dich_vu_sp")
     private Float getPhiGiaoDichSP(){
-        return doanh_thu / 9;
+        return doanh_thu != null ? doanh_thu / 9 : 0f; // Trả về 0 nếu doanh_thu là null
     }
 }
