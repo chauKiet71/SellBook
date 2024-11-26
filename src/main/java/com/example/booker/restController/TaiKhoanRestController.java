@@ -3,8 +3,11 @@ package com.example.booker.restController;
 import com.example.booker.dao.TaiKhoanDao;
 import com.example.booker.dao.ViDao;
 import com.example.booker.entity.TaiKhoan;
+import com.example.booker.entity.VaiTro;
 import com.example.booker.entity.Vi;
 import com.example.booker.request.ApiResponse;
+import com.example.booker.request.RegisterRequest;
+import com.example.booker.service.nguoidung.OtpService;
 import com.example.booker.service.nguoidung.TaiKhoanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -25,6 +29,8 @@ public class TaiKhoanRestController {
     TaiKhoanDao tkDao;
     @Autowired
     private ViDao viDao;
+    @Autowired
+    private OtpService otpService;
 
     @GetMapping
     public List<TaiKhoan> getAll() {
@@ -95,18 +101,43 @@ public class TaiKhoanRestController {
         return response;
     }
     @PostMapping("/register")
-    public ApiResponse<TaiKhoan> create(@RequestBody TaiKhoan taiKhoan) {
+    public ApiResponse<TaiKhoan> create(@RequestBody RegisterRequest request) {
         ApiResponse<TaiKhoan> response = new ApiResponse<>();
-        response.setResult(tkService.saveTaikhoan(taiKhoan));
-        System.out.println("id tk moi tao: " + taiKhoan.getId_tai_khoan());
+
+        // Kiểm tra mã OTP
+        String validOtp = otpService.getValidOtp(request.getEmail());
+        if (validOtp == null || !validOtp.equals(request.getOtp())) {
+            response.setMessage("Mã OTP không hợp lệ hoặc đã hết hạn!");
+            return response;
+        }
+
+        // Tạo mới tài khoản
+        TaiKhoan taiKhoan = new TaiKhoan();
+        taiKhoan.setHo_ten(request.getHo_ten());
+        taiKhoan.setEmail(request.getEmail());
+        taiKhoan.setMat_khau(request.getMat_khau()); // Lưu mật khẩu đã mã hóa nếu cần
+        taiKhoan.setVai_tro(new VaiTro(1,"Người Dùng")); // Người dùng thông thường
+        taiKhoan.setTrang_thai_tk(false); // Chờ kích hoạt
+
+        TaiKhoan savedTaiKhoan = tkService.saveTaikhoan(taiKhoan);
+        response.setResult(savedTaiKhoan);
+
+        // Tạo ví cho tài khoản
         Vi newVi = new Vi();
-        newVi.setId_vi("TTTSS" + taiKhoan.getId_tai_khoan());// tu set random
+        newVi.setId_vi("TTTSS" + savedTaiKhoan.getId_tai_khoan()); // Tạo ID ví
         newVi.setSo_tien(0.00F);
-        newVi.setTai_khoan(taiKhoan);
+        newVi.setTai_khoan(savedTaiKhoan);
         viDao.save(newVi);
-        response.setMessage("Tạo tài khoản thành công");
+
+        // Xóa OTP sau khi sử dụng
+        otpService.deleteOtp(request.getEmail());
+
+        response.setMessage("Đăng ký tài khoản thành công");
         return response;
     }
+
+
+
     // API để lấy thông tin hồ sơ của người dùng
     @GetMapping("/profile/{id}")
     public ResponseEntity<ApiResponse<TaiKhoan>> getProfile(@PathVariable int id) {
@@ -183,4 +214,5 @@ public class TaiKhoanRestController {
 
         return response;
     }
+
 }
