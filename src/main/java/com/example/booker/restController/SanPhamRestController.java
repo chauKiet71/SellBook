@@ -238,4 +238,10 @@ import java.util.List;
         public Long getBookHiddenLength(@PathVariable int id) {
             return sanPhamDao.getBookHiddenLength(id);
         }
+
+        //    ADMIN - lấy sản phẩm vi phạm
+        @GetMapping("/sanpham/vipham")
+        public List<SanPham> ViPham(){
+            return sanPhamDao.findSanphamvipham();
+        }
 }

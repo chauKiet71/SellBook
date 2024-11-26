@@ -63,6 +63,6 @@ public class CuaHang {
 
     @JsonProperty("phi_dich_vu_cua_hang")
     private Float getPhiGiaoDichCuaHang(){
-        return doanh_thu / 9;
+        return doanh_thu != null ? doanh_thu / 9 : 0.0f;
     }
 }
