@@ -30,7 +30,7 @@ public class BaoCaoCuaHangController {
         return response;
     }
 
-    // get theo id_tai_khoan_bi_bao_cao báo cáo cho người dùng(thông báo các lỗi cửa tài khoản đã duyệt và chưa ẩn)
+//    // get theo id_tai_khoan_bi_bao_cao báo cáo cho người dùng(thông báo các lỗi cửa tài khoản đã duyệt và chưa ẩn)
 //    @GetMapping("/thongbao-taikhoan/{id_tai_khoan}")
 //    public List<BaoCaoCuaHang> getThongbaosIdTK(@PathVariable int id_tai_khoan) {
 //

@@ -30,6 +30,11 @@ public class CuaHangRestController {
         return cuaHangService.getAllCuaHang();
     }
 
+    @GetMapping("/taikhoan/{idTaiKhoan}")
+    public CuaHang getCuaHangByIdTaiKhoan(@PathVariable Integer idTaiKhoan) {
+        return cuaHangDao.getCuaHangByTaiKhoan(idTaiKhoan);
+    }
+
     @PostMapping()
     public ApiResponse<CuaHang> addCuaHang(@RequestBody CuaHang cuaHang) {
         ApiResponse<CuaHang> response = new ApiResponse<>();
