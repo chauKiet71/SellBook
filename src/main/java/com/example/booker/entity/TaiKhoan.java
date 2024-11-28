@@ -34,7 +34,7 @@ public class TaiKhoan {
     @OneToMany(mappedBy = "tai_khoan")
     List<DonHang> donHangs;
 
-//    @ManyToOne
+    //    @ManyToOne
 //    @JoinColumn(name = "ma_vai_tro", referencedColumnName = "ma_vai_tro")
 //    private VaiTro ma_vai_tro;
     private Boolean trang_thai_tk = Boolean.FALSE;
