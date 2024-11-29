@@ -176,6 +176,11 @@ import java.util.Optional;
         return sanPhamService.sanPhamByConHang(id);
     }
 
+    @GetMapping("/cuahang-{id}/yeucaumokhoa")
+    public List<SanPham> getSpYeuCauMoKhoa(@PathVariable int id) {
+        return sanPhamDao.findAllSanPhamYeuCauMoKhoa(id);
+    }
+
     @GetMapping("/cuahang-{id}/tim-kiem/trangthai/{matt}")
     public List<SanPham> searchSanPhamTrangThai(@PathVariable int id, @PathVariable int matt) {
         return sanPhamService.searchSanPhamByTrangThai(id, matt);
@@ -185,6 +190,12 @@ import java.util.Optional;
     @GetMapping("/cuahang-{id}/desc")
     public List<SanPham> findAllSanPhamByDabanDesc(@PathVariable int id) {
         return sanPhamService.findAllSanPhamByLuotBan(id);
+    }
+
+    //    ADMIN - lấy sản phẩm yêu cầu mở khóa
+    @GetMapping("/yeu_cau_duyet")
+    public List<SanPham> YeuCauDuyet(){
+        return sanPhamDao.getListBookYeuCauMoKhoa();
     }
 
     //lấy ra sản phẩm bán chạy 7 ngày

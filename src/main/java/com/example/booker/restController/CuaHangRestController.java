@@ -97,6 +97,11 @@ public class CuaHangRestController {
         return cuaHangDao.getCuaHangByTrangThai(id);
     }
 
+    @GetMapping("/trang_thai/khoa")
+    public List<CuaHang> getCuaHangByKhoa() {
+        return cuaHangDao.getCuaHangByTrangThaiKhoa();
+    }
+
     // thong tin cua hang trong chi tiet san pham
     @GetMapping("/info/{maCuaHang}")
     public ResponseEntity<?> getCuaHangInfo(@PathVariable("maCuaHang") int maCuaHang) {
@@ -131,6 +136,12 @@ public class CuaHangRestController {
     @GetMapping("/vi_pham")
     public List<CuaHang> getCuaHangVipham() {
         return cuaHangDao.getCuaHangvipham();
+    }
+
+//    ADMIN - update traạng thái cửa hàng
+    @PutMapping("/admin/update")
+    public CuaHang updateCuaHang(@RequestBody CuaHang cuaHang) {
+        return  cuaHangDao.save(cuaHang);
     }
 }
 

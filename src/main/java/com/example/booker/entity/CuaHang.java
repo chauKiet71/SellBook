@@ -27,9 +27,9 @@ public class CuaHang {
     String email;
     String so_dien_thoai;
     Float diem_cua_hang;
-    int tong_diem_vi_pham;
-    int tong_luot_ban;
-    int luot_bao_cao;
+    Integer tong_diem_vi_pham;
+    Integer tong_luot_ban;
+    Integer luot_bao_cao;
     Float doanh_thu;
 
     @ManyToOne
