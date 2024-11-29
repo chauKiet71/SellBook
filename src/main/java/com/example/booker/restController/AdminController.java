@@ -16,12 +16,8 @@ public class AdminController {
     @Autowired
     AdminDao adminDao;
 
-
-
     @GetMapping
     public Admin getAdmin() {
-
         return adminDao.getAdminStatistics();
     }
-
 }

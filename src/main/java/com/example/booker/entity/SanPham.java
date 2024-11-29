@@ -43,12 +43,18 @@ public class SanPham {
     Boolean trang_thai_khoa = Boolean.FALSE;
 
     Integer da_ban;
-    Float diem_trung_binh;
+    Float diem_trung_binh ;
     Float doanh_thu;
-    int con_hang;
+    Integer con_hang;
 
-    @Column(name = "trang_thai_hoat_dong")
-     Byte trang_thai_hoat_dong;
+    Boolean an_san_pham = Boolean.FALSE;
+
+    @Column(name = "trang_thai_hoat_dong", insertable = false, updatable = false)
+    private Byte trang_thai_hoat_dong; //1 chờ duyệt - 2 khóa -  3 còn hàng -4 hết hàng -5 yeu cau duyet
+
+
+//    @Column(name = "trang_thai_hoat_dong")
+//     Byte trang_thai_hoat_dong;
 
     @ManyToOne
     @JoinColumn(name = "ma_the_loai") //, insertable=false, updatable=false
@@ -65,7 +71,7 @@ public class SanPham {
     @Transient
 
     @JsonProperty("phi_dich_vu_sp")
-    private Float getPhiGiaoDichSP(){
-        return doanh_thu != null ? doanh_thu / 9 : 0f; // Trả về 0 nếu doanh_thu là null
+    private Float getPhiGiaoDichSP() {
+        return (doanh_thu != null) ? doanh_thu / 9 : 0.0f;
     }
 }

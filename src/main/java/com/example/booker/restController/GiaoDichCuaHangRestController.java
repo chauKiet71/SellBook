@@ -31,9 +31,15 @@ public class GiaoDichCuaHangRestController {
     }
 
 //    ADMIN - lấy giao dịch theo trạng thái
-    @GetMapping("/admin/{ma_trang_thai}")
+    @GetMapping("/admin/trangthai-{ma_trang_thai}")
     public List<GiaoDichCuaHang> getGiaoDichCuaHang(@PathVariable int ma_trang_thai){
         return giaoDichCuaHangService.getGIaoDichCuaHangByTrangThai(ma_trang_thai);
+    }
+
+//    Xem chi tiết giao dịch
+    @GetMapping("/detail-{id}")
+    public GiaoDichCuaHang getDetail(@PathVariable int id){
+        return giaoDichCuaHangDao.getGiaoDichCuaHangById(id);
     }
 
 //    lấy giao dịch theo mã cửa hàng

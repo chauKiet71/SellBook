@@ -30,6 +30,11 @@ public class CuaHangRestController {
         return cuaHangService.getAllCuaHang();
     }
 
+    @GetMapping("/taikhoan/{idTaiKhoan}")
+    public CuaHang getCuaHangByIdTaiKhoan(@PathVariable Integer idTaiKhoan) {
+        return cuaHangDao.getCuaHangByTaiKhoan(idTaiKhoan);
+    }
+
     @PostMapping()
     public ApiResponse<CuaHang> addCuaHang(@RequestBody CuaHang cuaHang) {
         ApiResponse<CuaHang> response = new ApiResponse<>();
@@ -104,8 +109,11 @@ public class CuaHangRestController {
         return cuaHangDao.getCuaHangvipham();
     }
 
-
-
+//    ADMIN - sắp xếp cửa hàng theo doanh thu cao đến thấp
+    @GetMapping("/admin/desc")
+    public List<CuaHang> getCuaHangByAdmin() {
+        return cuaHangDao.getCuaHangDoanhThu();
+    }
 
 
 }

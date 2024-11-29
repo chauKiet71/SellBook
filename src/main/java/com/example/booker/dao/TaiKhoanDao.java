@@ -18,9 +18,21 @@ public interface TaiKhoanDao extends JpaRepository<TaiKhoan, Integer> {
     @Query("select t from TaiKhoan t join VaiTro v on v.ma_vai_tro = t.vai_tro.ma_vai_tro where t.vai_tro.ma_vai_tro = 1 or t.vai_tro.ma_vai_tro = 2")
     List<TaiKhoan> findAllCustomer();
 
+    //    ADMIN - đếm so lượng khách hàng theo trạng thái hoạt động
+    @Query("select count(kh) from TaiKhoan kh where kh.trang_thai_tk = false")
+    Long countTaiKhoanByFalse();
+
+    //    ADMIN - đếm so lượng khách hàng theo trạng thái v hiệu hóa
+    @Query("select count(kh) from TaiKhoan kh where kh.trang_thai_tk = true")
+    Long countTaiKhoanByTrue();
+
+
+//    ADMIN - hàm lấy danh sách khách hàng theo trạng thái
+    @Query("select tk from TaiKhoan tk where tk.trang_thai_tk = :trangThai")
+    List<TaiKhoan> findByTrangThai(@Param("trangThai") Boolean trangThai);
+
     //    ADMIN - lấy tài khoản tài khoản vi phạm
     @Query("select t from TaiKhoan t where t.tong_diem_vi_pham != 5")
     List<TaiKhoan> findtaikhoanvipham();
-
 
 }

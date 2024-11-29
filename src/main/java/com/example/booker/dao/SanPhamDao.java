@@ -7,12 +7,21 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
 
     //Lay san pham theo the loai
     @Query("select s from SanPham s where s.the_loai.ma_the_loai = :ma_the_loai")
     List<SanPham> findByMaTheLoai(int ma_the_loai);
+
+    //Lay san pham trang user
+    @Query("select s from SanPham s where s.trang_thai_hoat_dong  in (3,4)")
+    List<SanPham> getSanPhamUser();
+
+    //Lay san pham trang user
+    @Query("select s from SanPham s where s.doanh_thu > 0")
+    List<SanPham> getSanPhamCoDoanhThu();
 
 //    SELLER - lấy sản phẩm theo mã cửa hàng
     @Query("SELECT s FROM SanPham s " +
@@ -58,17 +67,19 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
     List<SanPham> getListProductOrderByDoanhThuDesc(int ma_cua_hang);
 
 //    ADMIN - lấy sách chờ duyệt
-    @Query("SELECT s FROM SanPham s WHERE s.trang_thai_duyet = false ")
+    @Query("SELECT s FROM SanPham s WHERE s.trang_thai_hoat_dong = 1")
     List<SanPham> getListProductConHang();
 
 //    ADMIN - lấy sách bị khóa
-    @Query("SELECT s FROM SanPham s WHERE s.trang_thai_khoa = true ")
+    @Query("SELECT s FROM SanPham s WHERE s.trang_thai_hoat_dong = 2 ")
     List<SanPham> getListProductKhoa();
 
 //    ADMIN - lấy sách còn hàng và hê hàng
-    @Query("SELECT s FROM SanPham s WHERE s.trang_thai_hoat_dong = 1 OR s.trang_thai_hoat_dong = 2")
+    @Query("SELECT s FROM SanPham s WHERE s.trang_thai_hoat_dong = 3 OR s.trang_thai_hoat_dong = 4")
     List<SanPham> getListBookDangBan();
-
+//  ADMIN - lấy sách yêu cầu mở khóa
+    @Query("SELECT s FROM SanPham s WHERE s.trang_thai_hoat_dong = 5 ")
+    List<SanPham> getListBookYeuCauMoKhoa();
 
     //Phương thức truy vấn sản phẩm theo cửa hàng
     @Query("SELECT s FROM SanPham s " +
@@ -105,19 +116,19 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
     long countByMaCuaHang(int maCuaHang);
 
     //  Lấy ra sản phẩm bị khoá
-    @Query("SELECT s FROM SanPham s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = 0 ")
+    @Query("SELECT s FROM SanPham s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = 2 ")
     List<SanPham> findAllSanPhamBiKhoa(int ma_cua_hang);
 
     //  Lấy ra sản phẩm chờ duyệt
-    @Query("SELECT s FROM SanPham s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = 3")
+    @Query("SELECT s FROM SanPham s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = 1")
     List<SanPham> findAllSanPhamChoDuyet(int ma_cua_hang);
 
     //  Lấy ra sản phẩm hết hàng
-    @Query("SELECT s FROM SanPham s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = 2")
+    @Query("SELECT s FROM SanPham s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = 4")
     List<SanPham> findAllSanPhamHetHang(int ma_cua_hang);
 
     //  Lấy ra sản phẩm còn hàng
-    @Query("SELECT s FROM SanPham s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = 1")
+    @Query("SELECT s FROM SanPham s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = 3")
     List<SanPham> findAllSanPhamConHang(int ma_cua_hang);
 
 
@@ -218,8 +229,19 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
     @Query("SELECT sp FROM SanPham sp WHERE sp.cua_hang.ma_cua_hang = :storeId")
     List<SanPham> findByStoreId(int storeId);
 
+    @Query("SELECT sp FROM SanPham sp WHERE sp.ma_san_pham = :masp")
+    Optional<SanPham> findByMaSanPham(int masp);
+
+    @Query("select sp from SanPham sp join CuaHang ch on ch.ma_cua_hang = sp.cua_hang.ma_cua_hang where sp.cua_hang.ma_cua_hang = :maCh and sp.an_san_pham = true")
+    List<SanPham> getBookHidden(int maCh);
+
+    @Query("select count(sp) from SanPham sp join CuaHang ch on ch.ma_cua_hang = sp.cua_hang.ma_cua_hang where sp.cua_hang.ma_cua_hang = :maCh and sp.an_san_pham = true")
+    Long getBookHiddenLength(int maCh);
 
     //    SELLER - lấy sản phẩm theo mã cửa hàng
     @Query("SELECT s FROM SanPham s WHERE s.da_ban IS NOT NULL AND s.diem_trung_binh IS NOT NULL AND s.da_ban > 10 AND s.diem_trung_binh < 3")
     List<SanPham> findSanphamvipham();
+
+
+
 }

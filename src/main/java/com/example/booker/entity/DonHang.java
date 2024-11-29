@@ -24,6 +24,7 @@ public class DonHang {
     float doanh_thu_don_hang;
     @Temporal(TemporalType.DATE)
     Date ngay_tao;
+    String loi_nhan;
 
     @ManyToOne
     @JoinColumn(name = "id_tai_khoan")

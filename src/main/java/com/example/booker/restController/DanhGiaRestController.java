@@ -34,4 +34,9 @@ public class DanhGiaRestController {
         return danhGiaDao.findByMaSanPhamAndDiemDanhGia(idSp, diem);
     }
 
+    @GetMapping("/comment-{id}")
+    public DanhGia getComment(@PathVariable int id) {
+        return danhGiaDao.getDanhGiaById(id);
+    }
+
 }

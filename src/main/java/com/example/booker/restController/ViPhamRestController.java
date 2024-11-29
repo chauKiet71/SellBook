@@ -3,10 +3,7 @@ package com.example.booker.restController;
 import com.example.booker.dao.ViPhamDao;
 import com.example.booker.entity.ViPham;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,4 +16,7 @@ public class ViPhamRestController {
 
     @GetMapping("/all_vipham")
     public List<ViPham> getAllViPham() {return viphamDao.findAll();}
+
+    @GetMapping("/{id}")
+    public ViPham getViPhamById(@PathVariable int id) {return viphamDao.getViPhamById(id);}
 }
