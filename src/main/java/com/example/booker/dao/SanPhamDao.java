@@ -105,19 +105,19 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
     long countByMaCuaHang(int maCuaHang);
 
     //  Lấy ra sản phẩm bị khoá
-    @Query("SELECT s FROM SanPham s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = 0 ")
+    @Query("SELECT s FROM SanPham s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = 2")
     List<SanPham> findAllSanPhamBiKhoa(int ma_cua_hang);
 
     //  Lấy ra sản phẩm chờ duyệt
-    @Query("SELECT s FROM SanPham s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = 3")
+    @Query("SELECT s FROM SanPham s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = 1")
     List<SanPham> findAllSanPhamChoDuyet(int ma_cua_hang);
 
     //  Lấy ra sản phẩm hết hàng
-    @Query("SELECT s FROM SanPham s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = 2")
+    @Query("SELECT s FROM SanPham s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = 4")
     List<SanPham> findAllSanPhamHetHang(int ma_cua_hang);
 
     //  Lấy ra sản phẩm còn hàng
-    @Query("SELECT s FROM SanPham s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = 1")
+    @Query("SELECT s FROM SanPham s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = 3")
     List<SanPham> findAllSanPhamConHang(int ma_cua_hang);
 
 

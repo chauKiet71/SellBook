@@ -2,7 +2,11 @@ package com.example.booker.restController;
 
 
 import com.example.booker.dao.CuaHangDao;
+import com.example.booker.dao.TaiKhoanDao;
+import com.example.booker.dao.VaiTroDao;
 import com.example.booker.entity.CuaHang;
+import com.example.booker.entity.TaiKhoan;
+import com.example.booker.entity.VaiTro;
 import com.example.booker.service.nguoidung.CuaHangService;
 import com.example.booker.request.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +29,11 @@ public class CuaHangRestController {
     @Autowired
     CuaHangDao cuaHangDao;
 
+    @Autowired
+    TaiKhoanDao taikhoanDao;
+    @Autowired
+    VaiTroDao vaiTroDao;
+
     @GetMapping()
     public List<CuaHang> getCuaHang() {
         return cuaHangService.getAllCuaHang();
@@ -35,8 +44,16 @@ public class CuaHangRestController {
         return cuaHangDao.getCuaHangByTaiKhoan(idTaiKhoan);
     }
 
-    @PostMapping()
-    public ApiResponse<CuaHang> addCuaHang(@RequestBody CuaHang cuaHang) {
+    @PostMapping("/add-{nguoidung_id}")
+    public ApiResponse<CuaHang> addCuaHang(@RequestBody CuaHang cuaHang, @PathVariable int nguoidung_id) {
+
+        TaiKhoan tkLogined = taikhoanDao.findById(nguoidung_id).get();
+        VaiTro vaiTroND = vaiTroDao.findById(2).orElse(null);
+        if (vaiTroND != null) {
+            tkLogined.setVai_tro(vaiTroND);
+        }
+        taikhoanDao.save(tkLogined);
+
         ApiResponse<CuaHang> response = new ApiResponse<>();
         response.setResult(cuaHangService.createCuaHang(cuaHang));
         return response;

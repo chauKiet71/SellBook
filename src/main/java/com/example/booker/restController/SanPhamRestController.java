@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
-    @RestController
+@RestController
     @CrossOrigin("*")
     @RequestMapping("/api/v1/product")
     public class SanPhamRestController {
@@ -149,6 +150,11 @@ import java.util.List;
         response.setResult("Lưu file thành công");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+        @GetMapping("/sanpham/{masp}")
+        public Optional<SanPham> getSanPhamById(@PathVariable int masp){
+            return sanPhamDao.findById(masp);
+        }
 
     @GetMapping("/cuahang-{id}/spbikhoa")
     public List<SanPham> getSpBiKhoa(@PathVariable int id) {

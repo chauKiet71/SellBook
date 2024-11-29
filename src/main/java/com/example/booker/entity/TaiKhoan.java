@@ -20,7 +20,7 @@ public class TaiKhoan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_tai_khoan;
+        private Integer id_tai_khoan;
     private String email;
     private String mat_khau;
     private String ho_ten;
