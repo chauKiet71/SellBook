@@ -30,18 +30,18 @@ public class BaoCaoCuaHangController {
         return response;
     }
 
-    // get theo id_tai_khoan_bi_bao_cao báo cáo cho người dùng(thông báo các lỗi cửa tài khoản đã duyệt và chưa ẩn)
-    @GetMapping("/thongbao-taikhoan/{id_tai_khoan}")
-    public List<BaoCaoCuaHang> getThongbaosIdTK(@PathVariable int id_tai_khoan) {
-
-        // Lấy danh sách báo cáo từ Repository
-        List<BaoCaoCuaHang> thongBaos = baoCaoCuaHangDao.findThongbaochotaikhoan(id_tai_khoan);
-        // Kiểm tra nếu không có báo cáo
-        if (thongBaos.isEmpty()) {
-            throw new RuntimeException("Không có thông báo nào cho tài khoản với ID: " + id_tai_khoan);
-        }
-        return thongBaos;
-    }
+//    // get theo id_tai_khoan_bi_bao_cao báo cáo cho người dùng(thông báo các lỗi cửa tài khoản đã duyệt và chưa ẩn)
+//    @GetMapping("/thongbao-taikhoan/{id_tai_khoan}")
+//    public List<BaoCaoCuaHang> getThongbaosIdTK(@PathVariable int id_tai_khoan) {
+//
+//        // Lấy danh sách báo cáo từ Repository
+//        List<BaoCaoCuaHang> thongBaos = baoCaoCuaHangDao.findThongbaochotaikhoan(id_tai_khoan);
+//        // Kiểm tra nếu không có báo cáo
+//        if (thongBaos.isEmpty()) {
+//            throw new RuntimeException("Không có thông báo nào cho tài khoản với ID: " + id_tai_khoan);
+//        }
+//        return thongBaos;
+//    }
 
 
     @PostMapping("/save")

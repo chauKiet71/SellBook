@@ -13,13 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
+
 import java.util.List;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/v1/sanpham")
-public class NguoiDung_SPRestController {
+public class NguoiDungSPRestController {
 
     @Autowired
     SanPhamService sanPhamService;

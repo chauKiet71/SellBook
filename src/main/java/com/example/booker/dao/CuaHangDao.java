@@ -15,7 +15,16 @@ public interface CuaHangDao extends JpaRepository<CuaHang, Integer> {
 
 //    SELLER - lấy doanh thu cửa hàng
 //    @Query("select ch.doanh_thu from CuaHang ch where ch.ma_cua_hang = :")
+//
+@Query("SELECT c FROM CuaHang c WHERE c.tai_khoan.id_tai_khoan = :idTaiKhoan")
+        CuaHang getCuaHangByTaiKhoan(@Param("idTaiKhoan") Integer idTaiKhoan);
 
+// ADMIN - ấy tất cả cửa hàng sắp xếp theo doanh thu từ cao ddeesns thấp
+    @Query("select c from CuaHang c order by c.doanh_thu desc ")
+    List<CuaHang> getCuaHangDoanhThu();
 
+    //    ADMIN - lấy cua hang vi pham
+    @Query("select c from CuaHang c where c.tong_diem_vi_pham >= 24")
+    List<CuaHang> getCuaHangvipham();
 
 }

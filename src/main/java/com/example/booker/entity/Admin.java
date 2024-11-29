@@ -14,14 +14,8 @@ import lombok.Data;
 public class Admin {
 
   private   Float tong_tien_nap;
-    private  Float tong_tien_rut;
-    private Float doanh_thu_san;
-
-  @Transient
-
-  @JsonProperty("tong_phi_dich_vu")
-  private Float getTongPhiGiaoDich(){
-    return doanh_thu_san / 9;
-  }
+  private  Float tong_tien_rut;
+  private Float doanh_thu_san;
+  private Float doanh_thu_sua_hang;
 
 }

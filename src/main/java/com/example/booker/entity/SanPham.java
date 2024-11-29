@@ -27,7 +27,7 @@ public class SanPham {
     String ten_san_pham;
     String mo_ta;
     int so_luong_hang;
-    float gia;
+    Float gia;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     LocalDate ngay_tao = LocalDate.now();
@@ -49,8 +49,12 @@ public class SanPham {
 
     Boolean an_san_pham = Boolean.FALSE;
 
-    @Column(name = "trang_thai_hoat_dong")
-     Byte trang_thai_hoat_dong;
+    @Column(name = "trang_thai_hoat_dong", insertable = false, updatable = false)
+    private Byte trang_thai_hoat_dong;
+
+
+//    @Column(name = "trang_thai_hoat_dong")
+//     Byte trang_thai_hoat_dong;
 
     @ManyToOne
     @JoinColumn(name = "ma_the_loai") //, insertable=false, updatable=false
@@ -67,7 +71,8 @@ public class SanPham {
     @Transient
 
     @JsonProperty("phi_dich_vu_sp")
-    private Float getPhiGiaoDichSP(){
-        return doanh_thu / 9;
+    private Float getPhiGiaoDichSP() {
+        return (doanh_thu != null) ? doanh_thu / 9 : 0.0f;
     }
+
 }

@@ -30,6 +30,8 @@ public interface TaiKhoanDao extends JpaRepository<TaiKhoan, Integer> {
     @Query("select tk from TaiKhoan tk where tk.trang_thai_tk = :trangThai")
     List<TaiKhoan> findByTrangThai(@Param("trangThai") Boolean trangThai);
 
-
+    //    ADMIN - lấy tài khoản tài khoản vi phạm
+    @Query("select t from TaiKhoan t where t.tong_diem_vi_pham != 5")
+    List<TaiKhoan> findtaikhoanvipham();
 
 }

@@ -40,21 +40,39 @@ public class NguoiDungRestController {
     }
 
 //  Thêm cửa hàng
-    @PostMapping("/dangkiNB-{nguoidung_id}")
-    public ResponseEntity<CuaHang> addCuaHang(@RequestBody CuaHang cuaHang, @PathVariable int nguoidung_id) {
-        if (taikhoanDao.existsById(nguoidung_id)) {
-            TaiKhoan tkLogined = taikhoanDao.findById(nguoidung_id).get();
-            VaiTro vaiTroND = vaiTroDao.findById(2).get();
+@PostMapping("/dangkiNB-{nguoidung_id}")
+public ResponseEntity<CuaHang> addCuaHang(@RequestBody CuaHang cuaHang, @PathVariable int nguoidung_id) {
+    if (taikhoanDao.existsById(nguoidung_id)) {
+        TaiKhoan tkLogined = taikhoanDao.findById(nguoidung_id).get();
+
+        VaiTro vaiTroND = vaiTroDao.findById(2).orElse(null);
+        if (vaiTroND != null) {
             tkLogined.setVai_tro(vaiTroND);
-            cuaHang.setTai_khoan(tkLogined);
-            cuaHangDao.save(cuaHang);
-            taikhoanDao.save(tkLogined);
-            return ResponseEntity.ok(cuaHang);
         }
-        else {
-            return ResponseEntity.notFound().build();
-        }
+
+        cuaHang.setTai_khoan(tkLogined);
+
+        CuaHang newCuaHang = new CuaHang();
+        newCuaHang.setTen_cua_hang(cuaHang.getTen_cua_hang());
+        newCuaHang.setDia_chi_cua_hang(cuaHang.getDia_chi_cua_hang());
+        newCuaHang.setEmail(cuaHang.getEmail());
+        newCuaHang.setSo_dien_thoai(cuaHang.getSo_dien_thoai());
+        newCuaHang.setTai_khoan(tkLogined);
+
+        // Lưu URL ảnh nhận từ frontend
+        newCuaHang.setAnh_dai_dien(cuaHang.getAnh_dai_dien());
+        newCuaHang.setAnh_bia(cuaHang.getAnh_bia());
+
+        cuaHangDao.save(newCuaHang);
+        taikhoanDao.save(tkLogined);
+
+        return ResponseEntity.ok(newCuaHang);
+    } else {
+        return ResponseEntity.notFound().build();
     }
+}
+
+
 
 //  Cập nhật thông tin tài khoản(bao gồm đổi mật khẩu)
     @PutMapping("/{id}")
