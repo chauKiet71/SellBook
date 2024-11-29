@@ -18,9 +18,9 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-    @CrossOrigin("*")
-    @RequestMapping("/api/v1/product")
-    public class SanPhamRestController {
+@CrossOrigin("*")
+@RequestMapping("/api/v1/product")
+public class SanPhamRestController {
 
     @Autowired
     SanPhamService sanPhamService;
@@ -44,19 +44,19 @@ import java.util.Optional;
 //        return sanPhamService.findAll(id);
 //    }
 
-//  SELLER -  Lấy số lượng sản pham
+    //  SELLER -  Lấy số lượng sản pham
     @GetMapping("/cuahang-{id}/count")
     public long countSanPhamAll(@PathVariable int id) {
         return sanPhamViewDao.countByMaCuaHang(id);
     }
 
-//    ADMIN - lấy tất cả sản phẩm
-        @GetMapping("/admin/all-san-pham")
-        public List<SanPham> getAllSanPhamAdmin(){
-            return sanPhamDao.findAll();
-        }
+    //    ADMIN - lấy tất cả sản phẩm
+    @GetMapping("/admin/all-san-pham")
+    public List<SanPham> getAllSanPhamAdmin(){
+        return sanPhamDao.findAll();
+    }
 
-//    lấy sản phẩm thuộc cửa hàng
+    //    lấy sản phẩm thuộc cửa hàng
     @GetMapping("/cuahang-{id}")
     public List<SanPham> getSp(@PathVariable int id) {
         return sanPhamDao.getAllSanPhamByMaCuaHang(id);
@@ -94,7 +94,7 @@ import java.util.Optional;
         ApiResponse<SanPham> response = new ApiResponse<>();
         response.setMessage(("duyet sản phẩm thành công"));
         response.setResult(sanPhamService.duyet_sanpham(idsp, sanPham));
-        return response;    
+        return response;
     }
     @DeleteMapping("/cuahang-{id}/{idsp}")
     public ResponseEntity<ApiResponse<Void>> deleteSanPham(@PathVariable int idsp) {
@@ -124,7 +124,7 @@ import java.util.Optional;
 
     @GetMapping("/cuahang-{id}/tim-kiem/ngay-tao")
     public ResponseEntity<List<SanPham>> searchCreateDate(@PathVariable int id,
-                                                              @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date) {
+                                                          @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date) {
         List<SanPham> sanPhams = sanPhamService.findByCreateDate(id, date);
         System.out.println(sanPhams);
         return ResponseEntity.ok(sanPhams);
@@ -151,10 +151,10 @@ import java.util.Optional;
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-        @GetMapping("/sanpham/{masp}")
-        public Optional<SanPham> getSanPhamById(@PathVariable int masp){
-            return sanPhamDao.findById(masp);
-        }
+    @GetMapping("/sanpham/{masp}")
+    public Optional<SanPham> getSanPhamById(@PathVariable int masp){
+        return sanPhamDao.findById(masp);
+    }
 
     @GetMapping("/cuahang-{id}/spbikhoa")
     public List<SanPham> getSpBiKhoa(@PathVariable int id) {
@@ -209,7 +209,7 @@ import java.util.Optional;
         return sanPhamDao.getListProductOrderByComment(id);
     }
 
-//    lấy danh sách sản phẩm sắp xếp theo bán bán theo
+    //    lấy danh sách sản phẩm sắp xếp theo bán bán theo
     @GetMapping("/cuahang-{id}/ban-chay")
     public List<SanPham> getSanPhamByBanChay(@PathVariable int id) {
         return sanPhamDao.getListProductOrderByDaBanDesc(id);
@@ -221,7 +221,7 @@ import java.util.Optional;
         return sanPhamDao.getListProductOrderByDoanhThuDesc(id);
     }
 
-//    ADMIN - lấy sản phẩm chờ duyê
+    //    ADMIN - lấy sản phẩm chờ duyê
     @GetMapping("/cho-duyet")
     public List<SanPham> getConHang(){
         return sanPhamDao.getListProductConHang();
@@ -244,21 +244,21 @@ import java.util.Optional;
         return sanPhamService.getProductsByStoreId(storeId);
     }
 
-//    list sản phẩm đang ânr
-        @GetMapping("/cuahang-{id}/an/list")
-        public List<SanPham> getBookHidden(@PathVariable int id) {
-            return sanPhamDao.getBookHidden(id);
-        }
+    //    list sản phẩm đang ânr
+    @GetMapping("/cuahang-{id}/an/list")
+    public List<SanPham> getBookHidden(@PathVariable int id) {
+        return sanPhamDao.getBookHidden(id);
+    }
 
-        //    list sản phẩm đang ânr
-        @GetMapping("/cuahang-{id}/an/length")
-        public Long getBookHiddenLength(@PathVariable int id) {
-            return sanPhamDao.getBookHiddenLength(id);
-        }
+    //    list sản phẩm đang ânr
+    @GetMapping("/cuahang-{id}/an/length")
+    public Long getBookHiddenLength(@PathVariable int id) {
+        return sanPhamDao.getBookHiddenLength(id);
+    }
 
-        //    ADMIN - lấy sản phẩm vi phạm
-        @GetMapping("/sanpham/vipham")
-        public List<SanPham> ViPham(){
-            return sanPhamDao.findSanphamvipham();
-        }
+    //    ADMIN - lấy sản phẩm vi phạm
+    @GetMapping("/sanpham/vipham")
+    public List<SanPham> ViPham(){
+        return sanPhamDao.findSanphamvipham();
+    }
 }

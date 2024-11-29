@@ -28,11 +28,11 @@ public class CuaHangRestController {
 
     @Autowired
     CuaHangDao cuaHangDao;
-
     @Autowired
     TaiKhoanDao taikhoanDao;
     @Autowired
     VaiTroDao vaiTroDao;
+
 
     @GetMapping()
     public List<CuaHang> getCuaHang() {
