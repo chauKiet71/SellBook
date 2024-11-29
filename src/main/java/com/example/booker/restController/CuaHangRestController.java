@@ -33,6 +33,11 @@ public class CuaHangRestController {
     @Autowired
     VaiTroDao vaiTroDao;
 
+    @Autowired
+    TaiKhoanDao taikhoanDao;
+    @Autowired
+    VaiTroDao vaiTroDao;
+
     @GetMapping()
     public List<CuaHang> getCuaHang() {
         return cuaHangService.getAllCuaHang();
@@ -43,8 +48,16 @@ public class CuaHangRestController {
         return cuaHangDao.getCuaHangByTaiKhoan(idTaiKhoan);
     }
 
-    @PostMapping()
-    public ApiResponse<CuaHang> addCuaHang(@RequestBody CuaHang cuaHang) {
+    @PostMapping("/add-{nguoidung_id}")
+    public ApiResponse<CuaHang> addCuaHang(@RequestBody CuaHang cuaHang, @PathVariable int nguoidung_id) {
+
+        TaiKhoan tkLogined = taikhoanDao.findById(nguoidung_id).get();
+        VaiTro vaiTroND = vaiTroDao.findById(2).orElse(null);
+        if (vaiTroND != null) {
+            tkLogined.setVai_tro(vaiTroND);
+        }
+        taikhoanDao.save(tkLogined);
+
         ApiResponse<CuaHang> response = new ApiResponse<>();
         response.setResult(cuaHangService.createCuaHang(cuaHang));
         return response;

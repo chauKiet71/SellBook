@@ -33,7 +33,7 @@ public class CuaHang {
     Float doanh_thu;
 
     @ManyToOne
-    @JoinColumn(name = "ma_trang_thai_cua_hang", insertable=false, updatable=false)
+    @JoinColumn(name = "ma_trang_thai_cua_hang")
     TrangThaiCuaHang trang_thai_cua_hang;
 
     Boolean trang_thai_khoa = Boolean.FALSE;
