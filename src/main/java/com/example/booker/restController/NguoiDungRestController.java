@@ -42,21 +42,16 @@ public class NguoiDungRestController {
 //  Thêm cửa hàng
 @PostMapping("/dangkiNB-{nguoidung_id}")
 public ResponseEntity<CuaHang> addCuaHang(@RequestBody CuaHang cuaHang, @PathVariable int nguoidung_id) {
-    // Kiểm tra nếu tài khoản tồn tại
     if (taikhoanDao.existsById(nguoidung_id)) {
-        // Lấy thông tin tài khoản người dùng
         TaiKhoan tkLogined = taikhoanDao.findById(nguoidung_id).get();
 
-        // Đổi vai trò của tài khoản sang "Người bán" (mã vai trò = 2)
         VaiTro vaiTroND = vaiTroDao.findById(2).orElse(null);
         if (vaiTroND != null) {
             tkLogined.setVai_tro(vaiTroND);
         }
 
-        // Gắn thông tin tài khoản vào cửa hàng
         cuaHang.setTai_khoan(tkLogined);
 
-        // Chỉ giữ lại các trường cần lưu: tên shop, địa chỉ lấy hàng, email, và số điện thoại
         CuaHang newCuaHang = new CuaHang();
         newCuaHang.setTen_cua_hang(cuaHang.getTen_cua_hang());
         newCuaHang.setDia_chi_cua_hang(cuaHang.getDia_chi_cua_hang());
@@ -64,10 +59,11 @@ public ResponseEntity<CuaHang> addCuaHang(@RequestBody CuaHang cuaHang, @PathVar
         newCuaHang.setSo_dien_thoai(cuaHang.getSo_dien_thoai());
         newCuaHang.setTai_khoan(tkLogined);
 
-        // Lưu cửa hàng mới vào database
-        cuaHangDao.save(newCuaHang);
+        // Lưu URL ảnh nhận từ frontend
+        newCuaHang.setAnh_dai_dien(cuaHang.getAnh_dai_dien());
+        newCuaHang.setAnh_bia(cuaHang.getAnh_bia());
 
-        // Lưu thay đổi tài khoản vào database
+        cuaHangDao.save(newCuaHang);
         taikhoanDao.save(tkLogined);
 
         return ResponseEntity.ok(newCuaHang);
@@ -75,6 +71,8 @@ public ResponseEntity<CuaHang> addCuaHang(@RequestBody CuaHang cuaHang, @PathVar
         return ResponseEntity.notFound().build();
     }
 }
+
+
 
 //  Cập nhật thông tin tài khoản(bao gồm đổi mật khẩu)
     @PutMapping("/{id}")

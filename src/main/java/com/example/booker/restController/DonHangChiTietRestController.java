@@ -134,5 +134,53 @@ public ResponseEntity<List<DonHangChiTiet>> getOrderDetailsByUserId(@PathVariabl
             return ResponseEntity.notFound().build();
         }
     }
+    @PutMapping("/nhan/{maDonHangChiTiet}")
+    public ResponseEntity<DonHangChiTiet> confirmReceivedOrderDetail(
+            @PathVariable int maDonHangChiTiet) {
+
+        // Kiểm tra xem chi tiết đơn hàng có tồn tại hay không
+        if (donHangChiTietDao.existsById(maDonHangChiTiet)) {
+            DonHangChiTiet donHangChiTiet = donHangChiTietDao.findById(maDonHangChiTiet).get();
+
+            // Cập nhật trạng thái của chi tiết đơn hàng thành "Đã nhận" (Trạng thái 13)
+            TrangThaiDonHang trangThaiNhan = trangThaiDonHangDao.findById(13).orElse(null);
+            if (trangThaiNhan != null) {
+                donHangChiTiet.setTrang_thai(trangThaiNhan);
+            } else {
+                return ResponseEntity.status(500).build(); // Trạng thái 13 không tồn tại
+            }
+
+            // Lưu lại thay đổi vào cơ sở dữ liệu
+            donHangChiTietDao.save(donHangChiTiet);
+            return ResponseEntity.ok(donHangChiTiet); // Trả lại chi tiết đơn hàng đã cập nhật
+        } else {
+            return ResponseEntity.notFound().build(); // Nếu không tìm thấy chi tiết đơn hàng
+        }
+    }
+    @PutMapping("/tra/{maDonHangChiTiet}")
+    public ResponseEntity<DonHangChiTiet> requestReturnOrderDetail(
+            @PathVariable int maDonHangChiTiet) {
+
+        // Kiểm tra xem chi tiết đơn hàng có tồn tại hay không
+        if (donHangChiTietDao.existsById(maDonHangChiTiet)) {
+            DonHangChiTiet donHangChiTiet = donHangChiTietDao.findById(maDonHangChiTiet).get();
+
+            // Cập nhật trạng thái của chi tiết đơn hàng thành "Yêu cầu trả hàng/Hoàn tiền" (Trạng thái 15)
+            TrangThaiDonHang trangThaiTra = trangThaiDonHangDao.findById(15).orElse(null);
+            if (trangThaiTra != null) {
+                donHangChiTiet.setTrang_thai(trangThaiTra);
+            } else {
+                return ResponseEntity.status(500).build(); // Trạng thái 15 không tồn tại
+            }
+
+            // Lưu lại thay đổi vào cơ sở dữ liệu
+            donHangChiTietDao.save(donHangChiTiet);
+            return ResponseEntity.ok(donHangChiTiet); // Trả lại chi tiết đơn hàng đã cập nhật
+        } else {
+            return ResponseEntity.notFound().build(); // Nếu không tìm thấy chi tiết đơn hàng
+        }
+    }
+
+
 
 }

@@ -67,7 +67,7 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
     List<SanPham> getListProductOrderByDoanhThuDesc(int ma_cua_hang);
 
 //    ADMIN - lấy sách chờ duyệt
-    @Query("SELECT s FROM SanPham s WHERE s.trang_thai_hoat_dong = 1")
+    @Query("SELECT s FROM SanPham s WHERE s.trang_thai_hoat_dong = 1 ")
     List<SanPham> getListProductConHang();
 
 //    ADMIN - lấy sách bị khóa
@@ -77,7 +77,8 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
 //    ADMIN - lấy sách còn hàng và hê hàng
     @Query("SELECT s FROM SanPham s WHERE s.trang_thai_hoat_dong = 3 OR s.trang_thai_hoat_dong = 4")
     List<SanPham> getListBookDangBan();
-//  ADMIN - lấy sách yêu cầu mở khóa
+
+    //  ADMIN - lấy sách yêu cầu mở khóa
     @Query("SELECT s FROM SanPham s WHERE s.trang_thai_hoat_dong = 5 ")
     List<SanPham> getListBookYeuCauMoKhoa();
 
@@ -116,7 +117,7 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
     long countByMaCuaHang(int maCuaHang);
 
     //  Lấy ra sản phẩm bị khoá
-    @Query("SELECT s FROM SanPham s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = 2 ")
+    @Query("SELECT s FROM SanPham s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = 2")
     List<SanPham> findAllSanPhamBiKhoa(int ma_cua_hang);
 
     //  Lấy ra sản phẩm chờ duyệt
@@ -131,6 +132,9 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
     @Query("SELECT s FROM SanPham s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = 3")
     List<SanPham> findAllSanPhamConHang(int ma_cua_hang);
 
+    //  Lấy ra sản phẩm yêu cầu mở kháo
+    @Query("SELECT s FROM SanPham s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = 5")
+    List<SanPham> findAllSanPhamYeuCauMoKhoa(int ma_cua_hang);
 
     // Tìm kiếm sản phẩm theo trang thai
     @Query("SELECT s FROM SanPham s WHERE s.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = :matt")
