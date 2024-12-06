@@ -31,7 +31,7 @@ public class BaoCaoNguoiDung {
     @JoinColumn(name = "ma_cua_hang_bi_bao_cao")
     private CuaHang ma_cua_hang_bi_bao_cao;
     String noi_dung_vi_phạm;
-    Integer trang_thai_bao_cao;// 1. chưa duyệt - 2. chưa xem - 3. đã xem -4.ẩn báo cáo
+    Integer trang_thai_bao_cao;// 1. chưa duyệt - 2. chưa xem - 3. đã xem -4.ẩn báo cáo-
 
     @ManyToOne
     @JoinColumn(name = "id_vi_pham")
