@@ -66,6 +66,10 @@ public class TaiKhoanRestController {
         return response;
     }
 
+    @PutMapping("/update")
+    public TaiKhoan updateTaiKhoan(@RequestBody TaiKhoan taiKhoan) {
+        return taiKhoanDao.save(taiKhoan);
+    }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteTK(@PathVariable int id) {
@@ -296,4 +300,7 @@ public class TaiKhoanRestController {
 
 
 
+
+    @GetMapping("/admin/yeu-cau-mo-khoa")
+    public List<TaiKhoan> getTaiKhoanYeuCauMoKhoa(){return taiKhoanDao.findtaikhoanYeuCauMoKhoa();}
 }

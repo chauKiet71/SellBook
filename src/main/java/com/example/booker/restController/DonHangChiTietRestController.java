@@ -4,15 +4,14 @@ import com.example.booker.dao.DonHangChiTietDao;
 import com.example.booker.dao.TrangThaiDonHangDao;
 import com.example.booker.entity.DonHangChiTiet;
 import com.example.booker.entity.TrangThaiDonHang;
-import com.example.booker.entity.view.DonHangChiTietView;
 import com.example.booker.service.nguoidung.DonHangChiTietService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -48,6 +47,11 @@ public class DonHangChiTietRestController {
     @GetMapping("/cuahang-{id}/don_hang_chi_tiet-{madh}")
     public DonHangChiTiet InfoDetalDonHangChiTiet(@PathVariable int id, @PathVariable int madh) {
         return donHangChiTietService.infoDetailDonHangChiTiet(id, madh);
+    }
+
+    @GetMapping("/admin/detail-{id}")
+    public Optional<DonHangChiTiet> getDetailDonHangChiTiet(@PathVariable int id){
+        return donHangChiTietDao.findById(id);
     }
 
     // cập nhat don hang chi tiet

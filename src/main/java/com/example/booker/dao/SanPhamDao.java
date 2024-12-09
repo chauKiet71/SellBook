@@ -231,7 +231,7 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
     Long getBookHiddenLength(int maCh);
 
     //    SELLER - lấy sản phẩm theo mã cửa hàng
-    @Query("SELECT s FROM SanPham s WHERE s.da_ban IS NOT NULL AND s.diem_trung_binh IS NOT NULL AND s.da_ban > 10 AND s.diem_trung_binh < 3")
+    @Query("SELECT s FROM SanPham s WHERE s.trang_thai_khoa = false AND s.da_ban IS NOT NULL AND s.diem_trung_binh IS NOT NULL AND s.da_ban > 10 AND s.diem_trung_binh < 3")
     List<SanPham> findSanphamvipham();
 
 }
