@@ -104,4 +104,19 @@ public interface DonHangChiTietDao extends JpaRepository<DonHangChiTiet, Integer
     List<DonHangChiTiet> findByDonHangId(@Param("maDonHang") int maDonHang);
     @Query("SELECT d FROM DonHangChiTiet d JOIN d.don_hang dh WHERE dh.tai_khoan.id_tai_khoan = :userId")
     List<DonHangChiTiet> findAllByUserId(@Param("userId") int userId);
+
+
+    @Query(value = "SELECT dh.ngay_tao, dhct.so_luong " +
+            "FROM don_hang dh " +
+            "JOIN don_hang_chi_tiet dhct ON dh.ma_don_hang = dhct.ma_don_hang " +
+            "JOIN san_pham s ON s.ma_san_pham = dhct.ma_san_pham " +
+            "JOIN ( " +
+            "    SELECT ma_san_pham " +
+            "    FROM san_pham " +
+            "    WHERE ma_cua_hang = :ma_cua_hang " +
+            "    ORDER BY da_ban DESC " +
+            "    LIMIT 3 " +
+            ") AS top_san_pham ON s.ma_san_pham = top_san_pham.ma_san_pham " +
+            "WHERE s.ma_cua_hang = :ma_cua_hang", nativeQuery = true)
+    List<Object[]> findTopSellingProducts(int ma_cua_hang);
 }
