@@ -27,30 +27,30 @@ public class SanPham {
     String ten_san_pham;
     String mo_ta;
     int so_luong_hang;
-    float gia;
+    Float gia;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     LocalDate ngay_tao = LocalDate.now();
     String tac_gia;
     LocalDate ngay_xuat_ban;
-    Integer so_trang;
+    int so_trang;
     String ma_isbn;
     String phien_ban;
     String anh_san_pham;
-    Integer ma_cua_hang;
-
+    int ma_cua_hang;
+    
     Boolean trang_thai_duyet = Boolean.FALSE;
     Boolean trang_thai_khoa = Boolean.FALSE;
 
     Integer da_ban;
-    Float diem_trung_binh ;
+    Float diem_trung_binh;
     Float doanh_thu;
-    Integer con_hang;
+    Float con_hang;
 
     Boolean an_san_pham = Boolean.FALSE;
 
     @Column(name = "trang_thai_hoat_dong", insertable = false, updatable = false)
-    private Byte trang_thai_hoat_dong; //1 chờ duyệt - 2 khóa -  3 còn hàng -4 hết hàng -5 yeu cau duyet
+    private Byte trang_thai_hoat_dong;
 
 
 //    @Column(name = "trang_thai_hoat_dong")
@@ -74,4 +74,5 @@ public class SanPham {
     private Float getPhiGiaoDichSP() {
         return (doanh_thu != null) ? doanh_thu / 9 : 0.0f;
     }
+
 }

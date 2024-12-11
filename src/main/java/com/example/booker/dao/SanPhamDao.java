@@ -7,12 +7,21 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
 
     //Lay san pham theo the loai
     @Query("select s from SanPham s where s.the_loai.ma_the_loai = :ma_the_loai")
     List<SanPham> findByMaTheLoai(int ma_the_loai);
+
+    //Lay san pham trang user
+    @Query("select s from SanPham s where s.trang_thai_hoat_dong  in (3,4) and s.an_san_pham = false")
+    List<SanPham> getSanPhamUser();
+
+    //Lay san pham trang user
+    @Query("select s from SanPham s where s.doanh_thu > 0")
+    List<SanPham> getSanPhamCoDoanhThu();
 
 //    SELLER - lấy sản phẩm theo mã cửa hàng
     @Query("SELECT s FROM SanPham s " +
@@ -224,6 +233,9 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
     @Query("SELECT sp FROM SanPham sp WHERE sp.cua_hang.ma_cua_hang = :storeId")
     List<SanPham> findByStoreId(int storeId);
 
+    @Query("SELECT sp FROM SanPham sp WHERE sp.ma_san_pham = :masp")
+    Optional<SanPham> findByMaSanPham(int masp);
+
     @Query("select sp from SanPham sp join CuaHang ch on ch.ma_cua_hang = sp.cua_hang.ma_cua_hang where sp.cua_hang.ma_cua_hang = :maCh and sp.an_san_pham = true")
     List<SanPham> getBookHidden(int maCh);
 
@@ -234,8 +246,6 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
     @Query("SELECT s FROM SanPham s WHERE s.trang_thai_khoa = false AND s.da_ban IS NOT NULL AND s.diem_trung_binh IS NOT NULL AND s.da_ban > 10 AND s.diem_trung_binh < 3")
     List<SanPham> findSanphamvipham();
 
-    //Lay san pham trang user
-    @Query("select s from SanPham s where s.trang_thai_hoat_dong  in (3,4) and s.an_san_pham = false")
-    List<SanPham> getSanPhamUser();
+
 
 }
