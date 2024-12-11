@@ -297,10 +297,6 @@ public class TaiKhoanRestController {
         return response;
     }
 
-
-
-
-
     @GetMapping("/admin/yeu-cau-mo-khoa")
     public List<TaiKhoan> getTaiKhoanYeuCauMoKhoa(){return taiKhoanDao.findtaikhoanYeuCauMoKhoa();}
 }

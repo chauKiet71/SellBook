@@ -230,8 +230,10 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
     @Query("select count(sp) from SanPham sp join CuaHang ch on ch.ma_cua_hang = sp.cua_hang.ma_cua_hang where sp.cua_hang.ma_cua_hang = :maCh and sp.an_san_pham = true")
     Long getBookHiddenLength(int maCh);
 
-    //    SELLER - lấy sản phẩm theo mã cửa hàng
-    @Query("SELECT s FROM SanPham s WHERE s.trang_thai_khoa = false AND s.da_ban IS NOT NULL AND s.diem_trung_binh IS NOT NULL AND s.da_ban > 10 AND s.diem_trung_binh < 3")
+    //    SELLER - lấy sản phẩm vi phạm
+    @Query("SELECT s FROM SanPham s WHERE (s.trang_thai_hoat_dong = 3 OR s.trang_thai_hoat_dong = 4) AND s.da_ban IS NOT NULL AND s.diem_trung_binh IS NOT NULL AND s.da_ban > 10 AND s.diem_trung_binh < 3")
     List<SanPham> findSanphamvipham();
+
+
 
 }

@@ -29,6 +29,11 @@ public class DanhGiaRestController {
         return danhGiaDao.countByMaSanPham(id);
     }
 
+    @GetMapping("/diem-trung-binh-san-pham-{id}")
+    public Float diemTrungBinhByMaSanPham(@PathVariable int id) {
+        return danhGiaDao.getDiemTrungBinhDanhGia(id);
+    }
+
     @GetMapping("/tim-kiem/ma_san_pham-{idSp}/diem_danh_gia-{diem}")
     public List<DanhGia> searchDanhGia(@PathVariable int idSp, @PathVariable int diem) {
         return danhGiaDao.findByMaSanPhamAndDiemDanhGia(idSp, diem);
@@ -38,5 +43,6 @@ public class DanhGiaRestController {
     public DanhGia getComment(@PathVariable int id) {
         return danhGiaDao.getDanhGiaById(id);
     }
+
 
 }

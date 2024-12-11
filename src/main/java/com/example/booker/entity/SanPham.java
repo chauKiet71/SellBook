@@ -28,6 +28,7 @@ public class SanPham {
     String mo_ta;
     int so_luong_hang;
     float gia;
+    Float gia_sol;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     LocalDate ngay_tao = LocalDate.now();
