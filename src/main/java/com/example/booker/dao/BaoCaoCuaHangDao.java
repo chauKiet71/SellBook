@@ -38,4 +38,9 @@ public interface  BaoCaoCuaHangDao extends JpaRepository<BaoCaoCuaHang, Integer>
     @Query("select bc from BaoCaoCuaHang bc where bc.id_bao_cao = :id")
     BaoCaoCuaHang getBaoCaoCuaHangById(int id);
 
+////     Phương thức get list bao cao theo id_nguoi bị báo cáo
+//@Query("SELECT b FROM BaoCaoCuaHang b WHERE b.tai_khoan_bi_bao_cao.id_tai_khoan = :idtaikhoan AND (b.trang_thai_bao_cao.id_trang_thai_bao_cao IS NULL OR b.trang_thai_bao_cao.id_trang_thai_bao_cao NOT IN (1, 4))")
+//List<BaoCaoCuaHang> findThongbaochotaikhoan(int idtaikhoan);
+
+
 }

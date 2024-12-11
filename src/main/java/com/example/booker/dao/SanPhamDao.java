@@ -7,12 +7,21 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
 
     //Lay san pham theo the loai
     @Query("select s from SanPham s where s.the_loai.ma_the_loai = :ma_the_loai")
     List<SanPham> findByMaTheLoai(int ma_the_loai);
+
+    //Lay san pham trang user
+    @Query("select s from SanPham s where s.trang_thai_hoat_dong  in (3,4) and s.an_san_pham = false")
+    List<SanPham> getSanPhamUser();
+
+    //Lay san pham trang user
+    @Query("select s from SanPham s where s.doanh_thu > 0")
+    List<SanPham> getSanPhamCoDoanhThu();
 
 //    SELLER - lấy sản phẩm theo mã cửa hàng
     @Query("SELECT s FROM SanPham s " +
@@ -76,19 +85,19 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
     //Phương thức truy vấn sản phẩm theo cửa hàng
     @Query("SELECT s FROM SanPham s " +
             "LEFT JOIN CuaHang c on c.ma_cua_hang = s.ma_cua_hang " +
-            "WHERE c.ma_cua_hang = :ma_cua_hang  ORDER BY s.ma_san_pham desc")
+            "WHERE  s.trang_thai_hoat_dong  in (3,4) and s.an_san_pham = false and c.ma_cua_hang = :ma_cua_hang  ORDER BY s.ma_san_pham desc")
     List<SanPham> findAllSanPham(int ma_cua_hang);
 
     //Phương thức truy vấn sản phẩm theo cửa hàng
     @Query("SELECT s FROM SanPham s " +
             "LEFT JOIN CuaHang c on c.ma_cua_hang = s.ma_cua_hang " +
-            "WHERE c.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = :matt  ORDER BY s.ma_san_pham desc")
+            "WHERE  c.ma_cua_hang = :ma_cua_hang and s.trang_thai_hoat_dong = :matt  ORDER BY s.ma_san_pham desc")
     List<SanPham>findSanPhamByTrangThai(int ma_cua_hang, int matt);
 
     // Phương thức tìm kiếm sản phẩm theo tên không phân biệt hoa thường và trả về danh sách
     @Query("SELECT p FROM SanPham p " +
             "JOIN CuaHang c on c.ma_cua_hang = p.ma_cua_hang " +
-            "WHERE c.ma_cua_hang = :ma_cua_hang AND p.ten_san_pham LIKE CONCAT('%', :tenSanPham, '%') ")
+            "WHERE  p.trang_thai_hoat_dong  in (3,4) and p.an_san_pham = false and c.ma_cua_hang = :ma_cua_hang AND p.ten_san_pham LIKE CONCAT('%', :tenSanPham, '%') ")
     List<SanPham> findByTenSanPhamContainingIgnoreCase(int ma_cua_hang, String tenSanPham);
 
     //Lọc sản phẩm theo thể loại
@@ -176,19 +185,19 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
 //    List<SanPham> sanPham7Day(int ma_cua_hang);
 //  Hiển thị sản phẩm theo từ khóa
     @Query("select s from SanPham s " +
-            "where s.ten_san_pham like concat('%', :keyword, '%') ")
+            "where s.trang_thai_hoat_dong  in (3,4) and s.an_san_pham = false and s.ten_san_pham like concat('%', :keyword, '%') ")
     List<SanPham> findSanPhamByTen(String keyword);
 
 //  Hiển thị sản phẩm theo loại và khoảng giá
     @Query("select s from SanPham s " +
-            "where (:theloais is null or s.the_loai.ma_the_loai in :theloais) " +
+            "where (:theloais is null or s.the_loai.ma_the_loai in :theloais) and s.trang_thai_hoat_dong  in (3,4) and s.an_san_pham = false " +
             "and (:min is null or s.gia >= :min) " +
             "and (:max is null or s.gia <= :max)")
     List<SanPham> findSanPhamByTheloaiAndGia(List<Integer> theloais, Float min, Float max);
 
 //  Hiển thị sản phẩm theo loại và khoảng giá sắp xếp theo ngày tạo mới nhất
     @Query("select s from SanPham s " +
-            "where (:theloais is null or s.the_loai.ma_the_loai in :theloais) " +
+            "where (:theloais is null or s.the_loai.ma_the_loai in :theloais)  and s.trang_thai_hoat_dong  in (3,4) and s.an_san_pham = false     " +
             "and (:min is null or s.gia >= :min) " +
             "and (:max is null or s.gia <= :max) " +
             "order by s.ngay_tao desc")
@@ -206,7 +215,7 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
 
 //  Hiển thị sản phẩm theo loại và khoảng giá sắp xếp theo giá tăng dần
     @Query("select s from SanPham s " +
-            "where (:theloais is null or s.the_loai.ma_the_loai in :theloais) " +
+            "where (:theloais is null or s.the_loai.ma_the_loai in :theloais) and s.trang_thai_hoat_dong  in (3,4) and s.an_san_pham = false  " +
             "and (:min is null or s.gia >= :min) " +
             "and (:max is null or s.gia <= :max) " +
             "order by s.gia")
@@ -214,7 +223,7 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
 
 //  Hiển thị sản phẩm theo loại và khoảng giá sắp xếp theo giá giảm dần
     @Query("select s from SanPham s " +
-            "where (:theloais is null or s.the_loai.ma_the_loai in :theloais) " +
+            "where (:theloais is null or s.the_loai.ma_the_loai in :theloais) and s.trang_thai_hoat_dong  in (3,4) and s.an_san_pham = false  " +
             "and (:min is null or s.gia >= :min) " +
             "and (:max is null or s.gia <= :max) " +
             "order by s.gia desc")
@@ -223,6 +232,9 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
     // Query để lấy danh sách sản phẩm theo mã cửa hàng
     @Query("SELECT sp FROM SanPham sp WHERE sp.cua_hang.ma_cua_hang = :storeId")
     List<SanPham> findByStoreId(int storeId);
+
+    @Query("SELECT sp FROM SanPham sp WHERE sp.ma_san_pham = :masp")
+    Optional<SanPham> findByMaSanPham(int masp);
 
     @Query("select sp from SanPham sp join CuaHang ch on ch.ma_cua_hang = sp.cua_hang.ma_cua_hang where sp.cua_hang.ma_cua_hang = :maCh and sp.an_san_pham = true")
     List<SanPham> getBookHidden(int maCh);

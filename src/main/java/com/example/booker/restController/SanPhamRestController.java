@@ -18,9 +18,9 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("*")
-@RequestMapping("/api/v1/product")
-public class SanPhamRestController {
+    @CrossOrigin("*")
+    @RequestMapping("/api/v1/product")
+    public class SanPhamRestController {
 
     @Autowired
     SanPhamService sanPhamService;
@@ -38,6 +38,29 @@ public class SanPhamRestController {
     public List<SanPham> getAllSanPham(){
         return sanPhamDao.findAll();
     }
+    @GetMapping("/user")
+    public List<SanPham> getSanPhamuser(){
+        return sanPhamDao.getSanPhamUser();
+    }
+
+
+    @GetMapping("/user")
+    public List<SanPham> getSanPhamuser(){
+        return sanPhamDao.getSanPhamUser();
+    }
+
+    @GetMapping("/sp_co_doanh_thu")
+    public List<SanPham> getSPcodaonhthu(){
+        return sanPhamDao.getSanPhamCoDoanhThu();
+    }
+
+
+    @GetMapping("/sanpham/{masp}")
+        public Optional<SanPham> getSanPhamById(@PathVariable int masp){
+
+        return sanPhamDao.findById(masp);
+        }
+
 
 //    @GetMapping("/cuahang-{id}")
 //    public List<SanPhamView> getSp(@PathVariable int id) {
@@ -151,10 +174,7 @@ public class SanPhamRestController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/sanpham/{masp}")
-    public Optional<SanPham> getSanPhamById(@PathVariable int masp){
-        return sanPhamDao.findById(masp);
-    }
+
 
     @GetMapping("/cuahang-{id}/spbikhoa")
     public List<SanPham> getSpBiKhoa(@PathVariable int id) {

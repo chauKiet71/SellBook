@@ -44,5 +44,11 @@ public class DanhGiaRestController {
         return danhGiaDao.getDanhGiaById(id);
     }
 
+    @PostMapping("/gui-danh-gia")
+    public DanhGia guiDanhGia(@RequestBody DanhGia danhGia) {
+        return danhGiaService.saveDanhGia(danhGia);
+    }
+
+
 
 }

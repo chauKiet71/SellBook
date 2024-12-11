@@ -75,4 +75,5 @@ public class SanPham {
     private Float getPhiGiaoDichSP() {
         return (doanh_thu != null) ? doanh_thu / 9 : 0.0f;
     }
+
 }

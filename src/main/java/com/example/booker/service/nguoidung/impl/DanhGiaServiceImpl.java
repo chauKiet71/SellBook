@@ -18,4 +18,9 @@ public class DanhGiaServiceImpl implements DanhGiaService {
     public List<DanhGia> getDanhGiaList(int maSp) {
         return danhGiaDao.findByMaSanPham(maSp);
     }
+
+    @Override
+    public DanhGia saveDanhGia(DanhGia danhGia) {
+        return danhGiaDao.save(danhGia);
+    }
 }

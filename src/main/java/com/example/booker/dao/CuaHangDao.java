@@ -30,5 +30,7 @@ public interface CuaHangDao extends JpaRepository<CuaHang, Integer> {
     //    ADMIN - lấy cua hang vi pham
     @Query("select c from CuaHang c join TrangThaiCuaHang tt on tt.ma_trang_thai_cua_hang = c.trang_thai_cua_hang.ma_trang_thai_cua_hang where c.tong_diem_vi_pham >= 24 and c.trang_thai_cua_hang.ma_trang_thai_cua_hang = 13")
     List<CuaHang> getCuaHangvipham();
+    //    ADMIN - lấy cua hang vi pham
+
 
 }
