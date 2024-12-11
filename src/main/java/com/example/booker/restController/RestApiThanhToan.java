@@ -77,4 +77,9 @@ public class RestApiThanhToan {
     public List<Transaction> getALLNapTien() {
         return transactionDao.findAll();
     }
+
+    @GetMapping("/naptien/lichsu/{id_vi}")
+    public List<Transaction> getLichSuNapTien(@PathVariable String id_vi) {
+        return transactionDao.findByIdVi(id_vi);
+    }
 }
