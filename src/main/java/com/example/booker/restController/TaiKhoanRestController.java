@@ -9,6 +9,7 @@ import com.example.booker.request.ApiResponse;
 import com.example.booker.request.RegisterRequest;
 import com.example.booker.service.nguoidung.OtpService;
 import com.example.booker.service.nguoidung.TaiKhoanService;
+import com.example.booker.service.nguoidung.impl.TaiKhoanServicelmpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,8 @@ public class TaiKhoanRestController {
     private OtpService otpService;
     @Autowired
     private TaiKhoanDao taiKhoanDao;
+    @Autowired
+    private TaiKhoanServicelmpl taiKhoanServicelmpl;
 
     @GetMapping
     public List<TaiKhoan> getAll() {
@@ -63,6 +66,10 @@ public class TaiKhoanRestController {
         return response;
     }
 
+    @PutMapping("/update")
+    public TaiKhoan updateTaiKhoan(@RequestBody TaiKhoan taiKhoan) {
+        return taiKhoanDao.save(taiKhoan);
+    }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteTK(@PathVariable int id) {
@@ -239,4 +246,58 @@ public class TaiKhoanRestController {
     public List<TaiKhoan> getTaikhoavipham() {
         return tkDao.findtaikhoanvipham();
     }
+
+
+
+    @GetMapping("/forgotpass/{email}")
+    public ResponseEntity<?> checkEmailExist(@PathVariable String email) {
+        boolean exists = taiKhoanServicelmpl.existsByEmail(email);
+
+        if (exists) {
+            return ResponseEntity.ok().build(); // Email tồn tại, trả về 200 OK
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Email không tồn tại trong hệ thống!"); // Email không tồn tại, trả về 404
+        }
+    }
+
+
+    @PostMapping("/reset-password")
+    public ApiResponse<String> resetPassword(@RequestParam String email,
+                                             @RequestParam String otp,
+                                             @RequestParam String newPassword) {
+        ApiResponse<String> response = new ApiResponse<>();
+
+        // Kiểm tra OTP có hợp lệ không
+        if (!otpService.isValidOtp(email, otp)) {
+            response.setMessage("Mã OTP không hợp lệ hoặc đã hết hạn.");
+            response.setCode(400); // Bad Request
+            return response;
+        }
+
+        // Kiểm tra tài khoản có tồn tại không
+        TaiKhoan taiKhoan = tkService.getByEmail(email);
+        if (taiKhoan == null) {
+            response.setMessage("Email không tồn tại trong hệ thống.");
+            response.setCode(404); // Not Found
+            return response;
+        }
+
+        // Đặt lại mật khẩu (mã hóa mật khẩu trước khi lưu)
+        taiKhoan.setMat_khau(newPassword);
+
+        // Xóa OTP sau khi sử dụng
+        otpService.deleteOtp(email);
+
+        response.setMessage("Đổi mật khẩu thành công.");
+        response.setCode(200); // Success
+        return response;
+    }
+
+
+
+
+
+    @GetMapping("/admin/yeu-cau-mo-khoa")
+    public List<TaiKhoan> getTaiKhoanYeuCauMoKhoa(){return taiKhoanDao.findtaikhoanYeuCauMoKhoa();}
 }

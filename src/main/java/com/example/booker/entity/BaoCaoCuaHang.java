@@ -20,7 +20,7 @@ public class BaoCaoCuaHang {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_bao_cao;
-    String noi_dung_vi_phạm;
+    String noi_dung_vi_pham;
     LocalDate ngay_bao_cao = LocalDate.now();
 
     @ManyToOne

@@ -16,7 +16,7 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
     List<SanPham> findByMaTheLoai(int ma_the_loai);
 
     //Lay san pham trang user
-    @Query("select s from SanPham s where s.trang_thai_hoat_dong  in (3,4)")
+    @Query("select s from SanPham s where s.trang_thai_hoat_dong  in (3,4) and s.an_san_pham = false")
     List<SanPham> getSanPhamUser();
 
     //Lay san pham trang user
@@ -243,7 +243,7 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
     Long getBookHiddenLength(int maCh);
 
     //    SELLER - lấy sản phẩm theo mã cửa hàng
-    @Query("SELECT s FROM SanPham s WHERE s.da_ban IS NOT NULL AND s.diem_trung_binh IS NOT NULL AND s.da_ban > 10 AND s.diem_trung_binh < 3")
+    @Query("SELECT s FROM SanPham s WHERE s.trang_thai_khoa = false AND s.da_ban IS NOT NULL AND s.diem_trung_binh IS NOT NULL AND s.da_ban > 10 AND s.diem_trung_binh < 3")
     List<SanPham> findSanphamvipham();
 
 

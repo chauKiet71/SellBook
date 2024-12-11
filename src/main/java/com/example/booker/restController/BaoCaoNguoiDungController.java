@@ -47,6 +47,7 @@ public class BaoCaoNguoiDungController  {
         ApiResponse<BaoCaoNguoiDung> response = new ApiResponse<>();
         try {
             baoCao.setTrang_thai_bao_cao(1);
+
             response.setMessage("Báo cáo đã được tạo thành công.");
             response.setResult(baoCaoNguoiDungDao.save(baoCao));
         } catch (Exception e) {
