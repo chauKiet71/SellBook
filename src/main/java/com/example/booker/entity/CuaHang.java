@@ -31,6 +31,7 @@ public class CuaHang {
     Integer tong_luot_ban;
     Integer luot_bao_cao;
     Float doanh_thu;
+    String dia_chi_vi_sol;
 
     @ManyToOne
     @JoinColumn(name = "ma_trang_thai_cua_hang")

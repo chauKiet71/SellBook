@@ -26,6 +26,7 @@ public interface TaiKhoanDao extends JpaRepository<TaiKhoan, Integer> {
     @Query("select count(kh) from TaiKhoan kh join VaiTro v on v.ma_vai_tro = kh.vai_tro.ma_vai_tro where kh.trang_thai_tk = true and (kh.vai_tro.ma_vai_tro = 1 or kh.vai_tro.ma_vai_tro = 2)")
     Long countTaiKhoanByTrue();
 
+
 //    ADMIN - hàm lấy danh sách khách hàng theo trạng thái
     @Query("select tk from TaiKhoan tk join VaiTro v on v.ma_vai_tro = tk.vai_tro.ma_vai_tro where tk.trang_thai_tk = :trangThai and (tk.vai_tro.ma_vai_tro = 1 or tk.vai_tro.ma_vai_tro = 2)")
     List<TaiKhoan> findByTrangThai(@Param("trangThai") Boolean trangThai);
