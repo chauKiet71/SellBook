@@ -38,6 +38,10 @@ public class SanPhamRestController {
     public List<SanPham> getAllSanPham(){
         return sanPhamDao.findAll();
     }
+    @GetMapping("/user")
+    public List<SanPham> getSanPhamuser(){
+        return sanPhamDao.getSanPhamUser();
+    }
 
 //    @GetMapping("/cuahang-{id}")
 //    public List<SanPhamView> getSp(@PathVariable int id) {

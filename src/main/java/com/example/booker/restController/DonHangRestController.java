@@ -178,8 +178,7 @@ public ResponseEntity<List<DonHangChiTiet>> add(@RequestBody List<DonHangChiTiet
 
         // Thiết lập các chi tiết đơn hàng và liên kết chúng với đơn hàng
         for (DonHangChiTiet detail : orderDetails) {
-            detail.setDon_hang(donHang);  // Liên kết với đơn hàng
-            detail.setThanh_tien(detail.getGia() * detail.getSo_luong()); // Tính tổng tiền cho mỗi chi tiết
+            detail.setDon_hang(donHang);  // Liên kết với đơn hàn
             detail.setTrang_thai(trangThaiDonHangDao.findById(11).orElse(null)); // Thiết lập trạng thái mặc định
         }
 
