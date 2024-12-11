@@ -5,8 +5,11 @@ import com.example.booker.entity.BaoCaoCuaHang;
 import com.example.booker.entity.BaoCaoNguoiDung;
 import com.example.booker.request.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -116,5 +119,24 @@ public class BaoCaoNguoiDungController  {
         }
 
         return response;
+    }
+
+    @PostMapping("/report")
+    public ResponseEntity<ApiResponse<BaoCaoNguoiDung>> reportUser(@RequestBody BaoCaoNguoiDung baoCaoNguoiDung) {
+        ApiResponse<BaoCaoNguoiDung> response = new ApiResponse<>();
+        try {
+            baoCaoNguoiDung.setTrang_thai_bao_cao(1);
+            baoCaoNguoiDung.setNgay_bao_cao(LocalDate.now());
+
+            BaoCaoNguoiDung savedReport = baoCaoNguoiDungDao.save(baoCaoNguoiDung);
+
+            response.setMessage("Báo cáo đã được gửi thành công.");
+            response.setResult(savedReport);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (Exception e) {
+            response.setMessage("Đã xảy ra lỗi khi gửi báo cáo: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
     }
 }

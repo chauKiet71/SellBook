@@ -185,6 +185,9 @@ public ResponseEntity<List<DonHangChiTiet>> getOrderDetailsByUserId(@PathVariabl
         }
     }
 
-
+    @GetMapping("/top-selling-products/{ma_cua_hang}")
+    public List<Object[]> getTopSellingProducts(@PathVariable int ma_cua_hang) {
+        return donHangChiTietDao.findTopSellingProducts(ma_cua_hang);
+    }
 
 }
