@@ -146,9 +146,6 @@ public class TaiKhoanRestController {
         response.setMessage("Đăng ký tài khoản thành công");
         return response;
     }
-
-
-
     // API để lấy thông tin hồ sơ của người dùng
     @GetMapping("/profile/{id}")
     public ResponseEntity<ApiResponse<TaiKhoan>> getProfile(@PathVariable int id) {
@@ -296,10 +293,6 @@ public class TaiKhoanRestController {
         response.setCode(200); // Success
         return response;
     }
-
-
-
-
 
     @GetMapping("/admin/yeu-cau-mo-khoa")
     public List<TaiKhoan> getTaiKhoanYeuCauMoKhoa(){return taiKhoanDao.findtaikhoanYeuCauMoKhoa();}

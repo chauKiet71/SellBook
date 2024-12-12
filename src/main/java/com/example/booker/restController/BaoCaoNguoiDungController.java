@@ -119,7 +119,6 @@ public class BaoCaoNguoiDungController  {
 
         return response;
     }
-
     @PostMapping("/report")
     public ResponseEntity<ApiResponse<BaoCaoNguoiDung>> reportUser(@RequestBody BaoCaoNguoiDung baoCaoNguoiDung) {
         ApiResponse<BaoCaoNguoiDung> response = new ApiResponse<>();
@@ -138,4 +137,8 @@ public class BaoCaoNguoiDungController  {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
-}
+
+
+
+    }
+

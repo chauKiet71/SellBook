@@ -33,7 +33,7 @@ public class Voucher {
     String dieu_kien;
 
     @Column(name = "trang_thai")
-    private Byte trangThai;
+    private Byte trangThai; //0 - chưa duyệt , 1 - hết hạn,  2 - còn hạng
 
     @ManyToOne
     @JoinColumn(name = "ma_cua_hang", insertable = false, updatable = false)

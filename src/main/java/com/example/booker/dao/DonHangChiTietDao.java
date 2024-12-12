@@ -83,6 +83,13 @@ public interface DonHangChiTietDao extends JpaRepository<DonHangChiTiet, Integer
             "where dhct.trang_thai.ma_trang_thai = :ma_trang_thai and dh.tai_khoan.id_tai_khoan = :ma_tai_khoan")
     List<DonHangChiTiet> getDonHangChiTietByTTAndTK(int ma_tai_khoan, int ma_trang_thai);
 
+//    lấy ra tổng đã bán của cửa hàng
+    @Query("select sum(dhct.so_luong) from DonHangChiTiet dhct " +
+            "join SanPham sp on sp.ma_san_pham = dhct.san_pham.ma_san_pham " +
+            "join CuaHang ch on ch.ma_cua_hang = sp.cua_hang.ma_cua_hang " +
+            "where ch.ma_cua_hang = :maCH")
+    Integer sumLuotBanCuaCuaHang(int maCH);
+
 
     @Query("SELECT dhct FROM DonHangChiTiet dhct " +
             "JOIN SanPham s " +
