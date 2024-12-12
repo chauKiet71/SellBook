@@ -24,4 +24,6 @@ public class ThanhToanVNPay {
     private DonHang donhang;
     @ManyToOne  @JoinColumn(name = "id_tai_khoan")
     private TaiKhoan taikhoan;
+    @ManyToOne @JoinColumn(name = "id_phuong_thuc")
+    private PhuongThucThanhToan ptThanhToan;
 }

@@ -13,4 +13,5 @@ public interface PhanHoiDanhGiaDao extends JpaRepository<PhanHoiDanhGia, Integer
     @Query("SELECT p FROM PhanHoiDanhGia p WHERE p.cua_hang.ma_cua_hang = :maCuaHang AND p.danh_gia.ma_danh_gia = :maDanhGia")
     PhanHoiDanhGia getPhanHoiDanhGiaByMaDanhGia(@Param("maCuaHang") Integer maCuaHang, @Param("maDanhGia") Integer maDanhGia);
 
+
 }

@@ -102,6 +102,9 @@ public class TaiKhoanServicelmpl implements TaiKhoanService {
         taiKhoanDao.save(taiKhoan);
         return true;
     }
+    public boolean existsByEmail(String email) {
+        return taiKhoanDao.existsByEmail(email); // Kiểm tra sự tồn tại của email trong database
+    }
 
 
 }

@@ -10,4 +10,6 @@ public interface DanhGiaService {
 
     List<DanhGia> getDanhGiaList(int maSp);
 
+    DanhGia saveDanhGia(DanhGia danhGia);
+
 }

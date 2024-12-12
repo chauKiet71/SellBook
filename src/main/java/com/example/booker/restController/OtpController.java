@@ -15,6 +15,7 @@ import java.util.Random;
 import java.util.regex.Pattern;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api")
 public class OtpController {
 

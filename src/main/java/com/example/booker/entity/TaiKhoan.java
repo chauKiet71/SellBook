@@ -23,6 +23,7 @@ public class TaiKhoan {
     private Integer id_tai_khoan;
     private String email;
     private String mat_khau;
+    private String anh_dai_dien;
     private String ho_ten;
     @Temporal(TemporalType.DATE)
     private Date ngay_sinh;
@@ -42,6 +43,7 @@ public class TaiKhoan {
 //    @JoinColumn(name = "ma_vai_tro", referencedColumnName = "ma_vai_tro")
 //    private VaiTro ma_vai_tro;
     private Boolean trang_thai_tk = Boolean.FALSE;
+    private Boolean mo_khoa = Boolean.FALSE;
 
     @ManyToOne
     @JoinColumn(name = "ma_vai_tro")

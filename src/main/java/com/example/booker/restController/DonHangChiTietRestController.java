@@ -4,15 +4,14 @@ import com.example.booker.dao.DonHangChiTietDao;
 import com.example.booker.dao.TrangThaiDonHangDao;
 import com.example.booker.entity.DonHangChiTiet;
 import com.example.booker.entity.TrangThaiDonHang;
-import com.example.booker.entity.view.DonHangChiTietView;
 import com.example.booker.service.nguoidung.DonHangChiTietService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -48,6 +47,11 @@ public class DonHangChiTietRestController {
     @GetMapping("/cuahang-{id}/don_hang_chi_tiet-{madh}")
     public DonHangChiTiet InfoDetalDonHangChiTiet(@PathVariable int id, @PathVariable int madh) {
         return donHangChiTietService.infoDetailDonHangChiTiet(id, madh);
+    }
+
+    @GetMapping("/admin/detail-{id}")
+    public Optional<DonHangChiTiet> getDetailDonHangChiTiet(@PathVariable int id){
+        return donHangChiTietDao.findById(id);
     }
 
     // cập nhat don hang chi tiet
@@ -133,6 +137,57 @@ public ResponseEntity<List<DonHangChiTiet>> getOrderDetailsByUserId(@PathVariabl
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+    @PutMapping("/nhan/{maDonHangChiTiet}")
+    public ResponseEntity<DonHangChiTiet> confirmReceivedOrderDetail(
+            @PathVariable int maDonHangChiTiet) {
+
+        // Kiểm tra xem chi tiết đơn hàng có tồn tại hay không
+        if (donHangChiTietDao.existsById(maDonHangChiTiet)) {
+            DonHangChiTiet donHangChiTiet = donHangChiTietDao.findById(maDonHangChiTiet).get();
+
+            // Cập nhật trạng thái của chi tiết đơn hàng thành "Đã nhận" (Trạng thái 13)
+            TrangThaiDonHang trangThaiNhan = trangThaiDonHangDao.findById(13).orElse(null);
+            if (trangThaiNhan != null) {
+                donHangChiTiet.setTrang_thai(trangThaiNhan);
+            } else {
+                return ResponseEntity.status(500).build(); // Trạng thái 13 không tồn tại
+            }
+
+            // Lưu lại thay đổi vào cơ sở dữ liệu
+            donHangChiTietDao.save(donHangChiTiet);
+            return ResponseEntity.ok(donHangChiTiet); // Trả lại chi tiết đơn hàng đã cập nhật
+        } else {
+            return ResponseEntity.notFound().build(); // Nếu không tìm thấy chi tiết đơn hàng
+        }
+    }
+    @PutMapping("/tra/{maDonHangChiTiet}")
+    public ResponseEntity<DonHangChiTiet> requestReturnOrderDetail(
+            @PathVariable int maDonHangChiTiet) {
+
+        // Kiểm tra xem chi tiết đơn hàng có tồn tại hay không
+        if (donHangChiTietDao.existsById(maDonHangChiTiet)) {
+            DonHangChiTiet donHangChiTiet = donHangChiTietDao.findById(maDonHangChiTiet).get();
+
+            // Cập nhật trạng thái của chi tiết đơn hàng thành "Yêu cầu trả hàng/Hoàn tiền" (Trạng thái 15)
+            TrangThaiDonHang trangThaiTra = trangThaiDonHangDao.findById(15).orElse(null);
+            if (trangThaiTra != null) {
+                donHangChiTiet.setTrang_thai(trangThaiTra);
+            } else {
+                return ResponseEntity.status(500).build(); // Trạng thái 15 không tồn tại
+            }
+
+            // Lưu lại thay đổi vào cơ sở dữ liệu
+            donHangChiTietDao.save(donHangChiTiet);
+            return ResponseEntity.ok(donHangChiTiet); // Trả lại chi tiết đơn hàng đã cập nhật
+        } else {
+            return ResponseEntity.notFound().build(); // Nếu không tìm thấy chi tiết đơn hàng
+        }
+    }
+
+    @GetMapping("/top-selling-products/{ma_cua_hang}")
+    public List<Object[]> getTopSellingProducts(@PathVariable int ma_cua_hang) {
+        return donHangChiTietDao.findTopSellingProducts(ma_cua_hang);
     }
 
 }

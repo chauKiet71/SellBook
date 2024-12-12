@@ -7,6 +7,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api/locations")
 public class LocationController {
 
