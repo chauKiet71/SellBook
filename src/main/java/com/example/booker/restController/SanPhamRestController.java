@@ -44,10 +44,10 @@ import java.util.Optional;
     }
 
 
-    @GetMapping("/user")
-    public List<SanPham> getSanPhamuser(){
-        return sanPhamDao.getSanPhamUser();
-    }
+//    @GetMapping("/user")
+//    public List<SanPham> getSanPhamuser(){
+//        return sanPhamDao.getSanPhamUser();
+//    }
 
     @GetMapping("/sp_co_doanh_thu")
     public List<SanPham> getSPcodaonhthu(){
