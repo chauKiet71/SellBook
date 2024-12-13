@@ -38,11 +38,6 @@ import java.util.Optional;
     public List<SanPham> getAllSanPham(){
         return sanPhamDao.findAll();
     }
-    @GetMapping("/user")
-    public List<SanPham> getSanPhamuser(){
-        return sanPhamDao.getSanPhamUser();
-    }
-
 
 //    @GetMapping("/user")
 //    public List<SanPham> getSanPhamuser(){

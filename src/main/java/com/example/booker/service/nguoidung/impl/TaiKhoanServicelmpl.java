@@ -6,6 +6,7 @@ import com.example.booker.service.nguoidung.TaiKhoanService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,9 @@ import java.util.Optional;
 public class TaiKhoanServicelmpl implements TaiKhoanService {
     @Autowired
     TaiKhoanDao taiKhoanDao;
+
+    //    Tạo Bcrypt để mã hóa mật khẩu
+    BCryptPasswordEncoder maHoaMatKhau = new BCryptPasswordEncoder();
 
     @Override
     public List<TaiKhoan> getTaiKhoans() {
@@ -73,7 +77,7 @@ public class TaiKhoanServicelmpl implements TaiKhoanService {
         // Kiểm tra nếu tài khoản tồn tại và mật khẩu khớp
         if (optionalUser.isPresent()) {
             TaiKhoan user = optionalUser.get();
-            if (user.getMat_khau().equals(matKhau)) { // Kiểm tra mật khẩu
+            if (maHoaMatKhau.matches(matKhau, user.getMat_khau())) { // Kiểm tra mật khẩu
                 return user; // Đăng nhập thành công
             }
         }
@@ -93,12 +97,12 @@ public class TaiKhoanServicelmpl implements TaiKhoanService {
                 .orElseThrow(() -> new RuntimeException("Tài khoản không tồn tại"));
 
         // Kiểm tra mật khẩu cũ
-        if (!taiKhoan.getMat_khau().equals(oldPassword)) {
+        if (!maHoaMatKhau.matches(oldPassword, taiKhoan.getMat_khau())) {
             return false; // Mật khẩu cũ không đúng
         }
 
         // Cập nhật mật khẩu mới
-        taiKhoan.setMat_khau(newPassword);
+        taiKhoan.setMat_khau(maHoaMatKhau.encode(newPassword));
         taiKhoanDao.save(taiKhoan);
         return true;
     }
