@@ -185,6 +185,12 @@ public ResponseEntity<List<DonHangChiTiet>> getOrderDetailsByUserId(@PathVariabl
         }
     }
 
+// hàm tính tổng lượt bán của cửa hàng
+    @GetMapping("/sum-luot-ban/{id}")
+    public Integer sumLuotBan(@PathVariable int id) {
+        return donHangChiTietDao.sumLuotBanCuaCuaHang(id);
+    }
+
     @GetMapping("/top-selling-products/{ma_cua_hang}")
     public List<Object[]> getTopSellingProducts(@PathVariable int ma_cua_hang) {
         return donHangChiTietDao.findTopSellingProducts(ma_cua_hang);

@@ -14,9 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -92,27 +91,31 @@ public class CuaHangRestController {
 
     // thong tin cua hang trong chi tiet san pham
     @GetMapping("/info/{maCuaHang}")
-    public ResponseEntity<?> getCuaHangInfo(@PathVariable("maCuaHang") int maCuaHang) {
-        try {
-            // Lấy thông tin cửa hàng
-            CuaHang cuaHang = cuaHangService.getCuaHangById(maCuaHang);
-            if (cuaHang == null) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không tìm thấy cửa hàng");
-            }
-
-            // Trả về dữ liệu cần thiết
-            Map<String, Object> response = new HashMap<>();
-            response.put("ma_cua_hang", cuaHang.getMa_cua_hang());
-            response.put("ten_cua_hang", cuaHang.getTen_cua_hang());
-            response.put("dia_chi_cua_hang", cuaHang.getDia_chi_cua_hang());
-            response.put("anh_dai_dien", cuaHang.getAnh_dai_dien());
-            response.put("anh_bia", cuaHang.getAnh_bia());
-
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Lỗi khi lấy thông tin cửa hàng: " + e.getMessage());
-        }
+    public Optional<CuaHang> getCuaHangInfo(@PathVariable("maCuaHang") int maCuaHang) {
+        return cuaHangDao.findById(maCuaHang);
     }
+//    @GetMapping("/info/{maCuaHang}")
+//    public ResponseEntity<?> getCuaHangInfo(@PathVariable("maCuaHang") int maCuaHang) {
+//        try {
+//            // Lấy thông tin cửa hàng
+//            CuaHang cuaHang = cuaHangService.getCuaHangById(maCuaHang);
+//            if (cuaHang == null) {
+//                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không tìm thấy cửa hàng");
+//            }
+//
+//            // Trả về dữ liệu cần thiết
+//            Map<String, Object> response = new HashMap<>();
+//            response.put("ma_cua_hang", cuaHang.getMa_cua_hang());
+//            response.put("ten_cua_hang", cuaHang.getTen_cua_hang());
+//            response.put("dia_chi_cua_hang", cuaHang.getDia_chi_cua_hang());
+//            response.put("anh_dai_dien", cuaHang.getAnh_dai_dien());
+//            response.put("anh_bia", cuaHang.getAnh_bia());
+//
+//            return ResponseEntity.ok(response);
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Lỗi khi lấy thông tin cửa hàng: " + e.getMessage());
+//        }
+//    }
 
 //    ADMIN - sắp xếp cửa hàng theo doanh thu cao đến thấp
     @GetMapping("/admin/desc")

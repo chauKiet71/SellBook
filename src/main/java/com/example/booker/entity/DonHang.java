@@ -44,10 +44,15 @@ public class DonHang {
     @OneToMany(mappedBy = "donHang")
     List<HuyDonHang> huyDonHangs;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "donhang")
+    List<ThanhToanVNPay> ThanhToanVNPays;
+
     @Transient
 
     @JsonProperty("phi_dich_vu_dh")
     private Float getTongPhiGiaoDich(){
         return doanh_thu_don_hang / 9;
     }
+
 }
