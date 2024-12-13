@@ -39,6 +39,11 @@ import java.util.Optional;
         return sanPhamDao.findAll();
     }
 
+    @GetMapping("/user")
+    public List<SanPham> getSanPhamuser(){
+        return sanPhamDao.getSanPhamUser();
+    }
+
     @GetMapping("/sp_co_doanh_thu")
     public List<SanPham> getSPcodaonhthu(){
         return sanPhamDao.getSanPhamCoDoanhThu();
