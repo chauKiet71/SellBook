@@ -13,6 +13,8 @@ import com.example.booker.service.nguoidung.impl.TaiKhoanServicelmpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,6 +38,9 @@ public class TaiKhoanRestController {
     private TaiKhoanDao taiKhoanDao;
     @Autowired
     private TaiKhoanServicelmpl taiKhoanServicelmpl;
+
+//    Tạo Bcrypt để mã hóa mật khẩu
+    BCryptPasswordEncoder maHoaMatKhau = new BCryptPasswordEncoder();
 
     @GetMapping
     public List<TaiKhoan> getAll() {
@@ -126,7 +131,7 @@ public class TaiKhoanRestController {
         TaiKhoan taiKhoan = new TaiKhoan();
         taiKhoan.setHo_ten(request.getHo_ten());
         taiKhoan.setEmail(request.getEmail());
-        taiKhoan.setMat_khau(request.getMat_khau()); // Lưu mật khẩu đã mã hóa nếu cần
+        taiKhoan.setMat_khau(maHoaMatKhau.encode(request.getMat_khau())); // Lưu mật khẩu đã mã hóa nếu cần
         taiKhoan.setVai_tro(new VaiTro(1,"Người Dùng")); // Người dùng thông thường
         taiKhoan.setTrang_thai_tk(false); // Chờ kích hoạt
 
@@ -284,7 +289,7 @@ public class TaiKhoanRestController {
         }
 
         // Đặt lại mật khẩu (mã hóa mật khẩu trước khi lưu)
-        taiKhoan.setMat_khau(newPassword);
+        taiKhoan.setMat_khau(maHoaMatKhau.encode(newPassword));
 
         // Xóa OTP sau khi sử dụng
         otpService.deleteOtp(email);
