@@ -46,6 +46,7 @@ public class NguoiDungSPRestController {
         }
     }
 
+
     @GetMapping("/{minPrice}-{maxPrice}/orderBy-{orderBy}/theloai")
     public ResponseEntity<List<SanPham>> getSanPhamByTheLoaiAndGia(@RequestParam(value = "ma_the_loai", required = false) List<Integer> the_loais,
                                    @PathVariable(value = "minPrice", required = false) Float minPrice, @PathVariable(value = "maxPrice", required = false) Float maxPrice, @PathVariable("orderBy") String orderBy) {

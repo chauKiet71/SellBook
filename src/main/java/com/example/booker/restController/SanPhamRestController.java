@@ -55,8 +55,6 @@ import java.util.Optional;
 
         return sanPhamDao.findById(masp);
         }
-
-
 //    @GetMapping("/cuahang-{id}")
 //    public List<SanPhamView> getSp(@PathVariable int id) {
 //        return sanPhamService.findAll(id);
@@ -275,5 +273,17 @@ import java.util.Optional;
     @GetMapping("/sanpham/vipham")
     public List<SanPham> ViPham(){
         return sanPhamDao.findSanphamvipham();
+    }
+
+    //    get list saản phẩm theo tên thể loại
+    @GetMapping("/tentheloai-{ten_tl}")
+    public ResponseEntity<List<SanPham>> getSanPhamByTenTheLoai(@PathVariable String ten_tl) {
+        return ResponseEntity.ok(sanPhamDao.findSanPhamByTenTheLoai(ten_tl));
+    }
+
+//    get list sản phẩm sắp xếp theo đã bán từ cao đná thấp
+    @GetMapping("/banchay")
+    public ResponseEntity<List<SanPham>> getAllSanPhamOrderByDaBan() {
+        return ResponseEntity.ok(sanPhamDao.sapXepSanPhamByDaBan());
     }
 }

@@ -246,6 +246,22 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
     @Query("SELECT s FROM SanPham s WHERE (s.trang_thai_hoat_dong = 3 OR s.trang_thai_hoat_dong = 4) AND s.da_ban IS NOT NULL AND s.diem_trung_binh IS NOT NULL AND s.da_ban > 10 AND s.diem_trung_binh < 3")
     List<SanPham> findSanphamvipham();
 
+    //Lọc sản phẩm theo tên thể loại
+    @Query("select s from SanPham s join TheLoai t " +
+            "on s.the_loai.ma_the_loai = t.ma_the_loai " +
+            "where t.ten_the_loai like :ten_the_loai and s.trang_thai_hoat_dong in (3 ,4) and s.an_san_pham = false ")
+    List<SanPham> findSanPhamByTenTheLoai(String ten_the_loai);
 
+    //Sắp xếp sản phẩm theo đã bán
+    @Query("select s from SanPham s " +
+            "where s.trang_thai_hoat_dong in (3 ,4) and s.an_san_pham = false " +
+            "order by s.da_ban desc ")
+    List<SanPham> sapXepSanPhamByDaBan();
+
+    //Sắp xếp sản phẩm đã bán giảm dần theo thể loại
+    @Query("select s from SanPham s " +
+            "where s.the_loai.ten_the_loai like :ten_the_loai and s.trang_thai_hoat_dong in (3 ,4) and s.an_san_pham = false " +
+            "order by s.da_ban desc")
+    List<SanPham> sapXepSanPhamByTenTheLoaiAndDaBan(String ten_the_loai);
 
 }
