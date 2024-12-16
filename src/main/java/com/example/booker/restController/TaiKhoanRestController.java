@@ -185,6 +185,8 @@ public class TaiKhoanRestController {
         existingTaiKhoan.setHo_ten(profileData.getHo_ten());
         existingTaiKhoan.setSo_dt(profileData.getSo_dt());
         existingTaiKhoan.setNgay_sinh(profileData.getNgay_sinh());
+        existingTaiKhoan.setAnh_dai_dien(profileData.getAnh_dai_dien());
+
 
         // Lưu lại thông tin đã cập nhật
         TaiKhoan updatedTaiKhoan = tkService.updateTaikhoan(id, existingTaiKhoan);
