@@ -34,6 +34,7 @@ public class SanPhamServiceImpl implements SanPhamService {
         //kiem tra san pham ton tai
         if (sanPhamDao.existBySanPham(ma_cua_hang, sanPham.getTen_san_pham()))
             throw new RuntimeException("Product exist");
+
         return sanPhamDao.save(sanPham);
     }
 

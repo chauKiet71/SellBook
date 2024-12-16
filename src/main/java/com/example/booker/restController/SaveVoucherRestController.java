@@ -15,18 +15,18 @@ public class SaveVoucherRestController {
     @Autowired
     SaveVoucherDao saveVoucherDao;
 
-    @PostMapping
+    @PostMapping()
     public SaveVoucher saveVoucher(@RequestBody SaveVoucher saveVoucher) {
         return saveVoucherDao.save(saveVoucher);
     }
 
-    @GetMapping
-    public List<SaveVoucher> getAllVouchers() {
-        return saveVoucherDao.findAll();
+    @GetMapping("/get-{id_tk}")
+    public List<SaveVoucher> getAllVouchers(@PathVariable int id_tk) {
+        return saveVoucherDao.findVoucherByIdtk(id_tk);
     }
 
-    @GetMapping("/{ma_cua_hang}")
-    public List<SaveVoucher> getVoucher(@PathVariable int ma_cua_hang) {
-        return saveVoucherDao.findVoucherByMaCuaHang(ma_cua_hang);
+    @GetMapping("/{id_tk}/{ma_cua_hang}")
+    public List<SaveVoucher> getVoucher(@PathVariable int ma_cua_hang, @PathVariable int id_tk) {
+        return saveVoucherDao.findVoucherByMaCuaHang(ma_cua_hang, id_tk);
     }
 }
