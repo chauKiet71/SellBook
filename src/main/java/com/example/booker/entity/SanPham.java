@@ -51,7 +51,7 @@ public class SanPham {
     Boolean an_san_pham = Boolean.FALSE;
 
     @Column(name = "trang_thai_hoat_dong", insertable = false, updatable = false)
-    private Byte trang_thai_hoat_dong; //1 chờ duyệt - 2 khóa -  3 còn hàng -4 hết hàng -5 yeu cau duyet
+    private Byte trang_thai_hoat_dong; //1 chờ duyệt - 2 khóa -  3 còn hàng -4 hết hàng -5 yeu cau mở khóa
 
 
 //    @Column(name = "trang_thai_hoat_dong")

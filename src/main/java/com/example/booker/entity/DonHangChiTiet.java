@@ -24,12 +24,16 @@ public class DonHangChiTiet {
     float thanh_tien;
     float phi_dich_vu;
     float doanh_thu;
-    Boolean phuong_thuc_tt;
-
+    Float phi_van_chuyen;
+    String don_vi_van_chuyen;
 
     @ManyToOne
     @JoinColumn(name = "ma_san_pham")
     SanPham san_pham;
+
+    @ManyToOne
+    @JoinColumn(name = "id")
+    PhuongThucThanhToan phuong_thuc_thanh_toan;
 
     @ManyToOne
     @JoinColumn(name = "ma_don_hang")
