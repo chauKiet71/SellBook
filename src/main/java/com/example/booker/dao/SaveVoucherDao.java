@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface SaveVoucherDao extends JpaRepository<SaveVoucher, Integer> {
 
-    @Query("SELECT s from SaveVoucher s WHERE s.voucher.ma_cua_hang = :ma_cua_hang")
-    List<SaveVoucher> findVoucherByMaCuaHang(int ma_cua_hang);
+    @Query("SELECT s from SaveVoucher s WHERE s.voucher.ma_cua_hang = :ma_cua_hang and s.id_tai_khoan = :id_tk")
+    List<SaveVoucher> findVoucherByMaCuaHang(int ma_cua_hang, int id_tk);
+    @Query("SELECT s from SaveVoucher s WHERE s.tai_khoan.id_tai_khoan = :id_tk")
+    List<SaveVoucher> findVoucherByIdtk(int id_tk);
 }
