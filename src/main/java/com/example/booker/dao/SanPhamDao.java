@@ -82,6 +82,10 @@ public interface SanPhamDao extends JpaRepository<SanPham, Integer> {
     @Query("SELECT s FROM SanPham s WHERE s.trang_thai_hoat_dong = 5 ")
     List<SanPham> getListBookYeuCauMoKhoa();
 
+    //  ADMIN - lấy sách hủy yêu cầu duyệt
+    @Query("SELECT s FROM SanPham s WHERE s.trang_thai_hoat_dong = 6 ")
+    List<SanPham> getListBookHuyYeuCauDuyet();
+
     //Phương thức truy vấn sản phẩm theo cửa hàng
     @Query("SELECT s FROM SanPham s " +
             "LEFT JOIN CuaHang c on c.ma_cua_hang = s.ma_cua_hang " +

@@ -251,6 +251,13 @@ import java.util.Optional;
     }
 
 
+    //    ADMIN - lấy sản phẩm còn hàng  va hết hangf
+    @GetMapping("/huy-yeu-cau-duyet")
+    public List<SanPham> huyYeuCauDuyet(){
+        return sanPhamDao.getListBookHuyYeuCauDuyet();
+    }
+
+
     // lay san pham voi id cua hang
     @GetMapping("/cuahang-{storeId}/allinfo")
     public List<SanPham> getProductsByStoreId(@PathVariable("storeId") int storeId) {
